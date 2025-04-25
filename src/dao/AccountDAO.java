@@ -1,8 +1,11 @@
 package dao;
 
 import models.Account;
+import utils.ErrorUtils;
 import Configs.Database.ConnectDB;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountDAO {
 	public boolean addTaiKhoan(Account tk) throws Exception {
@@ -58,6 +61,28 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 		return acc;
+	}
+
+	public List<String[]> getAllAccounts() {
+		String query = "SELECT * FROM account";
+		List<String[]> accounts = new ArrayList<>();
+
+		try (Connection conn = ConnectDB.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query)) {
+
+			while (rs.next()) {
+				accounts.add(new String[] { rs.getString("AccountId"), rs.getString("UserName"), rs.getString("Email"),
+						"******", // Che mật khẩu
+						rs.getString("Status"), rs.getString("RoleName") });
+			}
+		} catch (SQLException e) {
+			ErrorUtils.handle(e, e.getMessage());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return accounts;
 	}
 
 }

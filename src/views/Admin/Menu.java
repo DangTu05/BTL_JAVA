@@ -79,6 +79,18 @@ public class Menu extends JFrame {
 		btnLogout.setBounds(0, 242, 120, 21);
 		panel.add(btnLogout);
 		
+		JButton btnHome = new JButton("Trang Chủ");
+		btnHome.setBackground(new Color(153, 51, 153));
+		btnHome.setBounds(0, 90, 120, 21);
+		btnHome.setBorder(BorderFactory.createEmptyBorder());
+		panel.add(btnHome);
+		
+		JLabel lblName = new JLabel("Đặng Quang Tú");
+		lblName.setForeground(new Color(255, 255, 255));
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setBounds(10, 57, 100, 13);
+		panel.add(lblName);
+		
 		JLabel lblTitle = new JLabel("Trang Chủ");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền

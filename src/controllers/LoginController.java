@@ -37,10 +37,13 @@ public class LoginController implements MouseListener {
 				if (!PasswordUtils.checkPassword(login.getPassword(), user.getPassword())) {
 					MessageUtils.showInfo("Thông tin không hợp lệ!");
 					return;
+				}MessageUtils.showInfo("Đăng nhập thành công");
+				if(user.getRoleName()=="ADMIN") {
+					new Menu().setVisible(true);
+					login.dispose();
 				}
-				MessageUtils.showInfo("Đăng nhập thành công");
-				new Menu().setVisible(true);
-				login.dispose();
+				
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				ErrorUtils.handle(e1, e1.getMessage());

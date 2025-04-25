@@ -20,6 +20,14 @@ public class Account implements IAccount {
 			Password = password;
 			RoleName = "USER";
 		}
+		public Account(String account_Id, String user_Name, String email, String password, String roleName) {
+			super();
+			Account_Id = account_Id;
+			User_Name = user_Name;
+			Email = email;
+			Password = password;
+			RoleName = roleName;
+		}
 		public String getAccount_Id() {
 			return Account_Id;
 		}
