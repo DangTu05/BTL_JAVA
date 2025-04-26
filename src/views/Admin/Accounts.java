@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,12 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.admin.AccountsController;
 import models.Account;
+import utils.Url;
+
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 
 public class Accounts extends JFrame {
 
@@ -28,6 +38,15 @@ public class Accounts extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private AccountsController controller;
+	private JTextField txtMa;
+	private JTextField txtEmail;
+	private JTextField txtName;
+	private JTextField txtMK;
+	private JTextField textField;
+	private JPanel panel_2;
+	private JButton btnReset;
+	private JButton btnLuu;
+	private JButton btnXoa;
 
 	/**
 	 * Launch the application.
@@ -97,7 +116,7 @@ public class Accounts extends JFrame {
 		lblName.setBounds(59, 50, 135, 21);
 		panel.add(lblName);
 
-		JLabel lblTitle = new JLabel("Trang Chủ");
+		JLabel lblTitle = new JLabel("Quản Lý Tài Khoản");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));
@@ -133,8 +152,9 @@ public class Accounts extends JFrame {
 		contentPane.add(lblNewLabel_4);
 
 		JToggleButton tglbtnStatus = new JToggleButton("Đang hoạt động");
+		tglbtnStatus.setBackground(Color.GREEN);
 		tglbtnStatus.setSelected(true);
-		tglbtnStatus.setBounds(577, 283, 128, 21);
+		tglbtnStatus.setBounds(593, 283, 128, 21);
 //		((Object) tglbtnStatus).fillRoundRect(0, 0, 40, 20, 20, 20);
 		contentPane.add(tglbtnStatus);
 
@@ -153,8 +173,102 @@ public class Accounts extends JFrame {
 
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(265, 468, 660, 90); // X, Y, Width, Height
+		scrollPane.setBounds(265, 423, 660, 90); // X, Y, Width, Height
 		contentPane.add(scrollPane);
+
+		txtMa = new JTextField();
+		txtMa.setBounds(282, 110, 187, 19);
+		txtMa.setBorder(null);
+		contentPane.add(txtMa);
+		txtMa.setColumns(10);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(282, 135, 187, 2);
+		contentPane.add(separator);
+
+		txtEmail = new JTextField();
+		txtEmail.setBounds(593, 110, 187, 19);
+		txtEmail.setBorder(null);
+		contentPane.add(txtEmail);
+		txtEmail.setColumns(10);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(593, 139, 187, 2);
+		contentPane.add(separator_1);
+
+		txtName = new JTextField();
+		txtName.setBounds(282, 229, 182, 19);
+		txtName.setBorder(null);
+		contentPane.add(txtName);
+		txtName.setColumns(10);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(282, 252, 187, 2);
+		contentPane.add(separator_2);
+
+		txtMK = new JTextField();
+		txtMK.setBounds(593, 229, 187, 19);
+		txtMK.setBorder(null);
+		contentPane.add(txtMK);
+		txtMK.setColumns(10);
+
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(593, 250, 187, 2);
+		contentPane.add(separator_3);
+
+		JButton btnRole = new JButton("USER");
+		btnRole.setBackground(Color.GREEN);
+		btnRole.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRole.setBounds(282, 313, 85, 21);
+		contentPane.add(btnRole);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(204, 153, 255));
+		panel_1.setBounds(265, 516, 660, 42);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_5 = new JLabel("Tìm theo tên người dùng:");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_5.setBounds(332, 10, 166, 22);
+		panel_1.add(lblNewLabel_5);
+
+		textField = new JTextField();
+		textField.setBounds(497, 13, 153, 19);
+		panel_1.add(textField);
+		textField.setColumns(10);
+
+		panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 255, 255));
+		panel_2.setBounds(813, 99, 112, 171);
+		panel_2.setBorder(new LineBorder(Color.GREEN, 2));
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+
+		btnReset = new JButton("Làm mới");
+		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnReset.setIcon(new ImageIcon(Url.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691099/description_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_yyrxmb.png")));
+		btnReset.setBackground(new Color(204, 255, 255));
+		btnReset.setBounds(10, 24, 92, 25);
+		panel_2.add(btnReset);
+
+		btnLuu = new JButton("Lưu");
+		btnLuu.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnLuu.setIcon(new ImageIcon(Url.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745690459/download_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_otwyyc.png")));
+		btnLuu.setBackground(new Color(204, 255, 255));
+		btnLuu.setBounds(10, 77, 92, 25);
+		panel_2.add(btnLuu);
+
+		btnXoa = new JButton("Xóa");
+		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnXoa.setIcon(new ImageIcon(Url.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691214/delete_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_jedmju.png")));
+		btnXoa.setBackground(new Color(204, 255, 255));
+		btnXoa.setBounds(10, 127, 92, 21);
+		panel_2.add(btnXoa);
+
 		loadDataFromDatabase();
 	}
 
@@ -164,17 +278,16 @@ public class Accounts extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		try {
-		    DefaultTableModel model = (DefaultTableModel) table.getModel();
-		    model.setRowCount(0); // Xóa dữ liệu cũ
-		    
-		    List<String[]> data = controller.getAllAccount(); // Lấy dữ liệu
-		    for (String[] row : data) {
-		        model.addRow(row); // Thêm từng dòng
-		    }
-		} finally {
-		    // Luôn bật lại auto resize dù có lỗi hay không
-		    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		} 
-	}
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.setRowCount(0); // Xóa dữ liệu cũ
 
+			List<String[]> data = controller.getAllAccount(); // Lấy dữ liệu
+			for (String[] row : data) {
+				model.addRow(row); // Thêm từng dòng
+			}
+		} finally {
+			// Luôn bật lại auto resize dù có lỗi hay không
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		}
+	}
 }
