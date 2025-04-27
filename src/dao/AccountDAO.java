@@ -9,13 +9,15 @@ import java.util.List;
 
 public class AccountDAO {
 	public boolean addTaiKhoan(Account tk) throws Exception {
-		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Token,Status) VALUES (?, ?, ?, ?, ?,?,?)";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, tk.getUser_Name());
 			statement.setString(2, tk.getEmail());
 			statement.setString(3, tk.getPassword());
 			statement.setString(4, tk.getAccount_Id().substring(0, 10));
 			statement.setString(5, tk.getRoleName());
+			statement.setString(6, tk.getToken());
+			statement.setString(7, tk.getStatus());
 			return statement.executeUpdate() > 0;
 
 		} catch (SQLException e) {
@@ -55,6 +57,8 @@ public class AccountDAO {
 				acc.setAccount_Id(rs.getString("AccountId"));
 				acc.setEmail(rs.getString("Email"));
 				acc.setPassword(rs.getString("Password"));
+				acc.setStatus(rs.getString("Status"));
+				acc.setRoleName(rs.getString("RoleName"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

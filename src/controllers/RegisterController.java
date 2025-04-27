@@ -15,6 +15,7 @@ import models.Account;
 import utils.ErrorUtils;
 import utils.MessageUtils;
 import utils.PasswordUtils;
+import utils.TokenGenerator;
 import validator.InputValidate;
 import views.Login;
 import views.Register;
@@ -48,7 +49,7 @@ public class RegisterController implements MouseListener {
 					return;
 				password = PasswordUtils.hashPassword(password);
 				Account newAccount = new Account(generateAccountId(), // Tự động sinh ID
-						username, email, password);
+						username, email, password,TokenGenerator.generateToken());
 				account.addTaiKhoan(newAccount);
 				boolean result = MessageUtils.confirm("Bạn đã đăng kí thành công. Chuyển sang đăng nhập?");
 				if (result) {

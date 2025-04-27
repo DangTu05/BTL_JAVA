@@ -24,6 +24,8 @@ import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.cj.xdevapi.Table;
+
 import controllers.admin.AccountsController;
 import models.Account;
 import utils.Url;
@@ -31,6 +33,7 @@ import utils.Url;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 public class Accounts extends JFrame {
 
@@ -47,6 +50,8 @@ public class Accounts extends JFrame {
 	private JButton btnReset;
 	private JButton btnLuu;
 	private JButton btnXoa;
+	private JButton btnRole;
+	private JButton btnStatus;
 
 	/**
 	 * Launch the application.
@@ -151,13 +156,6 @@ public class Accounts extends JFrame {
 		lblNewLabel_4.setBounds(281, 278, 64, 25);
 		contentPane.add(lblNewLabel_4);
 
-		JToggleButton tglbtnStatus = new JToggleButton("Đang hoạt động");
-		tglbtnStatus.setBackground(Color.GREEN);
-		tglbtnStatus.setSelected(true);
-		tglbtnStatus.setBounds(593, 283, 128, 21);
-//		((Object) tglbtnStatus).fillRoundRect(0, 0, 40, 20, 20, 20);
-		contentPane.add(tglbtnStatus);
-
 		// Tạo JTable với model
 
 		table = new JTable();
@@ -216,7 +214,7 @@ public class Accounts extends JFrame {
 		separator_3.setBounds(593, 250, 187, 2);
 		contentPane.add(separator_3);
 
-		JButton btnRole = new JButton("USER");
+		btnRole = new JButton("");
 		btnRole.setBackground(Color.GREEN);
 		btnRole.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRole.setBounds(282, 313, 85, 21);
@@ -268,7 +266,13 @@ public class Accounts extends JFrame {
 		btnXoa.setBackground(new Color(204, 255, 255));
 		btnXoa.setBounds(10, 127, 92, 21);
 		panel_2.add(btnXoa);
-
+		
+		btnStatus = new JButton("");
+		btnStatus.setBackground(new Color(102, 255, 51));
+		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnStatus.setBounds(593, 314, 151, 21);
+		contentPane.add(btnStatus);
+		new AccountsController(this).addTableListener();
 		loadDataFromDatabase();
 	}
 
@@ -289,5 +293,18 @@ public class Accounts extends JFrame {
 			// Luôn bật lại auto resize dù có lỗi hay không
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		}
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role) {
+		txtMa.setText(maTk);
+		txtName.setText(tenTk);
+		txtMK.setText(mk);
+		txtEmail.setText(email);
+		btnStatus.setText(status);
+		btnRole.setText(role);
 	}
 }
