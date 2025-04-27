@@ -9,15 +9,14 @@ import java.util.List;
 
 public class AccountDAO {
 	public boolean addTaiKhoan(Account tk) throws Exception {
-		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Token,Status) VALUES (?, ?, ?, ?, ?,?,?)";
+		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Token,Status) VALUES (?, ?, ?, ?, ?,?)";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, tk.getUser_Name());
 			statement.setString(2, tk.getEmail());
 			statement.setString(3, tk.getPassword());
 			statement.setString(4, tk.getAccount_Id().substring(0, 10));
 			statement.setString(5, tk.getRoleName());
-			statement.setString(6, tk.getToken());
-			statement.setString(7, tk.getStatus());
+			statement.setString(6, tk.getStatus());
 			return statement.executeUpdate() > 0;
 
 		} catch (SQLException e) {
@@ -25,11 +24,10 @@ public class AccountDAO {
 		}
 	}
 
-	public Account findTkById(String id) throws Exception {
+	public static Account findTkById(String id) throws Exception {
 		Account acc = null;
 		String query = "Select * from account where AccountId = ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
-
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -43,6 +41,22 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 		return acc;
+	}
+
+	public static boolean updateAccount(Account tk) {
+		String sql = "UPDATE account SET UserName=?, Email=?,Password=?,Status=? where AccountId = ?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+			statement.setString(5, tk.getAccount_Id());
+			statement.setString(1, tk.getUser_Name());
+			statement.setString(2, tk.getEmail());
+			statement.setString(3, tk.getPassword());
+			statement.setString(4, tk.getStatus());
+			return statement.executeUpdate() > 0;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public static Account findTkByEmail(String email) throws Exception {

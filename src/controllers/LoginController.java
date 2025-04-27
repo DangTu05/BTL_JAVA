@@ -27,7 +27,7 @@ public class LoginController implements MouseListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == login.btnDN) {
 			try {
-				if(!InputValidate.loginValidate(login.getEmail(), login.getPassword()))
+				if (!InputValidate.loginValidate(login.getEmail(), login.getPassword()))
 					return;
 				Account user = AccountDAO.findTkByEmail(login.getEmail());
 				if (user == null) {
@@ -37,13 +37,13 @@ public class LoginController implements MouseListener {
 				if (!PasswordUtils.checkPassword(login.getPassword(), user.getPassword())) {
 					MessageUtils.showInfo("Thông tin không hợp lệ!");
 					return;
-				}MessageUtils.showInfo("Đăng nhập thành công");
-				if(user.getRoleName()=="ADMIN") {
+				}
+				if (user.getRoleName().equals("ADMIN")) {
+					MessageUtils.showInfo("Đăng nhập thành công");
 					new Menu().setVisible(true);
 					login.dispose();
 				}
-				
-				
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				ErrorUtils.handle(e1, e1.getMessage());

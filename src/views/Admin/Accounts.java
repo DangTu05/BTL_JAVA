@@ -74,6 +74,7 @@ public class Accounts extends JFrame {
 	 */
 	public Accounts() {
 		controller = new AccountsController();
+		AccountsController action = new AccountsController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
@@ -164,11 +165,19 @@ public class Accounts extends JFrame {
 		table.setModel(new DefaultTableModel(
 				new Object[][] { { null, null, null, null, null, null }, { null, null, null, null, null, null },
 						{ null, null, null, null, null, null }, { null, null, null, null, null, null }, },
-				new String[] { "Mã tài khoản", "Tên đăng nhập", "Email", "Mật khẩu", "Trạng thái", "Vai trò" }));
+				new String[] { "Mã tài khoản", "Tên đăng nhập", "Email", "Mật khẩu", "Trạng thái", "Vai trò" }) {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
 
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false; // khóa toàn bộ bảng, không ô nào cho sửa
+			}
+		});
 		// Thiết lập kích thước cột
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
-
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(265, 423, 660, 90); // X, Y, Width, Height
@@ -258,6 +267,7 @@ public class Accounts extends JFrame {
 		btnLuu.setBackground(new Color(204, 255, 255));
 		btnLuu.setBounds(10, 77, 92, 25);
 		panel_2.add(btnLuu);
+		btnLuu.addActionListener(action);
 
 		btnXoa = new JButton("Xóa");
 		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -266,7 +276,7 @@ public class Accounts extends JFrame {
 		btnXoa.setBackground(new Color(204, 255, 255));
 		btnXoa.setBounds(10, 127, 92, 21);
 		panel_2.add(btnXoa);
-		
+
 		btnStatus = new JButton("");
 		btnStatus.setBackground(new Color(102, 255, 51));
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -299,10 +309,25 @@ public class Accounts extends JFrame {
 		return table;
 	}
 
+	public String getMa() {
+		return txtMa.getText().trim();
+	}
+
+	public String getEmail() {
+		return txtEmail.getText().trim();
+	}
+
+	public String getStatus() {
+		return btnStatus.getText().trim();
+	}
+
+	public String getName() {
+		return txtName.getText().trim();
+	}
+
 	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role) {
 		txtMa.setText(maTk);
 		txtName.setText(tenTk);
-		txtMK.setText(mk);
 		txtEmail.setText(email);
 		btnStatus.setText(status);
 		btnRole.setText(role);

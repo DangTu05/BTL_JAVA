@@ -12,28 +12,25 @@ public class Account implements IAccount {
 	private String Email;
 	private String Password;
 	private String RoleName;
-	private String Token;
 	private String Status;
 
-	public Account(String account_Id, String user_Name, String email, String password, String token) {
+	public Account(String account_Id, String user_Name, String email, String password) {
 		super();
 		Account_Id = account_Id;
 		User_Name = user_Name;
 		Email = email;
 		Password = password;
 		RoleName = "USER";
-		Token = token;
 		Status = "active";
 	}
 
-	public Account(String account_Id, String user_Name, String email, String password, String roleName, String token) {
+	public Account(String account_Id, String user_Name, String email, String password, String roleName) {
 		super();
 		Account_Id = account_Id;
 		User_Name = user_Name;
 		Email = email;
 		Password = password;
 		RoleName = roleName;
-		Token = token;
 	}
 
 	public String getAccount_Id() {
@@ -97,13 +94,6 @@ public class Account implements IAccount {
 //		statement.executeUpdate();
 //	}
 
-	public String getToken() {
-		return Token;
-	}
-
-	public void setToken(String token) {
-		Token = token;
-	}
 
 	public String getStatus() {
 		return Status;

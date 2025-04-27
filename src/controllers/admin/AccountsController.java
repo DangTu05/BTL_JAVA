@@ -1,5 +1,7 @@
 package controllers.admin;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -8,9 +10,11 @@ import javax.swing.event.ListSelectionListener;
 
 import dao.AccountDAO;
 import models.Account;
+import utils.ErrorUtils;
+import utils.MessageUtils;
 import views.Admin.Accounts;
 
-public class AccountsController {
+public class AccountsController implements ActionListener {
 	public Accounts acc;
 	private AccountDAO account;
 
@@ -43,10 +47,41 @@ public class AccountsController {
 						acc.setFormData(maTaiKhoan != null ? maTaiKhoan.toString() : "",
 								tenDangNhap != null ? tenDangNhap.toString() : "",
 								Email != null ? Email.toString() : "", Password != null ? Password.toString() : "",
-								Status.equals("active") ? "Đang hoạt động" : "Tài khoản bị khóa", Role != null ? Role.toString() : "");
+								Status.equals("active") ? "Đang hoạt động" : "Tài khoản bị khóa",
+								Role != null ? Role.toString() : "");
 					}
 				}
 			}
 		});
+	}
+
+	public void updateAccount() {
+		try {
+			Account user = AccountDAO.findTkById(acc.getMa());
+			user.setEmail(acc.getEmail());
+			user.setUser_Name(acc.getName());
+			user.setStatus(acc.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
+			if (!AccountDAO.updateAccount(user)) {
+				MessageUtils.showError("Cập nhật thất bại");
+				return;
+			}
+			MessageUtils.showInfo("Cập nhật thành công");
+			acc.loadDataFromDatabase();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ErrorUtils.handle(e, e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cm = e.getActionCommand();
+		if (cm.equals("Lưu")) {
+			updateAccount();
+		}
+
 	}
 }

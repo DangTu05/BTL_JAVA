@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controllers.admin.MenuController;
+
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 import java.awt.BorderLayout;
@@ -45,10 +48,11 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		MenuController ac = new MenuController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(204, 51, 255));
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -57,48 +61,40 @@ public class Menu extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(new Color(102, 51, 102));
-		panel.setBounds(0, 0, 120, 263);
+		panel.setBounds(0, 0, 255, 573);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JButton btnAccount = new JButton("Tài Khoản");
-		btnAccount.setBackground(new Color(153, 51, 153));
-		btnAccount.setBounds(0, 110, 120, 21);
+		btnAccount.setBackground(new Color(204, 0, 153));
+		btnAccount.setBounds(0, 143, 255, 43);
 		btnAccount.setBorder(BorderFactory.createEmptyBorder());
 		panel.add(btnAccount);
-		
+		btnAccount.addActionListener(ac);
 		JButton btnPhim = new JButton("Phim");
 		btnPhim.setForeground(new Color(0, 0, 0));
 		btnPhim.setBackground(new Color(153, 51, 153));
-		btnPhim.setBounds(0, 130, 120, 21);
+		btnPhim.setBounds(0, 184, 255, 43);
 		btnPhim.setBorder(BorderFactory.createEmptyBorder());
 		panel.add(btnPhim);
-		
+		btnPhim.addActionListener(ac);
 		JButton btnLogout = new JButton("Đăng Xuất");
 		btnLogout.setBackground(new Color(0, 250, 154));
-		btnLogout.setBounds(0, 242, 120, 21);
+		btnLogout.setBounds(0, 525, 255, 43);
 		panel.add(btnLogout);
-		
+		btnLogout.addActionListener(ac);
 		JButton btnHome = new JButton("Trang Chủ");
 		btnHome.setBackground(new Color(153, 51, 153));
-		btnHome.setBounds(0, 90, 120, 21);
+		btnHome.setBounds(0, 101, 255, 43);
 		btnHome.setBorder(BorderFactory.createEmptyBorder());
 		panel.add(btnHome);
-		
+		btnHome.addActionListener(ac);
 		JLabel lblName = new JLabel("Đặng Quang Tú");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblName.setForeground(new Color(255, 255, 255));
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setBounds(10, 57, 100, 13);
+		lblName.setBounds(59, 50, 135, 21);
 		panel.add(lblName);
-		
-		JLabel lblTitle = new JLabel("Trang Chủ");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblTitle.setOpaque(true); // Cho phép hiện màu nền
-		lblTitle.setBackground(new Color(218, 112, 214));
-		lblTitle.setForeground(new Color(240, 255, 240));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(119, 0, 317, 25);
-		contentPane.add(lblTitle);
 
 	}
 }
