@@ -186,6 +186,7 @@ public class Accounts extends JFrame {
 		txtMa = new JTextField();
 		txtMa.setBounds(282, 110, 187, 19);
 		txtMa.setBorder(null);
+		txtMa.setEditable(false);
 		contentPane.add(txtMa);
 		txtMa.setColumns(10);
 

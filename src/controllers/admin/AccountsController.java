@@ -57,6 +57,10 @@ public class AccountsController implements ActionListener {
 
 	public void updateAccount() {
 		try {
+			if(acc.getMa().isEmpty()) {
+				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
+				return;
+			}
 			Account user = AccountDAO.findTkById(acc.getMa());
 			user.setEmail(acc.getEmail());
 			user.setUser_Name(acc.getName());
