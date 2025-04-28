@@ -255,6 +255,7 @@ public class Accounts extends JFrame {
 
 		btnReset = new JButton("Làm mới");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnReset.addActionListener(action);
 		btnReset.setIcon(new ImageIcon(Url.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691099/description_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_yyrxmb.png")));
 		btnReset.setBackground(new Color(204, 255, 255));
@@ -305,6 +306,16 @@ public class Accounts extends JFrame {
 			// Luôn bật lại auto resize dù có lỗi hay không
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		}
+	}
+
+	public void reset() {
+		txtEmail.setText("");
+		txtMa.setText("");
+		txtMK.setText("");
+		txtName.setText("");
+		btnRole.setText("");
+		btnStatus.setText("");
+		table.clearSelection();
 	}
 
 	public JTable getTable() {

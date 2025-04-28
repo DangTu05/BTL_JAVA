@@ -92,6 +92,10 @@ public class AccountsController implements ActionListener {
 		return true;
 	}
 
+	public void resetData() {
+		acc.reset();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cm = e.getActionCommand();
@@ -103,6 +107,8 @@ public class AccountsController implements ActionListener {
 		} else if (cm.equals("Tài khoản bị khóa")) {
 			acc.setStatus("Đang hoạt động");
 			updateAccount();
+		} else if (cm.equals("Làm mới")) {
+			resetData();
 		}
 
 	}
