@@ -57,8 +57,12 @@ public class AccountsController implements ActionListener {
 
 	public void updateAccount() {
 		try {
-			if(acc.getMa().isEmpty()) {
+			if (acc.getMa().isEmpty()) {
 				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
+				return;
+			}
+			if (!checkData()) {
+				MessageUtils.showWarning("Thông tin không được để trống!!!");
 				return;
 			}
 			Account user = AccountDAO.findTkById(acc.getMa());
@@ -78,6 +82,12 @@ public class AccountsController implements ActionListener {
 			e.printStackTrace();
 		}
 
+	}
+
+	public boolean checkData() {
+		if (acc.getEmail().isEmpty() || acc.getName().isEmpty())
+			return false;
+		return true;
 	}
 
 	@Override
