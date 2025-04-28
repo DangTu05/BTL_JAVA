@@ -283,6 +283,7 @@ public class Accounts extends JFrame {
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnStatus.setBounds(593, 314, 151, 21);
 		contentPane.add(btnStatus);
+		btnStatus.addActionListener(action);
 		new AccountsController(this).addTableListener();
 		loadDataFromDatabase();
 	}
@@ -316,6 +317,10 @@ public class Accounts extends JFrame {
 
 	public String getEmail() {
 		return txtEmail.getText().trim();
+	}
+
+	public void setStatus(String status) {
+		this.btnStatus.setText(status);
 	}
 
 	public String getStatus() {

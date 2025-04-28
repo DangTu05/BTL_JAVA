@@ -69,6 +69,8 @@ public class AccountsController implements ActionListener {
 			user.setEmail(acc.getEmail());
 			user.setUser_Name(acc.getName());
 			user.setStatus(acc.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
+			if (!MessageUtils.confirm("Bạn có muốn cập nhật?"))
+				return;
 			if (!AccountDAO.updateAccount(user)) {
 				MessageUtils.showError("Cập nhật thất bại");
 				return;
@@ -94,6 +96,12 @@ public class AccountsController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cm = e.getActionCommand();
 		if (cm.equals("Lưu")) {
+			updateAccount();
+		} else if (cm.equals("Đang hoạt động")) {
+			acc.setStatus("Tài khoản bị khóa");
+			updateAccount();
+		} else if (cm.equals("Tài khoản bị khóa")) {
+			acc.setStatus("Đang hoạt động");
 			updateAccount();
 		}
 
