@@ -12,6 +12,7 @@ import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtils;
 import utils.MessageUtils;
+import utils.PasswordUtils;
 import views.Admin.Accounts;
 
 public class AccountsController implements ActionListener {
@@ -31,11 +32,16 @@ public class AccountsController implements ActionListener {
 		return account.getAllAccounts();
 	}
 
+	public List<String[]> getAccountsByName() {
+		return AccountDAO.findTksByName(acc.getTextSearch());
+	}
+
 	public void addTableListener() {
 		acc.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent event) {
-				if (!event.getValueIsAdjusting()) {
+				if (!event.getValueIsAdjusting()) {/// Kiểm tra để tránh xử lý khi người dùng đang kéo chuột chọn, chỉ
+													/// xử lý khi việc chọn đã hoàn tất
 					int selectedRow = acc.getTable().getSelectedRow();
 					if (selectedRow != -1) {
 						Object maTaiKhoan = acc.getTable().getValueAt(selectedRow, 0);
@@ -69,6 +75,9 @@ public class AccountsController implements ActionListener {
 			user.setEmail(acc.getEmail());
 			user.setUser_Name(acc.getName());
 			user.setStatus(acc.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
+			if (!acc.getPassword().isEmpty()) {
+				user.setPassword(PasswordUtils.hashPassword(acc.getPassword()));
+			}
 			if (!MessageUtils.confirm("Bạn có muốn cập nhật?"))
 				return;
 			if (!AccountDAO.updateAccount(user)) {
@@ -81,9 +90,23 @@ public class AccountsController implements ActionListener {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			ErrorUtils.handle(e, e.getMessage());
-			e.printStackTrace();
 		}
 
+	}
+
+	public void deleteAccount() {
+		if (acc.getMa().isEmpty()) {
+			MessageUtils.showWarning("Vui lòng chọn 1 tài khoản cần xóa!");
+			return;
+		}
+		if (!MessageUtils.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
+			return;
+		if (!AccountDAO.deleteAccount(acc.getMa())) {
+			MessageUtils.showError("Xóa thất bại!");
+			return;
+		}
+		MessageUtils.showInfo("Đã xóa thành công");
+		acc.loadDataFromDatabase();
 	}
 
 	public boolean checkData() {
@@ -109,6 +132,10 @@ public class AccountsController implements ActionListener {
 			updateAccount();
 		} else if (cm.equals("Làm mới")) {
 			resetData();
+		} else if (cm.equals("Xóa")) {
+			deleteAccount();
+		} else if (e.getSource() == acc.btnSearch) {
+			acc.loadDataFromForSearch();
 		}
 
 	}

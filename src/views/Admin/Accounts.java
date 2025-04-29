@@ -28,7 +28,7 @@ import com.mysql.cj.xdevapi.Table;
 
 import controllers.admin.AccountsController;
 import models.Account;
-import utils.Url;
+import utils.UrlUtil;
 
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -45,13 +45,15 @@ public class Accounts extends JFrame {
 	private JTextField txtEmail;
 	private JTextField txtName;
 	private JTextField txtMK;
-	private JTextField textField;
+	private JTextField txtSearch;
 	private JPanel panel_2;
 	private JButton btnReset;
 	private JButton btnLuu;
 	private JButton btnXoa;
 	private JButton btnRole;
 	private JButton btnStatus;
+	public JButton btnSearch;
+	private AccountsController action;
 
 	/**
 	 * Launch the application.
@@ -74,7 +76,7 @@ public class Accounts extends JFrame {
 	 */
 	public Accounts() {
 		controller = new AccountsController();
-		AccountsController action = new AccountsController(this);
+		action = new AccountsController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
@@ -238,13 +240,20 @@ public class Accounts extends JFrame {
 
 		JLabel lblNewLabel_5 = new JLabel("Tìm theo tên người dùng:");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_5.setBounds(332, 10, 166, 22);
+		lblNewLabel_5.setBounds(303, 10, 166, 22);
 		panel_1.add(lblNewLabel_5);
 
-		textField = new JTextField();
-		textField.setBounds(497, 13, 153, 19);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtSearch = new JTextField();
+		txtSearch.setBounds(467, 13, 153, 19);
+		panel_1.add(txtSearch);
+		txtSearch.setColumns(10);
+
+		btnSearch = new JButton("");
+		btnSearch.setBounds(630, 12, 20, 21);
+		btnSearch.addActionListener(action);
+		btnSearch.setIcon(new ImageIcon(UrlUtil.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745899467/search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_na27t8.png")));
+		panel_1.add(btnSearch);
 
 		panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
@@ -256,7 +265,7 @@ public class Accounts extends JFrame {
 		btnReset = new JButton("Làm mới");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnReset.addActionListener(action);
-		btnReset.setIcon(new ImageIcon(Url.safeURL(
+		btnReset.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691099/description_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_yyrxmb.png")));
 		btnReset.setBackground(new Color(204, 255, 255));
 		btnReset.setBounds(10, 24, 92, 25);
@@ -264,7 +273,7 @@ public class Accounts extends JFrame {
 
 		btnLuu = new JButton("Lưu");
 		btnLuu.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnLuu.setIcon(new ImageIcon(Url.safeURL(
+		btnLuu.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745690459/download_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_otwyyc.png")));
 		btnLuu.setBackground(new Color(204, 255, 255));
 		btnLuu.setBounds(10, 77, 92, 25);
@@ -273,12 +282,13 @@ public class Accounts extends JFrame {
 
 		btnXoa = new JButton("Xóa");
 		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnXoa.setIcon(new ImageIcon(Url.safeURL(
+		btnXoa.addActionListener(action);
+		btnXoa.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691214/delete_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_jedmju.png")));
 		btnXoa.setBackground(new Color(204, 255, 255));
 		btnXoa.setBounds(10, 127, 92, 21);
 		panel_2.add(btnXoa);
-
+		System.out.print(getTextSearch());
 		btnStatus = new JButton("");
 		btnStatus.setBackground(new Color(102, 255, 51));
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -299,6 +309,25 @@ public class Accounts extends JFrame {
 			model.setRowCount(0); // Xóa dữ liệu cũ
 
 			List<String[]> data = controller.getAllAccount(); // Lấy dữ liệu
+			for (String[] row : data) {
+				model.addRow(row); // Thêm từng dòng
+			}
+		} finally {
+			// Luôn bật lại auto resize dù có lỗi hay không
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		}
+	}
+
+	public void loadDataFromForSearch() {
+		// Gọi Controller để lấy dữ liệu
+		// Tắt auto resize trước khi thêm dữ liệu
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		try {
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.setRowCount(0); // Xóa dữ liệu cũ
+
+			List<String[]> data = action.getAccountsByName(); // Lấy dữ liệu
 			for (String[] row : data) {
 				model.addRow(row); // Thêm từng dòng
 			}
@@ -340,6 +369,14 @@ public class Accounts extends JFrame {
 
 	public String getName() {
 		return txtName.getText().trim();
+	}
+
+	public String getTextSearch() {
+		return txtSearch.getText().trim();
+	}
+
+	public String getPassword() {
+		return txtMK.getText().trim();
 	}
 
 	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role) {

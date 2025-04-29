@@ -49,8 +49,10 @@ public class RegisterController implements MouseListener {
 					return;
 				password = PasswordUtils.hashPassword(password);
 				Account newAccount = new Account(generateAccountId(), // Tự động sinh ID
-						username, email, password,TokenGenerator.generateToken());
-				account.addTaiKhoan(newAccount);
+						username, email, password);
+				if (!account.addTaiKhoan(newAccount)) {
+					return;
+				}
 				boolean result = MessageUtils.confirm("Bạn đã đăng kí thành công. Chuyển sang đăng nhập?");
 				if (result) {
 					new Login().setVisible(true);

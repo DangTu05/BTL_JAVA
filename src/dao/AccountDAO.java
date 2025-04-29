@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AccountDAO {
 	public boolean addTaiKhoan(Account tk) throws Exception {
-		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Token,Status) VALUES (?, ?, ?, ?, ?,?)";
+		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Status) VALUES (?,?,?,?,?,?)";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, tk.getUser_Name());
 			statement.setString(2, tk.getEmail());
@@ -20,8 +20,9 @@ public class AccountDAO {
 			return statement.executeUpdate() > 0;
 
 		} catch (SQLException e) {
-			throw new IllegalArgumentException("Đăng Kí Thất Bại");
+			ErrorUtils.handle(e, e.getMessage());
 		}
+		return false;
 	}
 
 	public static Account findTkById(String id) throws Exception {
@@ -38,7 +39,7 @@ public class AccountDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			ErrorUtils.handle(e, e.getMessage());
 		}
 		return acc;
 	}
@@ -54,7 +55,18 @@ public class AccountDAO {
 			return statement.executeUpdate() > 0;
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			ErrorUtils.handle(e, e.getMessage());
+		}
+		return false;
+	}
+
+	public static boolean deleteAccount(String id) {
+		String sql = "Delete from account where AccountId=?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+			statement.setString(1, id);
+			return statement.executeUpdate() > 0;
+		} catch (Exception e) {
+			ErrorUtils.handle(e, e.getMessage());
 		}
 		return false;
 	}
@@ -76,9 +88,30 @@ public class AccountDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			ErrorUtils.handle(e, e.getMessage());
 		}
 		return acc;
+	}
+
+	public static List<String[]> findTksByName(String name){
+		List<String[]> accounts = new ArrayList<>();
+		String query = "Select * from account where UserName Like ?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setString(1, "%" + name + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				accounts.add(new String[] { rs.getString("AccountId"), rs.getString("UserName"), rs.getString("Email"),
+						"******", // Che mật khẩu
+						rs.getString("Status"), rs.getString("RoleName") });
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return accounts;
 	}
 
 	public List<String[]> getAllAccounts() {
