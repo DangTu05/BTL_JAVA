@@ -70,7 +70,7 @@ public class RegisterController implements MouseListener {
 		long timestamp = System.currentTimeMillis(); // VD: 1713795134421
 		String timePart = String.valueOf(timestamp);
 		String last6Digits = timePart.substring(timePart.length() - 6); // Lấy 6 số cuối
-		return "USER-" + last6Digits;
+		return "ACC-" + last6Digits;
 	}
 
 	@Override

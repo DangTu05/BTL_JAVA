@@ -42,6 +42,7 @@ public class AccountsController implements ActionListener {
 			public void valueChanged(ListSelectionEvent event) {
 				if (!event.getValueIsAdjusting()) {/// Kiểm tra để tránh xử lý khi người dùng đang kéo chuột chọn, chỉ
 													/// xử lý khi việc chọn đã hoàn tất
+					int countRow = acc.getTable().getRowCount();
 					int selectedRow = acc.getTable().getSelectedRow();
 					if (selectedRow != -1) {
 						Object maTaiKhoan = acc.getTable().getValueAt(selectedRow, 0);
@@ -56,6 +57,7 @@ public class AccountsController implements ActionListener {
 								Status.equals("active") ? "Đang hoạt động" : "Tài khoản bị khóa",
 								Role != null ? Role.toString() : "");
 					}
+					acc.setTextLblBanGhi(countRow, selectedRow);
 				}
 			}
 		});

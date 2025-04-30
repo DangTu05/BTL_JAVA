@@ -54,6 +54,7 @@ public class Accounts extends JFrame {
 	private JButton btnStatus;
 	public JButton btnSearch;
 	private AccountsController action;
+	private JLabel lblBanGhi;
 
 	/**
 	 * Launch the application.
@@ -255,6 +256,12 @@ public class Accounts extends JFrame {
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745899467/search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_na27t8.png")));
 		panel_1.add(btnSearch);
 
+		lblBanGhi = new JLabel("Bản ghi ");
+		lblBanGhi.setForeground(new Color(255, 0, 0));
+		lblBanGhi.setFont(new Font("Arial", Font.BOLD, 13));
+		lblBanGhi.setBounds(165, 14, 128, 16);
+		panel_1.add(lblBanGhi);
+
 		panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
 		panel_2.setBounds(813, 99, 112, 171);
@@ -385,5 +392,9 @@ public class Accounts extends JFrame {
 		txtEmail.setText(email);
 		btnStatus.setText(status);
 		btnRole.setText(role);
+	}
+
+	public void setTextLblBanGhi(int countRow, int selectedRow) {
+		lblBanGhi.setText("Bản ghi: " + selectedRow + " trên " + countRow);
 	}
 }
