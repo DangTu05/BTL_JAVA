@@ -3,4 +3,5 @@ module Bling_Box {
 	requires java.sql;
 	requires spring.security.crypto;
 	requires io.github.cdimascio.dotenv.java;
+	requires cloudinary.core;
 }

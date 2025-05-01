@@ -15,7 +15,6 @@ import models.Account;
 import utils.ErrorUtils;
 import utils.MessageUtils;
 import utils.PasswordUtils;
-import utils.TokenGenerator;
 import validator.InputValidate;
 import views.Login;
 import views.Register;

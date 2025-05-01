@@ -14,12 +14,10 @@ import views.Admin.Menu;
 
 public class LoginController implements MouseListener {
 	public Login login;
-	private AccountDAO acc;
 
 	public LoginController(Login login) {
 		// TODO Auto-generated constructor stub
 		this.login = login;
-		this.acc = new AccountDAO();
 	}
 
 	@Override
