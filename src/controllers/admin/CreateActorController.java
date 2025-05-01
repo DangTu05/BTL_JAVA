@@ -10,6 +10,7 @@ import models.Actor;
 import utils.ErrorUtils;
 import utils.GenerateId;
 import utils.MessageUtils;
+import validator.InputValidate;
 import views.Admin.CreateActor;
 
 public class CreateActorController implements ActionListener {
@@ -26,16 +27,21 @@ public class CreateActorController implements ActionListener {
 		java.sql.Date birth = createActor.getNgaySinh();
 		String actor_id = GenerateId.generateId("ACTOR");
 		try {
+			Actor actor = null;
+			if (!InputValidate.createActor(actor_name, birth))
+				return;
 			if (createActor.getFileImg() != null) {
 				String urlImg = UploadCloud.upload(createActor.getFileImg());
-				Actor actor = new Actor(actor_id, actor_name, urlImg, nationality, birth, biography);
-				if (!ActorDAO.addActor(actor)) {
-					MessageUtils.showInfo("Tạo không thành công");
-					return;
-				}
-				MessageUtils.showInfo("Tạo thành công");
+				actor = new Actor(actor_id, actor_name, urlImg, nationality, birth, biography);
+			} else {
+				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
+			}
+			if (!ActorDAO.addActor(actor)) {
+				MessageUtils.showInfo("Tạo không thành công");
 				return;
 			}
+			MessageUtils.showInfo("Tạo thành công");
+			return;
 		} catch (Exception e) {
 			ErrorUtils.handle(e, "Đã xảy ra lỗi!");
 			// TODO: handle exception

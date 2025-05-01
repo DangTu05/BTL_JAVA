@@ -34,4 +34,11 @@ public class InputValidate {
 		return true;
 	}
 
+	public static boolean createActor(String actor_name, java.sql.Date ngaysinh) {
+		if (actor_name == null || actor_name.trim().isEmpty() || ngaysinh == null) {
+			MessageUtils.showWarning("Thông tin không được để trống!");
+			return false;
+		}
+		return true;
+	}
 }
