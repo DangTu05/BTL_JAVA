@@ -12,6 +12,7 @@ import utils.UrlUtil;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class CreateActor extends JFrame {
 	private JTextArea txtTieuSu;
 	private JSpinner dateNgaySinh;
 	private File img;
+	private JLabel lblImg;
 
 	/**
 	 * Launch the application.
@@ -57,6 +59,7 @@ public class CreateActor extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 153, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -69,6 +72,7 @@ public class CreateActor extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 204, 255));
 		panel.setBounds(62, 56, 826, 476);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -121,10 +125,15 @@ public class CreateActor extends JFrame {
 		panel.add(btnImg);
 
 		JButton btnTao = new JButton("Tạo");
+		btnTao.setBackground(new Color(102, 255, 51));
 		btnTao.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnTao.setBounds(393, 346, 85, 21);
+		btnTao.setBounds(364, 408, 132, 21);
 		btnTao.addActionListener(action);
 		panel.add(btnTao);
+
+		lblImg = new JLabel("");
+		lblImg.setBounds(165, 239, 185, 159);
+		panel.add(lblImg);
 
 //		JFileChooser fileChooser = new JFileChooser();
 //		fileChooser.setBounds(27, 81, 576, 399);
@@ -198,8 +207,13 @@ public class CreateActor extends JFrame {
 		int result = fileChooser.showOpenDialog(this);/// Hiển thị hộp thoại lên giữa cửa sổ
 		if (result == JFileChooser.APPROVE_OPTION) {
 			selectedFile = fileChooser.getSelectedFile();
+			String imagePath = selectedFile.getAbsolutePath(); // Lưu đường dẫn
+
+			// Hiển thị ảnh
+			ImageIcon icon = new ImageIcon(imagePath);
+			Image img = icon.getImage().getScaledInstance(lblImg.getWidth(), lblImg.getHeight(), Image.SCALE_SMOOTH);
+			lblImg.setIcon(new ImageIcon(img));
 		}
 		setFileImg(selectedFile);
 	}
-
 }
