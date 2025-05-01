@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interfaces.IAccountView;
 import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtils;
@@ -15,49 +16,50 @@ import utils.MessageUtils;
 import utils.PasswordUtils;
 import views.Admin.Accounts;
 
-public class AccountsController implements ActionListener {
-	public Accounts acc;
-	private AccountDAO account;
+public class AccountsController {
+	private IAccountView view;
 
-	public AccountsController(Accounts acc) {
-		this.acc = acc;
-		this.account = new AccountDAO();
+	public AccountsController(IAccountView acc) {
+		this.view = acc;
+		setupEventListeners();
+		loadDataFromDataBase();
 	}
 
 	public AccountsController() {
-		this.account = new AccountDAO();
+
 	}
 
-	public List<String[]> getAllAccount() {
-		return account.getAllAccounts();
-	}
-
-	public List<String[]> getAccountsByName() {
-		return AccountDAO.findTksByName(acc.getTextSearch());
+	private void setupEventListeners() {
+		view.setSaveListener(e -> updateAccount()); // Gán sự kiện Lưu
+		view.setDeleteListener(e -> deleteAccount()); // Gán sự kiện Xóa
+		view.setRefreshListener(e -> resetData()); // Gán sự kiện Làm mới
+		view.setStatusToggleListener(e -> toggleAccountStatus()); // Gán sự kiện Đổi trạng thái
+		view.setSearchListener(e -> loadDataFromSearch()); // Gán sự kiện Tìm kiếm
+		view.setAccountSelectionListener(e -> addTableListener());// Sự kiện người dùng nhấn vào hàng trong table
 	}
 
 	public void addTableListener() {
-		acc.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		view.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent event) {
 				if (!event.getValueIsAdjusting()) {/// Kiểm tra để tránh xử lý khi người dùng đang kéo chuột chọn, chỉ
 													/// xử lý khi việc chọn đã hoàn tất
-					int countRow = acc.getTable().getRowCount();
-					int selectedRow = acc.getTable().getSelectedRow();
+					int countRow = view.getTable().getRowCount();
+					int selectedRow = view.getTable().getSelectedRow();
 					if (selectedRow != -1) {
-						Object maTaiKhoan = acc.getTable().getValueAt(selectedRow, 0);
-						Object tenDangNhap = acc.getTable().getValueAt(selectedRow, 1);
-						Object Email = acc.getTable().getValueAt(selectedRow, 2);
-						Object Password = acc.getTable().getValueAt(selectedRow, 3);
-						Object Status = acc.getTable().getValueAt(selectedRow, 4);
-						Object Role = acc.getTable().getValueAt(selectedRow, 5);
-						acc.setFormData(maTaiKhoan != null ? maTaiKhoan.toString() : "",
+						Object maTaiKhoan = view.getTable().getValueAt(selectedRow, 0);
+						Object tenDangNhap = view.getTable().getValueAt(selectedRow, 1);
+						Object Email = view.getTable().getValueAt(selectedRow, 2);
+						Object Password = view.getTable().getValueAt(selectedRow, 3);
+						Object Status = view.getTable().getValueAt(selectedRow, 4);
+						Object Role = view.getTable().getValueAt(selectedRow, 5);
+						view.setFormData(maTaiKhoan != null ? maTaiKhoan.toString() : "",
 								tenDangNhap != null ? tenDangNhap.toString() : "",
 								Email != null ? Email.toString() : "", Password != null ? Password.toString() : "",
 								Status.equals("active") ? "Đang hoạt động" : "Tài khoản bị khóa",
 								Role != null ? Role.toString() : "");
 					}
-					acc.setTextLblBanGhi(countRow, selectedRow);
+					view.setTextLblBanGhi(countRow, selectedRow);
 				}
 			}
 		});
@@ -65,7 +67,7 @@ public class AccountsController implements ActionListener {
 
 	public void updateAccount() {
 		try {
-			if (acc.getMa().isEmpty()) {
+			if (view.getMa().isEmpty()) {
 				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
 				return;
 			}
@@ -73,12 +75,12 @@ public class AccountsController implements ActionListener {
 				MessageUtils.showWarning("Thông tin không được để trống!!!");
 				return;
 			}
-			Account user = AccountDAO.findTkById(acc.getMa());
-			user.setEmail(acc.getEmail());
-			user.setUser_Name(acc.getName());
-			user.setStatus(acc.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
-			if (!acc.getPassword().isEmpty()) {
-				user.setPassword(PasswordUtils.hashPassword(acc.getPassword()));
+			Account user = AccountDAO.findTkById(view.getMa());
+			user.setEmail(view.getEmail());
+			user.setUser_Name(view.getName());
+			user.setStatus(view.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
+			if (!view.getPassword().isEmpty()) {
+				user.setPassword(PasswordUtils.hashPassword(view.getPassword()));
 			}
 			if (!MessageUtils.confirm("Bạn có muốn cập nhật?"))
 				return;
@@ -87,58 +89,101 @@ public class AccountsController implements ActionListener {
 				return;
 			}
 			MessageUtils.showInfo("Cập nhật thành công");
-			acc.loadDataFromDatabase();
+			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ErrorUtils.handle(e, e.getMessage());
+			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
 		}
 
 	}
 
 	public void deleteAccount() {
-		if (acc.getMa().isEmpty()) {
-			MessageUtils.showWarning("Vui lòng chọn 1 tài khoản cần xóa!");
-			return;
+
+		try {
+			if (view.getMa().isEmpty()) {
+				MessageUtils.showWarning("Vui lòng chọn 1 tài khoản cần xóa!");
+				return;
+			}
+			if (!MessageUtils.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
+				return;
+			if (!AccountDAO.deleteAccount(view.getMa())) {
+				MessageUtils.showError("Xóa thất bại!");
+				return;
+			}
+			MessageUtils.showInfo("Đã xóa thành công");
+			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
+
+		} catch (Exception e) {
+			ErrorUtils.handle(e, "Đã xảy ra lỗi");
 		}
-		if (!MessageUtils.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
-			return;
-		if (!AccountDAO.deleteAccount(acc.getMa())) {
-			MessageUtils.showError("Xóa thất bại!");
-			return;
+	}
+
+	public void loadDataFromDataBase() {
+		try {
+			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
+		} catch (Exception e) {
+			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
 		}
-		MessageUtils.showInfo("Đã xóa thành công");
-		acc.loadDataFromDatabase();
+	}
+
+	public void loadDataFromSearch() {
+		try {
+			view.loadDataFromForSearch(AccountDAO.findTksByName(view.getTextSearch()));
+		} catch (Exception e) {
+			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+		}
 	}
 
 	public boolean checkData() {
-		if (acc.getEmail().isEmpty() || acc.getName().isEmpty())
+		if (view.getEmail().isEmpty() || view.getName().isEmpty())
 			return false;
 		return true;
 	}
 
 	public void resetData() {
-		acc.reset();
+		view.reset();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String cm = e.getActionCommand();
-		if (cm.equals("Lưu")) {
+	public void toggleAccountStatus() {
+
+		try {
+			if (view.getMa().isEmpty()) {
+				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn đổi trạng thái!");
+				return;
+			}
+			// Lấy trạng thái hiện tại từ view
+			String currentStatus = view.getStatus();
+			String newStatus = currentStatus.equals("Đang hoạt động") ? "Tài khoản bị khóa" : "Đang hoạt động";
+
+			// Cập nhật trạng thái trên giao diện
+			view.setStatus(newStatus);
+
+			// Nếu muốn lưu ngay lập tức
 			updateAccount();
-		} else if (cm.equals("Đang hoạt động")) {
-			acc.setStatus("Tài khoản bị khóa");
-			updateAccount();
-		} else if (cm.equals("Tài khoản bị khóa")) {
-			acc.setStatus("Đang hoạt động");
-			updateAccount();
-		} else if (cm.equals("Làm mới")) {
-			resetData();
-		} else if (cm.equals("Xóa")) {
-			deleteAccount();
-		} else if (e.getSource() == acc.btnSearch) {
-			acc.loadDataFromForSearch();
+		} catch (Exception e) {
+			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
 		}
-
 	}
+
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		String cm = e.getActionCommand();
+//		if (cm.equals("Lưu")) {
+//			updateAccount();
+//		} else if (cm.equals("Đang hoạt động")) {
+//			acc.setStatus("Tài khoản bị khóa");
+//			updateAccount();
+//		} else if (cm.equals("Tài khoản bị khóa")) {
+//			acc.setStatus("Đang hoạt động");
+//			updateAccount();
+//		} else if (cm.equals("Làm mới")) {
+//			resetData();
+//		} else if (cm.equals("Xóa")) {
+//			deleteAccount();
+//		} else if (e.getSource() == acc.btnSearch) {
+//			acc.loadDataFromForSearch();
+//		}
+//
+//	}
 }

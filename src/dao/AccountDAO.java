@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO {
-	public boolean addTaiKhoan(Account tk) throws Exception {
+	public static boolean addTaiKhoan(Account tk) throws Exception {
 		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Status) VALUES (?,?,?,?,?,?)";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, tk.getUser_Name());
@@ -20,9 +20,8 @@ public class AccountDAO {
 			return statement.executeUpdate() > 0;
 
 		} catch (SQLException e) {
-			ErrorUtils.handle(e, e.getMessage());
+			throw new RuntimeException("Lỗi khi tạo tài khoản", e);
 		}
-		return false;
 	}
 
 	public static Account findTkById(String id) throws Exception {
@@ -39,7 +38,7 @@ public class AccountDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtils.handle(e, e.getMessage());
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e);
 		}
 		return acc;
 	}
@@ -47,17 +46,16 @@ public class AccountDAO {
 	public static boolean updateAccount(Account tk) {
 		String sql = "UPDATE account SET UserName=?, Email=?,Password=?,Status=? where AccountId = ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setString(5, tk.getAccount_Id());
 			statement.setString(1, tk.getUser_Name());
 			statement.setString(2, tk.getEmail());
 			statement.setString(3, tk.getPassword());
 			statement.setString(4, tk.getStatus());
+			statement.setString(5, tk.getAccount_Id());
 			return statement.executeUpdate() > 0;
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtils.handle(e, e.getMessage());
+			throw new RuntimeException("Lỗi khi cập nhật tài khoản", e);
 		}
-		return false;
 	}
 
 	public static boolean deleteAccount(String id) {
@@ -66,9 +64,8 @@ public class AccountDAO {
 			statement.setString(1, id);
 			return statement.executeUpdate() > 0;
 		} catch (Exception e) {
-			ErrorUtils.handle(e, e.getMessage());
+			throw new RuntimeException("Lỗi khi xóa tài khoản", e);
 		}
-		return false;
 	}
 
 	public static Account findTkByEmail(String email) throws Exception {
@@ -88,12 +85,12 @@ public class AccountDAO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtils.handle(e, e.getMessage());
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e);
 		}
 		return acc;
 	}
 
-	public static List<String[]> findTksByName(String name){
+	public static List<String[]> findTksByName(String name) {
 		List<String[]> accounts = new ArrayList<>();
 		String query = "Select * from account where UserName Like ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
@@ -104,17 +101,14 @@ public class AccountDAO {
 						"******", // Che mật khẩu
 						rs.getString("Status"), rs.getString("RoleName") });
 			}
-		} catch (SQLException e) {
-			// TODO: handle exception
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
 		}
 		return accounts;
 	}
 
-	public List<String[]> getAllAccounts() {
+	public static List<String[]> getAllAccounts() {
 		String query = "SELECT * FROM account";
 		List<String[]> accounts = new ArrayList<>();
 
@@ -127,11 +121,9 @@ public class AccountDAO {
 						"******", // Che mật khẩu
 						rs.getString("Status"), rs.getString("RoleName") });
 			}
-		} catch (SQLException e) {
-			ErrorUtils.handle(e, e.getMessage());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
 		}
 		return accounts;
 	}

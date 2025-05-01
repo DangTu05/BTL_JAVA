@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.List;
 import java.net.MalformedURLException;
@@ -20,9 +21,12 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Interfaces.IAccountView;
 
 //import com.mysql.cj.xdevapi.Table;
 
@@ -35,7 +39,7 @@ import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
-public class Accounts extends JFrame {
+public class Accounts extends JFrame implements IAccountView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -53,7 +57,6 @@ public class Accounts extends JFrame {
 	private JButton btnRole;
 	private JButton btnStatus;
 	public JButton btnSearch;
-	private AccountsController action;
 	private JLabel lblBanGhi;
 
 	/**
@@ -76,8 +79,7 @@ public class Accounts extends JFrame {
 	 * Create the frame.
 	 */
 	public Accounts() {
-		controller = new AccountsController();
-		action = new AccountsController(this);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
@@ -251,7 +253,6 @@ public class Accounts extends JFrame {
 
 		btnSearch = new JButton("");
 		btnSearch.setBounds(630, 12, 20, 21);
-		btnSearch.addActionListener(action);
 		btnSearch.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745899467/search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_na27t8.png")));
 		panel_1.add(btnSearch);
@@ -271,7 +272,6 @@ public class Accounts extends JFrame {
 
 		btnReset = new JButton("Làm mới");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnReset.addActionListener(action);
 		btnReset.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691099/description_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_yyrxmb.png")));
 		btnReset.setBackground(new Color(204, 255, 255));
@@ -285,28 +285,22 @@ public class Accounts extends JFrame {
 		btnLuu.setBackground(new Color(204, 255, 255));
 		btnLuu.setBounds(10, 77, 92, 25);
 		panel_2.add(btnLuu);
-		btnLuu.addActionListener(action);
 
 		btnXoa = new JButton("Xóa");
 		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnXoa.addActionListener(action);
 		btnXoa.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745691214/delete_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_jedmju.png")));
 		btnXoa.setBackground(new Color(204, 255, 255));
 		btnXoa.setBounds(10, 127, 92, 21);
 		panel_2.add(btnXoa);
-		System.out.print(getTextSearch());
 		btnStatus = new JButton("");
 		btnStatus.setBackground(new Color(102, 255, 51));
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnStatus.setBounds(593, 314, 151, 21);
 		contentPane.add(btnStatus);
-		btnStatus.addActionListener(action);
-		new AccountsController(this).addTableListener();
-		loadDataFromDatabase();
 	}
 
-	public void loadDataFromDatabase() {
+	public void loadDataFromDataBase(List<String[]> data) {
 		// Gọi Controller để lấy dữ liệu
 		// Tắt auto resize trước khi thêm dữ liệu
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -314,8 +308,6 @@ public class Accounts extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
 			model.setRowCount(0); // Xóa dữ liệu cũ
-
-			List<String[]> data = controller.getAllAccount(); // Lấy dữ liệu
 			for (String[] row : data) {
 				model.addRow(row); // Thêm từng dòng
 			}
@@ -325,7 +317,7 @@ public class Accounts extends JFrame {
 		}
 	}
 
-	public void loadDataFromForSearch() {
+	public void loadDataFromForSearch(List<String[]> data) {
 		// Gọi Controller để lấy dữ liệu
 		// Tắt auto resize trước khi thêm dữ liệu
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -333,8 +325,6 @@ public class Accounts extends JFrame {
 		try {
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
 			model.setRowCount(0); // Xóa dữ liệu cũ
-
-			List<String[]> data = action.getAccountsByName(); // Lấy dữ liệu
 			for (String[] row : data) {
 				model.addRow(row); // Thêm từng dòng
 			}
@@ -394,7 +384,32 @@ public class Accounts extends JFrame {
 		btnRole.setText(role);
 	}
 
+	public void setAccountSelectionListener(ListSelectionListener listener) {
+		table.getSelectionModel().addListSelectionListener(listener);
+	}
+
 	public void setTextLblBanGhi(int countRow, int selectedRow) {
 		lblBanGhi.setText("Bản ghi: " + selectedRow + " trên " + countRow);
 	}
+
+	public void setSaveListener(ActionListener listener) {
+		btnLuu.addActionListener(listener);
+	}
+
+	public void setDeleteListener(ActionListener listener) {
+		btnXoa.addActionListener(listener);
+	}
+
+	public void setRefreshListener(ActionListener listener) {
+		btnReset.addActionListener(listener);
+	}
+
+	public void setStatusToggleListener(ActionListener listener) {
+		btnStatus.addActionListener(listener);
+	}
+
+	public void setSearchListener(ActionListener listener) {
+		btnSearch.addActionListener(listener);
+	}
+
 }
