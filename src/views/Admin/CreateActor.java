@@ -7,12 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
+import Interfaces.ICreateActorView;
 import controllers.admin.CreateActorController;
 import utils.UrlUtil;
 
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class CreateActor extends JFrame {
+public class CreateActor extends JFrame implements ICreateActorView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -35,6 +37,8 @@ public class CreateActor extends JFrame {
 	private JSpinner dateNgaySinh;
 	private File img;
 	private JLabel lblImg;
+	private JButton btnImg;
+	private JButton btnTao;
 
 	/**
 	 * Launch the application.
@@ -64,7 +68,6 @@ public class CreateActor extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		CreateActorController action = new CreateActorController(this);
 		JLabel lblNewLabel = new JLabel("Thêm Thông Tin Diễn Viên");
 		lblNewLabel.setBounds(342, 10, 250, 24);
 		lblNewLabel.setForeground(new Color(255, 0, 51));
@@ -116,45 +119,22 @@ public class CreateActor extends JFrame {
 		txtTieuSu.setBounds(578, 99, 142, 77);
 		panel.add(txtTieuSu);
 
-		JButton btnImg = new JButton("Chọn ảnh");
+		btnImg = new JButton("Chọn ảnh");
 		btnImg.setFont(new Font("Arial", Font.PLAIN, 14));
 		btnImg.setIcon(new ImageIcon(UrlUtil
 				.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1746028706/ocamciq8zozv3skikq43.png")));
 		btnImg.setBounds(165, 208, 142, 21);
-		btnImg.addActionListener(action);
 		panel.add(btnImg);
 
-		JButton btnTao = new JButton("Tạo");
+		btnTao = new JButton("Tạo");
 		btnTao.setBackground(new Color(102, 255, 51));
 		btnTao.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnTao.setBounds(364, 408, 132, 21);
-		btnTao.addActionListener(action);
 		panel.add(btnTao);
 
 		lblImg = new JLabel("");
 		lblImg.setBounds(165, 239, 185, 159);
 		panel.add(lblImg);
-
-//		JFileChooser fileChooser = new JFileChooser();
-//		fileChooser.setBounds(27, 81, 576, 399);
-//		 fileChooser.setAcceptAllFileFilterUsed(false);
-//	        fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
-//	            public boolean accept(File f) {
-//	                String name = f.getName().toLowerCase();
-//	                return f.isDirectory() || 
-//	                       name.endsWith(".jpg") || 
-//	                       name.endsWith(".jpeg") || 
-//	                       name.endsWith(".png") || 
-//	                       name.endsWith(".gif");
-//	            }
-//
-//	            public String getDescription() {
-//	                return "Image Files (*.jpg, *.jpeg, *.png, *.gif)";
-//	            }
-//	        });
-//		panel.add(fileChooser);
-//		
-
 	}
 
 	public String getActorName() {
@@ -171,7 +151,6 @@ public class CreateActor extends JFrame {
 
 	public java.sql.Date getNgaySinh() {
 		Date selectedDate = (Date) dateNgaySinh.getValue();
-
 		// Chuyển thành java.sql.Date để dùng với JDBC
 		java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
 		return sqlDate;
@@ -183,6 +162,14 @@ public class CreateActor extends JFrame {
 
 	public File getFileImg() {
 		return img;
+	}
+
+	public void setShowImgListener(ActionListener listener) {
+		btnImg.addActionListener(listener);
+	}
+
+	public void setTaoListener(ActionListener listener) {
+		btnTao.addActionListener(listener);
 	}
 
 	public void showImageChooser() {

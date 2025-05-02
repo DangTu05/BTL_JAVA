@@ -1,9 +1,6 @@
 package controllers.admin;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-
+import Interfaces.ICreateActorView;
 import dao.ActorDAO;
 import middlewares.UploadCloud;
 import models.Actor;
@@ -11,27 +8,32 @@ import utils.ErrorUtils;
 import utils.GenerateId;
 import utils.MessageUtils;
 import validator.InputValidate;
-import views.Admin.CreateActor;
 
-public class CreateActorController implements ActionListener {
-	public CreateActor createActor;
+public class CreateActorController {
+	private ICreateActorView createActorView;
 
-	public CreateActorController(CreateActor createActor) {
-		this.createActor = createActor;
+	public CreateActorController(ICreateActorView createActor) {
+		this.createActorView = createActor;
+		setupEventListeners();
 	}
 
-	public void createRecord() {
-		String actor_name = createActor.getActorName();
-		String nationality = createActor.getQuocGia();
-		String biography = createActor.getTieuSu();
-		java.sql.Date birth = createActor.getNgaySinh();
+	private void setupEventListeners() {
+		createActorView.setShowImgListener(e -> createActorView.showImageChooser());
+		createActorView.setTaoListener(e -> createActor());
+	}
+
+	public void createActor() {
+		String actor_name = createActorView.getActorName();
+		String nationality = createActorView.getQuocGia();
+		String biography = createActorView.getTieuSu();
+		java.sql.Date birth = createActorView.getNgaySinh();
 		String actor_id = GenerateId.generateId("ACTOR");
 		try {
 			Actor actor = null;
 			if (!InputValidate.createActor(actor_name, birth))
 				return;
-			if (createActor.getFileImg() != null) {
-				String urlImg = UploadCloud.upload(createActor.getFileImg());
+			if (createActorView.getFileImg() != null) {
+				String urlImg = UploadCloud.upload(createActorView.getFileImg());
 				actor = new Actor(actor_id, actor_name, urlImg, nationality, birth, biography);
 			} else {
 				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
@@ -45,17 +47,6 @@ public class CreateActorController implements ActionListener {
 		} catch (Exception e) {
 			ErrorUtils.handle(e, "Đã xảy ra lỗi!");
 			// TODO: handle exception
-		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		String cm = e.getActionCommand();
-		if (cm.equals("Chọn ảnh")) {
-			createActor.showImageChooser();
-		} else if (cm.equals("Tạo")) {
-			createRecord();
 		}
 	}
 

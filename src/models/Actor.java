@@ -1,8 +1,6 @@
 package models;
 
-import Interfaces.IActor;
-
-public class Actor implements IActor {
+public class Actor {
 	private String actor_id;
 	private String actor_name;
 	private String actor_image;
