@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Interfaces.ILoginView;
 import controllers.LoginController;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,16 +29,18 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ILoginView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtEmail;
 	public JButton btnDN;
 	private JTextField txtPassword;
+	private JLabel lblDK;
 
 	/**
 	 * Launch the application.
@@ -60,13 +63,12 @@ public class Login extends JFrame {
 	 * 
 	 * @throws MalformedURLException
 	 */
-	public Login() throws MalformedURLException {
+	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 462, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 102, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		LoginController ac = new LoginController(this);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JLabel lblNewLabel = new JLabel("Đăng Nhập");
@@ -99,28 +101,27 @@ public class Login extends JFrame {
 		btnDN.setBackground(new Color(204, 204, 255));
 		btnDN.setForeground(new Color(255, 255, 255));
 		btnDN.setBounds(170, 219, 122, 21);
-		btnDN.addMouseListener(ac);
 		contentPane.add(btnDN);
 
-		JLabel lblNewLabel_3 = new JLabel("<html><a href=\"\" style=\"\">Bạn chưa có tài khoản?</a></html>");
-		lblNewLabel_3.setForeground(new Color(153, 51, 102));
-		lblNewLabel_3.setFont(new Font("Sitka Text", Font.PLAIN, 12));
-		lblNewLabel_3.setBounds(118, 192, 147, 17);
-		contentPane.add(lblNewLabel_3);
-				
-				JSeparator separator = new JSeparator();
-				separator.setBounds(114, 117, 224, 2);
-				contentPane.add(separator);
-				
-				JSeparator separator_1 = new JSeparator();
-				separator_1.setBounds(114, 181, 224, 2);
-				contentPane.add(separator_1);
-				txtPassword = new JTextField();
-				txtPassword.setBounds(114, 154, 224, 28);
-				contentPane.add(txtPassword);
-				txtPassword.setBackground(new Color(153, 102, 204));
-				txtPassword.setBorder(null);
-				
+		lblDK = new JLabel("<html><a href=\"\" style=\"\">Bạn chưa có tài khoản?</a></html>");
+		lblDK.setForeground(new Color(153, 51, 102));
+		lblDK.setFont(new Font("Sitka Text", Font.PLAIN, 12));
+		lblDK.setBounds(118, 192, 147, 17);
+		contentPane.add(lblDK);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(114, 117, 224, 2);
+		contentPane.add(separator);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(114, 181, 224, 2);
+		contentPane.add(separator_1);
+		txtPassword = new JTextField();
+		txtPassword.setBounds(114, 154, 224, 28);
+		contentPane.add(txtPassword);
+		txtPassword.setBackground(new Color(153, 102, 204));
+		txtPassword.setBorder(null);
+
 	}
 
 	public String getPassword() {
@@ -135,7 +136,21 @@ public class Login extends JFrame {
 	public void hidenLoginPage() {
 		this.setVisible(false);
 	}
+
 	public void showMenuPage() {
-		
+
+	}
+
+	public void redirectRegister() {
+		new Register().setVisible(true);
+		this.dispose();
+	}
+
+	public void setLoginListener(ActionListener listener) {
+		btnDN.addActionListener(listener);
+	}
+
+	public void setRedirectRegister(MouseListener listener) {
+		lblDK.addMouseListener(listener);
 	}
 }

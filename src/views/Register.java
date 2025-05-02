@@ -127,12 +127,7 @@ public class Register extends JFrame implements IRegisterView {
 	}
 
 	public void redirectLogin() {
-		try {
-			new Login().setVisible(true);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new Login().setVisible(true);
 		this.dispose();
 	}
 }
