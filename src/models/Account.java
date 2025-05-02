@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import Configs.Database.ConnectDB;
 import Interfaces.IAccount;
 
-public class Account implements IAccount {
+public class Account {
 	private String Account_Id;
 	private String User_Name;
 	private String Email;
@@ -93,7 +93,6 @@ public class Account implements IAccount {
 //		statement.setString(5,tk.getRole_Id());
 //		statement.executeUpdate();
 //	}
-
 
 	public String getStatus() {
 		return Status;

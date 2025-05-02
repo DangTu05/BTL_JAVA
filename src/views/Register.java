@@ -6,15 +6,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Interfaces.IRegisterView;
 import controllers.RegisterController;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class Register extends JFrame {
+public class Register extends JFrame implements IRegisterView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -49,7 +53,6 @@ public class Register extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		RegisterController ac = new RegisterController(this);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -94,11 +97,9 @@ public class Register extends JFrame {
 		btnDK.setBackground(new Color(0, 255, 0));
 		btnDK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDK.setBounds(230, 190, 101, 21);
-		btnDK.addMouseListener(ac);
 		contentPane.add(btnDK);
 
 		jLabel_DN = new JLabel("<html><a href=\"\">Bạn đã có tài khoản?</a></html>");
-		jLabel_DN.addMouseListener(ac);
 		jLabel_DN.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		jLabel_DN.setBounds(179, 164, 142, 13);
 		contentPane.add(jLabel_DN);
@@ -112,7 +113,26 @@ public class Register extends JFrame {
 	public String getPassword() {
 		return txtMk.getText().trim();
 	}
+
 	public String getUserName() {
 		return txtName.getText().trim();
+	}
+
+	public void setRegisterListener(ActionListener listener) {
+		btnDK.addActionListener(listener);
+	}
+
+	public void setRedirectLogin(MouseListener listener) {
+		jLabel_DN.addMouseListener(listener);
+	}
+
+	public void redirectLogin() {
+		try {
+			new Login().setVisible(true);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.dispose();
 	}
 }

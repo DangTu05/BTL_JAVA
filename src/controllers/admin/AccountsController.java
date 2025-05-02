@@ -165,25 +165,4 @@ public class AccountsController {
 			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
-
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		String cm = e.getActionCommand();
-//		if (cm.equals("Lưu")) {
-//			updateAccount();
-//		} else if (cm.equals("Đang hoạt động")) {
-//			acc.setStatus("Tài khoản bị khóa");
-//			updateAccount();
-//		} else if (cm.equals("Tài khoản bị khóa")) {
-//			acc.setStatus("Đang hoạt động");
-//			updateAccount();
-//		} else if (cm.equals("Làm mới")) {
-//			resetData();
-//		} else if (cm.equals("Xóa")) {
-//			deleteAccount();
-//		} else if (e.getSource() == acc.btnSearch) {
-//			acc.loadDataFromForSearch();
-//		}
-//
-//	}
 }
