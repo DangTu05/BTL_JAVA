@@ -8,6 +8,7 @@ import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.ICreateActorView;
+import components.FileChooser;
 import controllers.admin.CreateActorController;
 import utils.UrlUtil;
 
@@ -175,32 +176,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 	public void showImageChooser() {
 		File selectedFile = null;
 		JFileChooser fileChooser = new JFileChooser();
-
-		// Thiết lập bộ lọc chỉ hiển thị file ảnh
-		fileChooser.setAcceptAllFileFilterUsed(false);
-		fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
-			@Override
-			public boolean accept(File f) {
-				String name = f.getName().toLowerCase();
-				return f.isDirectory() || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png")
-						|| name.endsWith(".gif");
-			}
-
-			@Override
-			public String getDescription() {
-				return "Image Files (*.jpg, *.jpeg, *.png, *.gif)";
-			}
-		});
-		int result = fileChooser.showOpenDialog(this);/// Hiển thị hộp thoại lên giữa cửa sổ
-		if (result == JFileChooser.APPROVE_OPTION) {
-			selectedFile = fileChooser.getSelectedFile();
-			String imagePath = selectedFile.getAbsolutePath(); // Lưu đường dẫn
-
-			// Hiển thị ảnh
-			ImageIcon icon = new ImageIcon(imagePath);
-			Image img = icon.getImage().getScaledInstance(lblImg.getWidth(), lblImg.getHeight(), Image.SCALE_SMOOTH);
-			lblImg.setIcon(new ImageIcon(img));
-		}
+		FileChooser.showImageChooser(fileChooser,lblImg,selectedFile,this);
 		setFileImg(selectedFile);
 	}
 }

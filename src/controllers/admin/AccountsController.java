@@ -18,9 +18,11 @@ import views.Admin.Accounts;
 
 public class AccountsController {
 	private IAccountView view;
+	private AccountDAO dao;
 
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
+		dao = new AccountDAO();
 		setupEventListeners();
 		loadDataFromDataBase();
 	}
@@ -84,7 +86,7 @@ public class AccountsController {
 			}
 			if (!MessageUtils.confirm("Bạn có muốn cập nhật?"))
 				return;
-			if (!AccountDAO.updateAccount(user)) {
+			if (!dao.update(user)) {
 				MessageUtils.showError("Cập nhật thất bại");
 				return;
 			}
@@ -107,7 +109,7 @@ public class AccountsController {
 			}
 			if (!MessageUtils.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
 				return;
-			if (!AccountDAO.deleteAccount(view.getMa())) {
+			if (!dao.delete(view.getMa())) {
 				MessageUtils.showError("Xóa thất bại!");
 				return;
 			}

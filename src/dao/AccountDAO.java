@@ -7,21 +7,30 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDAO {
-	public static boolean addTaiKhoan(Account tk) throws Exception {
+public class AccountDAO extends BaseDAO<Account> {
+	@Override
+	protected PreparedStatement buildInsertStatement(Connection conn, Account tk) throws SQLException {
 		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Status) VALUES (?,?,?,?,?,?)";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setString(1, tk.getUser_Name());
-			statement.setString(2, tk.getEmail());
-			statement.setString(3, tk.getPassword());
-			statement.setString(4, tk.getAccount_Id().substring(0, 10));
-			statement.setString(5, tk.getRoleName());
-			statement.setString(6, tk.getStatus());
-			return statement.executeUpdate() > 0;
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, tk.getUser_Name());
+		statement.setString(2, tk.getEmail());
+		statement.setString(3, tk.getPassword());
+		statement.setString(4, tk.getAccount_Id().substring(0, 10));
+		statement.setString(5, tk.getRoleName());
+		statement.setString(6, tk.getStatus());
+		return statement;
+	}
 
-		} catch (SQLException e) {
-			throw new RuntimeException("Lỗi khi tạo tài khoản", e);
-		}
+	@Override
+	protected PreparedStatement buildUpdateStatement(Connection conn, Account tk) throws SQLException {
+		String sql = "UPDATE account SET UserName=?, Email=?,Password=?,Status=? where AccountId = ?";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, tk.getUser_Name());
+		statement.setString(2, tk.getEmail());
+		statement.setString(3, tk.getPassword());
+		statement.setString(4, tk.getStatus());
+		statement.setString(5, tk.getAccount_Id());
+		return statement;
 	}
 
 	public static Account findTkById(String id) throws Exception {
@@ -43,29 +52,13 @@ public class AccountDAO {
 		return acc;
 	}
 
-	public static boolean updateAccount(Account tk) {
-		String sql = "UPDATE account SET UserName=?, Email=?,Password=?,Status=? where AccountId = ?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setString(1, tk.getUser_Name());
-			statement.setString(2, tk.getEmail());
-			statement.setString(3, tk.getPassword());
-			statement.setString(4, tk.getStatus());
-			statement.setString(5, tk.getAccount_Id());
-			return statement.executeUpdate() > 0;
-		} catch (Exception e) {
-			// TODO: handle exception
-			throw new RuntimeException("Lỗi khi cập nhật tài khoản", e);
-		}
+	@Override
+	protected String getTableName() {
+		return "account";
 	}
 
-	public static boolean deleteAccount(String id) {
-		String sql = "Delete from account where AccountId=?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-			statement.setString(1, id);
-			return statement.executeUpdate() > 0;
-		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi xóa tài khoản", e);
-		}
+	protected String getPrimaryKetColumn() {
+		return "AccountId";
 	}
 
 	public static Account findTkByEmail(String email) throws Exception {
