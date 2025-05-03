@@ -1,20 +1,13 @@
 package controllers.admin;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.util.List;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import Interfaces.IAccountView;
 import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtils;
 import utils.MessageUtils;
 import utils.PasswordUtils;
-import views.Admin.Accounts;
 
 public class AccountsController {
 	private IAccountView view;
@@ -77,7 +70,7 @@ public class AccountsController {
 				MessageUtils.showWarning("Thông tin không được để trống!!!");
 				return;
 			}
-			Account user = AccountDAO.findTkById(view.getMa());
+			Account user = dao.findByField("AccountId", view.getMa());
 			user.setEmail(view.getEmail());
 			user.setUser_Name(view.getName());
 			user.setStatus(view.getStatus().equals("Đang hoạt động") ? "active" : "inactive");

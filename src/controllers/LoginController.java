@@ -15,10 +15,12 @@ import views.Admin.Menu;
 
 public class LoginController {
 	private ILoginView login;
+	private AccountDAO dao;
 
 	public LoginController(ILoginView login) {
 		// TODO Auto-generated constructor stub
 		this.login = login;
+		dao = new AccountDAO();
 		setupEventListeners();
 	}
 
@@ -36,7 +38,7 @@ public class LoginController {
 		try {
 			if (!InputValidate.loginValidate(login.getEmail(), login.getPassword()))
 				return;
-			Account user = AccountDAO.findTkByEmail(login.getEmail());
+			Account user = dao.findByField("Email", login.getEmail());
 			if (user == null) {
 				MessageUtils.showInfo("Thông tin không hợp lệ!");
 				return;

@@ -33,22 +33,15 @@ public class AccountDAO extends BaseDAO<Account> {
 		return statement;
 	}
 
-	public static Account findTkById(String id) throws Exception {
-		Account acc = null;
-		String query = "Select * from account where AccountId = ?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
-			ps.setString(1, id);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				acc = new Account();
-				acc.setAccount_Id(rs.getString("AccountId"));
-				acc.setEmail(rs.getString("Email"));
-				acc.setPassword(rs.getString("Password"));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e);
-		}
+	@Override
+	protected Account mapRow(ResultSet rs) throws SQLException {
+		Account acc = new Account();
+		acc.setAccount_Id(rs.getString("AccountId"));
+		acc.setEmail(rs.getString("Email"));
+		acc.setPassword(rs.getString("Password"));
+		acc.setRoleName(rs.getString("RoleName"));
+		acc.setStatus(rs.getString("Status"));
+		acc.setUser_Name(rs.getString("UserName"));
 		return acc;
 	}
 
@@ -57,30 +50,9 @@ public class AccountDAO extends BaseDAO<Account> {
 		return "account";
 	}
 
-	protected String getPrimaryKetColumn() {
+	@Override
+	protected String getPrimaryKeyColumn() {
 		return "AccountId";
-	}
-
-	public static Account findTkByEmail(String email) throws Exception {
-		Account acc = null;
-		String query = "Select * from account where Email = ?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
-
-			ps.setString(1, email);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				acc = new Account();
-				acc.setAccount_Id(rs.getString("AccountId"));
-				acc.setEmail(rs.getString("Email"));
-				acc.setPassword(rs.getString("Password"));
-				acc.setStatus(rs.getString("Status"));
-				acc.setRoleName(rs.getString("RoleName"));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e);
-		}
-		return acc;
 	}
 
 	public static List<String[]> findTksByName(String name) {

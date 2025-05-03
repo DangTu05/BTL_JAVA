@@ -176,7 +176,6 @@ public class CreateActor extends JFrame implements ICreateActorView {
 	public void showImageChooser() {
 		File selectedFile = null;
 		JFileChooser fileChooser = new JFileChooser();
-		FileChooser.showImageChooser(fileChooser,lblImg,selectedFile,this);
-		setFileImg(selectedFile);
+		setFileImg(FileChooser.showImageChooser(fileChooser, lblImg, selectedFile, this));
 	}
 }

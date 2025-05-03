@@ -10,16 +10,16 @@ import views.Register;
 public class AdminMain {
 	public static void main(String[] args) {
 		// 1. Khởi tạo View TRƯỚC
-		Accounts view = new Accounts();
+//		Accounts view = new Accounts();
 //Register dk=new Register();
 //		Login view=new Login();
-//		CreateActor view = new CreateActor();
+		CreateActor view = new CreateActor();
 //		CreateMovie view= new CreateMovie();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
-		AccountsController controller = new AccountsController(view);
+//		AccountsController controller = new AccountsController(view);
 //RegisterController controller=new RegisterController(dk);
 //		LoginController controller=new LoginController(view);
-//		CreateActorController controller = new CreateActorController(view);
+		CreateActorController controller = new CreateActorController(view);
 		// 3. Hiển thị giao diện
 		view.setVisible(true);
 	}

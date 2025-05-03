@@ -11,9 +11,11 @@ import validator.InputValidate;
 
 public class CreateActorController {
 	private ICreateActorView createActorView;
+	private ActorDAO dao;
 
 	public CreateActorController(ICreateActorView createActor) {
 		this.createActorView = createActor;
+		dao = new ActorDAO();
 		setupEventListeners();
 	}
 
@@ -38,7 +40,7 @@ public class CreateActorController {
 			} else {
 				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
 			}
-			if (!ActorDAO.addActor(actor)) {
+			if (!dao.insert(actor)) {
 				MessageUtils.showInfo("Tạo không thành công");
 				return;
 			}
