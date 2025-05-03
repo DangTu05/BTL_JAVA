@@ -13,14 +13,15 @@ import utils.UrlUtil;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Date;
 import java.awt.Color;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,6 +36,12 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JButton btnImg;
 	private File img;
 	private JLabel lblImg;
+	private JComboBox<String> cmbTrangThai;
+	private JSpinner thoiLuong;
+	private JSpinner doTuoi;
+	private JSpinner dateNgayPhatHanh;
+	private JTextArea txtMoTa;
+	private JButton btnTao;
 
 	/**
 	 * Launch the application.
@@ -72,7 +79,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		contentPane.add(lblTitle);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(112, 72, 719, 466);
+		panel.setBounds(112, 72, 719, 486);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -80,10 +87,10 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel.setBounds(83, 62, 66, 18);
 		panel.add(lblNewLabel);
-		JSpinner dateNgayPhatHanh = new JSpinner(new SpinnerDateModel());
+		dateNgayPhatHanh = new JSpinner(new SpinnerDateModel());
 		dateNgayPhatHanh.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		dateNgayPhatHanh.setEditor(new JSpinner.DateEditor(dateNgayPhatHanh, "dd/MM/yyyy"));
-		dateNgayPhatHanh.setBounds(488, 60, 102, 20);
+		dateNgayPhatHanh.setBounds(489, 55, 102, 32);
 		panel.add(dateNgayPhatHanh);
 
 		JLabel lblNewLabel_1 = new JLabel("Ngày phát hành:");
@@ -96,8 +103,8 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblNewLabel_2.setBounds(95, 139, 66, 18);
 		panel.add(lblNewLabel_2);
 
-		JSpinner thoiLuong = new JSpinner(new SpinnerNumberModel(1, 1, 240, 1));
-		thoiLuong.setBounds(488, 140, 75, 20);
+		thoiLuong = new JSpinner(new SpinnerNumberModel(1, 1, 240, 1));
+		thoiLuong.setBounds(488, 134, 75, 32);
 		panel.add(thoiLuong);
 
 		JLabel lblNewLabel_3 = new JLabel("Thời lượng(phút):");
@@ -110,16 +117,16 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblNewLabel_4.setBounds(433, 296, 45, 20);
 		panel.add(lblNewLabel_4);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(488, 279, 136, 71);
-		panel.add(textArea);
+		txtMoTa = new JTextArea();
+		txtMoTa.setBounds(488, 279, 136, 71);
+		panel.add(txtMoTa);
 
 		JLabel lblNewLabel_5 = new JLabel("Độ tuổi:");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_5.setBounds(428, 224, 54, 13);
 		panel.add(lblNewLabel_5);
-		JSpinner doTuoi = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		doTuoi.setBounds(488, 222, 75, 20);
+		doTuoi = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		doTuoi.setBounds(489, 216, 75, 32);
 		panel.add(doTuoi);
 
 		txtTenPhim = new JTextField();
@@ -137,7 +144,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblNewLabel_6.setBounds(83, 224, 66, 13);
 		panel.add(lblNewLabel_6);
 
-		JComboBox<String> cmbTrangThai = new JComboBox<>();
+		cmbTrangThai = new JComboBox<>();
 		cmbTrangThai.addItem("Sắp chiếu");
 		cmbTrangThai.addItem("Đang chiếu");
 		cmbTrangThai.addItem("Đã ngưng");
@@ -145,7 +152,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		panel.add(cmbTrangThai);
 
 		lblImg = new JLabel("");
-		lblImg.setBounds(147, 316, 181, 140);
+		lblImg.setBounds(106, 323, 181, 140);
 		panel.add(lblImg);
 
 		btnImg = new JButton("Chọn ảnh");
@@ -154,6 +161,13 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		btnImg.setIcon(new ImageIcon(UrlUtil
 				.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1746028706/ocamciq8zozv3skikq43.png")));
 		panel.add(btnImg);
+
+		btnTao = new JButton("Tạo");
+		btnTao.setBackground(new Color(153, 255, 51));
+		btnTao.setForeground(new Color(255, 255, 255));
+		btnTao.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnTao.setBounds(320, 431, 102, 32);
+		panel.add(btnTao);
 
 	}
 
@@ -164,7 +178,58 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	public void showImageChooser() {
 		File selectedFile = null;
 		JFileChooser fileChooser = new JFileChooser();
-		FileChooser.showImageChooser(fileChooser, lblImg, selectedFile, this);
-		setFileImg(selectedFile);
+		setFileImg(FileChooser.showImageChooser(fileChooser, lblImg, selectedFile, this));
+	}
+
+	public String getMovieName() {
+		return txtTenPhim.getText().trim();
+	}
+
+	public String getDirector() {
+		return txtTacGia.getText().trim();
+	}
+
+	public String getStatus() {
+		return (String) cmbTrangThai.getSelectedItem();
+	}
+
+	public String getMoTa() {
+		return txtMoTa.getText().trim();
+	}
+
+	public java.sql.Date getNgayPhatHanh() {
+		java.util.Date selectedDate = (java.util.Date) dateNgayPhatHanh.getValue();
+		java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+		return sqlDate;
+	}
+
+	public int getThoiLuong() {
+		return (int) thoiLuong.getValue();
+	}
+
+	public int getDoTuoi() {
+		return (int) doTuoi.getValue();
+	}
+
+	public File getFileImg() {
+		return img;
+	}
+
+	public void setShowImgListener(ActionListener listener) {
+		btnImg.addActionListener(listener);
+	}
+
+	public void setTaoListener(ActionListener listener) {
+		btnTao.addActionListener(listener);
+	}
+
+	public void reSetForm() {
+		txtMoTa.setText("");
+		txtTacGia.setText("");
+		txtTenPhim.setText("");
+		cmbTrangThai.setSelectedIndex(0);
+		doTuoi.setValue(1);
+		thoiLuong.setValue(0);
+		lblImg.setIcon(null);
 	}
 }

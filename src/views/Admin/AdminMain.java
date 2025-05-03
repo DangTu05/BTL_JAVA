@@ -4,6 +4,7 @@ import controllers.LoginController;
 import controllers.RegisterController;
 import controllers.admin.AccountsController;
 import controllers.admin.CreateActorController;
+import controllers.admin.CreateMovieController;
 import views.Login;
 import views.Register;
 
@@ -13,13 +14,14 @@ public class AdminMain {
 //		Accounts view = new Accounts();
 //Register dk=new Register();
 //		Login view=new Login();
-		CreateActor view = new CreateActor();
-//		CreateMovie view= new CreateMovie();
+//		CreateActor view = new CreateActor();
+		CreateMovie view = new CreateMovie();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
 //		AccountsController controller = new AccountsController(view);
 //RegisterController controller=new RegisterController(dk);
 //		LoginController controller=new LoginController(view);
-		CreateActorController controller = new CreateActorController(view);
+//		CreateActorController controller = new CreateActorController(view);
+		CreateMovieController controller = new CreateMovieController(view);
 		// 3. Hiển thị giao diện
 		view.setVisible(true);
 	}

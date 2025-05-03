@@ -14,7 +14,7 @@ public class ActorDAO extends BaseDAO<Actor> {
 
 	@Override
 	protected PreparedStatement buildInsertStatement(Connection conn, Actor entity) throws SQLException {
-		String sql = "Insert into tblActor (actor_id,actor_name,birth,nationality	,biography,actor_image) values (?,?,?,?,?,?)";
+		String sql = "Insert into tblActor (actor_id,actor_name,birth,nationality,biography,actor_image) values (?,?,?,?,?,?)";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, entity.getActor_id());
 		statement.setString(2, entity.getActor_name());

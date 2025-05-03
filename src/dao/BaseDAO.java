@@ -23,7 +23,7 @@ public abstract class BaseDAO<T> {
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = buildInsertStatement(conn, entity)) {
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi thêm bản ghi", e);
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 
