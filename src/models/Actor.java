@@ -6,6 +6,7 @@ public class Actor {
 	private String actor_image;
 	private String nationality;
 	private java.sql.Date birth;
+
 	private String biography;
 
 	public Actor(String actor_id, String actor_name, String actor_image, String nationality, java.sql.Date birth,
@@ -73,5 +74,10 @@ public class Actor {
 
 	public void setBiography(String biography) {
 		this.biography = biography;
+	}
+
+	@Override
+	public String toString() {
+		return actor_name;
 	}
 }

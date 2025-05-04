@@ -3,6 +3,7 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.Box;
 public class Home extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private JMenuItem jMenuItem_Thoat;
 
 	/**
 	 * Launch the application.
@@ -60,7 +62,7 @@ public class Home extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Đăng Nhập");
 		jMenu_Option.add(mntmNewMenuItem);
 		
-		JMenuItem jMenuItem_Thoat = new JMenuItem("Thoát");
+		jMenuItem_Thoat = new JMenuItem("Thoát");
 		jMenuItem_Thoat.addActionListener(homeController);
 		menuBar.add(jMenuItem_Thoat);
 		
@@ -71,6 +73,8 @@ public class Home extends JFrame {
 		if(luachon==JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
+	}
+	public void setThoatListener(ActionListener listener) {
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import Interfaces.ICreateMovieView;
 import components.FileChooser;
+import models.Actor;
 import utils.UrlUtil;
 
 import javax.swing.JLabel;
@@ -16,16 +17,23 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.Date;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class CreateMovie extends JFrame implements ICreateMovieView {
 
@@ -42,6 +50,9 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JSpinner dateNgayPhatHanh;
 	private JTextArea txtMoTa;
 	private JButton btnTao;
+	private JScrollPane scrollPane;
+	private JPanel panel;
+	private JList<Actor> listActor;
 
 	/**
 	 * Launch the application.
@@ -78,8 +89,8 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblTitle.setBounds(385, 10, 209, 31);
 		contentPane.add(lblTitle);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(112, 72, 719, 486);
+		panel = new JPanel();
+		panel.setBounds(65, 72, 824, 486);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -152,7 +163,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		panel.add(cmbTrangThai);
 
 		lblImg = new JLabel("");
-		lblImg.setBounds(106, 323, 181, 140);
+		lblImg.setBounds(114, 323, 181, 140);
 		panel.add(lblImg);
 
 		btnImg = new JButton("Chọn ảnh");
@@ -168,7 +179,13 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		btnTao.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTao.setBounds(320, 431, 102, 32);
 		panel.add(btnTao);
-
+		listActor = new JList<>();
+		listActor.setBounds(652, 142, 124, 75);
+		listActor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);/// cho phép chọn nhiều
+		// thêm vào view
+		JScrollPane scrollPane = new JScrollPane(listActor);
+		scrollPane.setBounds(652, 139, 162, 98);
+		panel.add(scrollPane); // hoặc panel.add(scrollPane) nếu có layout cụ thể
 	}
 
 	public void setFileImg(File fileImg) {
@@ -232,4 +249,17 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		thoiLuong.setValue(0);
 		lblImg.setIcon(null);
 	}
+
+	public void getActorsForList(List<Actor> actorList) {
+		DefaultListModel<Actor> listModel = new DefaultListModel<>();
+		for (Actor actor : actorList) {
+			listModel.addElement(actor);
+		}
+		listActor.setModel(listModel);
+	}
+
+	public List<Actor> getSelectedActorList() {
+		return listActor.getSelectedValuesList();
+	}
+
 }
