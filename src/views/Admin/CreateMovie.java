@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import Interfaces.ICreateMovieView;
 import components.FileChooser;
 import models.Actor;
+import models.Category;
 import utils.UrlUtil;
 
 import javax.swing.JLabel;
@@ -53,6 +54,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JScrollPane scrollPane;
 	private JPanel panel;
 	private JList<Actor> listActor;
+	private JList listCategory;
 
 	/**
 	 * Launch the application.
@@ -186,6 +188,12 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		JScrollPane scrollPane = new JScrollPane(listActor);
 		scrollPane.setBounds(652, 139, 162, 98);
 		panel.add(scrollPane); // hoặc panel.add(scrollPane) nếu có layout cụ thể
+
+		listCategory = new JList<>();
+		listCategory.setBounds(652, 296, 162, 98);
+		JScrollPane scrollPane_1 = new JScrollPane(listCategory);
+		scrollPane_1.setBounds(652, 296, 162, 98);
+		panel.add(scrollPane_1);
 	}
 
 	public void setFileImg(File fileImg) {
@@ -250,16 +258,24 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		lblImg.setIcon(null);
 	}
 
-	public void getActorsForList(List<Actor> actorList) {
-		DefaultListModel<Actor> listModel = new DefaultListModel<>();
-		for (Actor actor : actorList) {
-			listModel.addElement(actor);
+	public <T> void getItemsForList(List<T> dataList, JList<T> jList) {
+		DefaultListModel<T> listModel = new DefaultListModel<>();
+		for (T item : dataList) {
+			listModel.addElement(item);
 		}
-		listActor.setModel(listModel);
+		jList.setModel(listModel);
 	}
 
-	public List<Actor> getSelectedActorList() {
-		return listActor.getSelectedValuesList();
+	public <T> List<T> getSelectedItemList(JList<T> jList) {
+		return jList.getSelectedValuesList();
+	}
+
+	public JList<Actor> getListActor() {
+		return listActor;
+	}
+
+	public JList<Category> getListCategory() {
+		return listCategory;
 	}
 
 }

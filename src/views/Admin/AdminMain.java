@@ -16,15 +16,15 @@ public class AdminMain {
 //Register dk=new Register();
 //		Login view=new Login();
 //		CreateActor view = new CreateActor();
-//		CreateMovie view = new CreateMovie();
-		CreateCategory view=new CreateCategory();
+		CreateMovie view = new CreateMovie();
+//		CreateCategory view=new CreateCategory();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
 //		AccountsController controller = new AccountsController(view);
 //RegisterController controller=new RegisterController(dk);
 //		LoginController controller=new LoginController(view);
 //		CreateActorController controller = new CreateActorController(view);
-//		CreateMovieController controller = new CreateMovieController(view);
-		new CreateCategoryController(view); 
+		CreateMovieController controller = new CreateMovieController(view);
+//		new CreateCategoryController(view); 
 		// 3. Hiển thị giao diện
 		view.setVisible(true);
 	}

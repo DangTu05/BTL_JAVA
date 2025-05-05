@@ -7,10 +7,12 @@ import java.util.List;
 import Configs.Database.ConnectDB;
 import Interfaces.ICreateMovieView;
 import dao.ActorDAO;
+import dao.CategoryDAO;
 import dao.MovieActorDAO;
 import dao.MovieDAO;
 import middlewares.UploadCloud;
 import models.Actor;
+import models.Category;
 import models.Movie;
 import models.MovieActor;
 import utils.ErrorUtils;
@@ -29,7 +31,8 @@ public class CreateMovieController {
 		dao = new MovieDAO();
 		movie_actorDao = new MovieActorDAO();
 		setupEventListener();
-		loadAcotrToView();
+		loadActorToView();
+		loadCategoryToView();
 	}
 
 	private void setupEventListener() {
@@ -51,7 +54,7 @@ public class CreateMovieController {
 			if (!InputValidate.createMovie(movie_name, view.getFileImg()))
 				return;
 			String urlImg = UploadCloud.upload(view.getFileImg());
-			List<Actor> actors = view.getSelectedActorList();
+			List<Actor> actors = view.getSelectedItemList(view.getListActor());
 
 			movie = new Movie(movie_id, movie_name, release_date, director, duration, script, age_permisson, urlImg,
 					status);
@@ -73,8 +76,13 @@ public class CreateMovieController {
 		}
 	}
 
-	public void loadAcotrToView() {
+	public void loadActorToView() {
 		List<Actor> actors = ActorDAO.getAllActors();
-		view.getActorsForList(actors);
+		view.getItemsForList(actors, view.getListActor());
+	}
+
+	public void loadCategoryToView() {
+		List<Category> categories = CategoryDAO.getAllCategory();
+		view.getItemsForList(categories, view.getListCategory());
 	}
 }

@@ -25,4 +25,9 @@ public class Category {
 		this.category_name = category_name;
 	}
 
+	@Override
+	public String toString() {
+		return category_name;
+	}
+
 }
