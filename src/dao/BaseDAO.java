@@ -23,7 +23,7 @@ public abstract class BaseDAO<T> {
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = buildInsertStatement(conn, entity)) {
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage(), e);
+			  throw new RuntimeException("Thêm tài khoản thất bại: " + e.getMessage(), e);
 		}
 	}
 
@@ -31,7 +31,7 @@ public abstract class BaseDAO<T> {
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = buildUpdateStatement(conn, entity)) {
 			return ps.executeUpdate() > 0;
 		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi cập nhật bản ghi", e);
+			  throw new RuntimeException("Cập nhật tài khoản thất bại: " + e.getMessage(), e);
 		}
 	}
 
@@ -41,7 +41,7 @@ public abstract class BaseDAO<T> {
 			statement.setString(1, id);
 			return statement.executeUpdate() > 0;
 		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi xóa tài khoản", e);
+			  throw new RuntimeException("Xóa tài khoản thất bại: " + e.getMessage(), e);
 		}
 	}
 
@@ -55,7 +55,7 @@ public abstract class BaseDAO<T> {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e);
+			  throw new RuntimeException("Tìm kiếm thất bại: " + e.getMessage(), e);
 		}
 		return null;
 	}

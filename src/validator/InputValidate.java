@@ -44,8 +44,17 @@ public class InputValidate {
 		return true;
 	}
 
+	public static boolean createCategory(String category_id, String category_name) {
+		if (category_id == null || category_id.trim().isEmpty() || category_name == null
+				|| category_name.trim().isEmpty()) {
+			MessageUtils.showWarning("Thông tin không được để trống!");
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean createMovie(String movie_name, File poster) {
-		if (movie_name == null || movie_name.trim().isEmpty() || poster == null ) {
+		if (movie_name == null || movie_name.trim().isEmpty() || poster == null) {
 			MessageUtils.showWarning("Thông tin không được để trống!");
 			return false;
 		}

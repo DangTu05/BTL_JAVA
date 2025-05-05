@@ -30,7 +30,6 @@ public class CreateActorController {
 		String biography = createActorView.getTieuSu();
 		java.sql.Date birth = createActorView.getNgaySinh();
 		String actor_id = GenerateId.generateId("ACTOR");
-		System.out.print(actor_id);
 		try {
 			Actor actor = null;
 			if (!InputValidate.createActor(actor_name, birth))
