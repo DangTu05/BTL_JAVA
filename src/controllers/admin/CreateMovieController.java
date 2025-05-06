@@ -9,12 +9,14 @@ import Interfaces.ICreateMovieView;
 import dao.ActorDAO;
 import dao.CategoryDAO;
 import dao.MovieActorDAO;
+import dao.MovieCategoryDAO;
 import dao.MovieDAO;
 import middlewares.UploadCloud;
 import models.Actor;
 import models.Category;
 import models.Movie;
 import models.MovieActor;
+import models.MovieCategory;
 import utils.ErrorUtils;
 import utils.GenerateId;
 import utils.MessageUtils;
@@ -25,11 +27,13 @@ public class CreateMovieController {
 	private MovieDAO dao;
 	private ICreateMovieView view;
 	private MovieActorDAO movie_actorDao;
+	private MovieCategoryDAO movie_categoryDao;
 
 	public CreateMovieController(ICreateMovieView view) {
 		this.view = view;
 		dao = new MovieDAO();
 		movie_actorDao = new MovieActorDAO();
+		movie_categoryDao = new MovieCategoryDAO();
 		setupEventListener();
 		loadActorToView();
 		loadCategoryToView();
@@ -55,7 +59,6 @@ public class CreateMovieController {
 				return;
 			String urlImg = UploadCloud.upload(view.getFileImg());
 			List<Actor> actors = view.getSelectedItemList(view.getListActor());
-
 			movie = new Movie(movie_id, movie_name, release_date, director, duration, script, age_permisson, urlImg,
 					status);
 			if (!dao.insert(movie)) {
@@ -64,12 +67,23 @@ public class CreateMovieController {
 			}
 			if (!actors.isEmpty()) {
 				for (Actor actor : actors) {
-					movie_actorDao.insert(new MovieActor(movie_id, actor.getActor_id()));
+					if (!movie_actorDao.insert(new MovieActor(movie_id, actor.getActor_id()))) {
+						MessageUtils.showInfo("Tạo không thành công!!!");
+						return;
+					}
+				}
+			}
+			List<Category> categories = view.getSelectedItemList(view.getListCategory());
+			if (!categories.isEmpty()) {
+				for (Category category : categories) {
+					if (!movie_categoryDao.insert(new MovieCategory(category.getCategory_id(), movie_id))) {
+						MessageUtils.showInfo("Tạo không thành công!!!");
+						return;
+					}
 				}
 			}
 			MessageUtils.showInfo("Tạo thành công");
 			view.reSetForm();
-			return;
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtils.handle(e, "Đã xảy ra lỗi!!");

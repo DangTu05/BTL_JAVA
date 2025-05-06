@@ -54,7 +54,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JScrollPane scrollPane;
 	private JPanel panel;
 	private JList<Actor> listActor;
-	private JList listCategory;
+	private JList<Category> listCategory;
 
 	/**
 	 * Launch the application.
@@ -182,17 +182,17 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		btnTao.setBounds(320, 431, 102, 32);
 		panel.add(btnTao);
 		listActor = new JList<>();
-		listActor.setBounds(652, 142, 124, 75);
+		listActor.setBounds(652, 55, 124, 75);
 		listActor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);/// cho phép chọn nhiều
 		// thêm vào view
 		JScrollPane scrollPane = new JScrollPane(listActor);
-		scrollPane.setBounds(652, 139, 162, 98);
+		scrollPane.setBounds(652, 55, 162, 98);
 		panel.add(scrollPane); // hoặc panel.add(scrollPane) nếu có layout cụ thể
 
 		listCategory = new JList<>();
-		listCategory.setBounds(652, 296, 162, 98);
+		listCategory.setBounds(652, 220, 162, 98);
 		JScrollPane scrollPane_1 = new JScrollPane(listCategory);
-		scrollPane_1.setBounds(652, 296, 162, 98);
+		scrollPane_1.setBounds(652, 220, 162, 98);
 		panel.add(scrollPane_1);
 	}
 
