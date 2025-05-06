@@ -11,7 +11,7 @@ import java.util.logging.ErrorManager;
 
 import Configs.Database.ConnectDB;
 import models.Actor;
-import utils.ErrorUtils;
+import utils.ErrorUtil;
 
 public class ActorDAO extends BaseDAO<Actor> {
 

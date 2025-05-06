@@ -2,9 +2,9 @@ package utils;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-public class PasswordUtils {
+public class PasswordUtil {
 
-	public PasswordUtils() {
+	public PasswordUtil() {
 		// TODO Auto-generated constructor stub
 	}
 

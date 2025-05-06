@@ -7,9 +7,9 @@ import java.awt.event.MouseListener;
 import Interfaces.ILoginView;
 import dao.AccountDAO;
 import models.Account;
-import utils.ErrorUtils;
-import utils.MessageUtils;
-import utils.PasswordUtils;
+import utils.ErrorUtil;
+import utils.MessageUtil;
+import utils.PasswordUtil;
 import validator.InputValidate;
 import views.Admin.Menu;
 
@@ -40,22 +40,22 @@ public class LoginController {
 				return;
 			Account user = dao.findByField("Email", login.getEmail());
 			if (user == null) {
-				MessageUtils.showInfo("Thông tin không hợp lệ!");
+				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
 			}
-			if (!PasswordUtils.checkPassword(login.getPassword(), user.getPassword())) {
-				MessageUtils.showInfo("Thông tin không hợp lệ!");
+			if (!PasswordUtil.checkPassword(login.getPassword(), user.getPassword())) {
+				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
 			}
 			if (user.getRoleName().equals("ADMIN")) {
-				MessageUtils.showInfo("Đăng nhập thành công");
+				MessageUtil.showInfo("Đăng nhập thành công");
 				new Menu().setVisible(true);
 				login.hidenLoginPage();
 			}
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			ErrorUtils.handle(e1, e1.getMessage());
+			ErrorUtil.handle(e1, e1.getMessage());
 		}
 	}
 

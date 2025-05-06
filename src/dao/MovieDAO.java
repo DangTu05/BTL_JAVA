@@ -2,8 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import Configs.Database.ConnectDB;
 import models.Actor;
 import models.Movie;
 
@@ -32,5 +37,24 @@ public class MovieDAO extends BaseDAO<Movie> {
 		statement.setString(8, entity.getPoster());
 		statement.setString(9, entity.getStatus());
 		return statement;
+	}
+
+	public static List<String[]> getAllMoive() {
+		String sql = "Select * from tblMovie";
+		List<String[]> movies = new ArrayList<>();
+		try (Connection conn = ConnectDB.getConnection();
+				Statement statement = conn.createStatement();
+				ResultSet rs = statement.executeQuery(sql)) {
+			while (rs.next()) {
+				movies.add(new String[] { rs.getString("movie_id"), rs.getString("movie_name"),
+						rs.getString("release_date"), rs.getString("director"), rs.getString("duration"),
+						rs.getString("script"), rs.getString("age_permisson"), rs.getString("poster"),
+						rs.getString("status") });
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản " + e.getMessage(), e);
+		}
+		return movies;
 	}
 }

@@ -33,6 +33,7 @@ import Interfaces.IAccountView;
 import controllers.admin.AccountsController;
 import models.Account;
 import utils.UrlUtil;
+import utils.ViewUtil;
 
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -301,20 +302,7 @@ public class Accounts extends JFrame implements IAccountView {
 	}
 
 	public void loadDataFromDataBase(List<String[]> data) {
-		// Gọi Controller để lấy dữ liệu
-		// Tắt auto resize trước khi thêm dữ liệu
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		try {
-			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			model.setRowCount(0); // Xóa dữ liệu cũ
-			for (String[] row : data) {
-				model.addRow(row); // Thêm từng dòng
-			}
-		} finally {
-			// Luôn bật lại auto resize dù có lỗi hay không
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		}
+		ViewUtil.loadDataFromDataBase(table, data);
 	}
 
 	public void loadDataFromForSearch(List<String[]> data) {

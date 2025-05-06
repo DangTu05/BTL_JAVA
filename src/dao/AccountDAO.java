@@ -1,7 +1,7 @@
 package dao;
 
 import models.Account;
-import utils.ErrorUtils;
+import utils.ErrorUtil;
 import Configs.Database.ConnectDB;
 import java.sql.*;
 import java.util.ArrayList;

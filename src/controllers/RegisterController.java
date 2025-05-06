@@ -6,10 +6,10 @@ import java.awt.event.MouseListener;
 import Interfaces.IRegisterView;
 import dao.AccountDAO;
 import models.Account;
-import utils.ErrorUtils;
-import utils.GenerateId;
-import utils.MessageUtils;
-import utils.PasswordUtils;
+import utils.ErrorUtil;
+import utils.GenerateIdUtil;
+import utils.MessageUtil;
+import utils.PasswordUtil;
 import validator.InputValidate;
 
 public class RegisterController {
@@ -42,18 +42,18 @@ public class RegisterController {
 			String password = dk.getPassword();
 			if (!InputValidate.registerValidate(email, username, password))
 				return;
-			password = PasswordUtils.hashPassword(password);
-			Account newAccount = new Account(GenerateId.generateId("ACC"), username, email, password);
+			password = PasswordUtil.hashPassword(password);
+			Account newAccount = new Account(GenerateIdUtil.generateId("ACC"), username, email, password);
 			if (!dao.insert(newAccount)) {
 				return;
 			}
-			boolean result = MessageUtils.confirm("Bạn đã đăng kí thành công. Chuyển sang đăng nhập?");
+			boolean result = MessageUtil.confirm("Bạn đã đăng kí thành công. Chuyển sang đăng nhập?");
 			if (result) {
 				redirectLogin();
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
 

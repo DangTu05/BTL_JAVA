@@ -4,9 +4,9 @@ import Interfaces.ICreateActorView;
 import dao.ActorDAO;
 import middlewares.UploadCloud;
 import models.Actor;
-import utils.ErrorUtils;
-import utils.GenerateId;
-import utils.MessageUtils;
+import utils.ErrorUtil;
+import utils.GenerateIdUtil;
+import utils.MessageUtil;
 import validator.InputValidate;
 
 public class CreateActorController {
@@ -29,7 +29,7 @@ public class CreateActorController {
 		String nationality = createActorView.getQuocGia();
 		String biography = createActorView.getTieuSu();
 		java.sql.Date birth = createActorView.getNgaySinh();
-		String actor_id = GenerateId.generateId("ACTOR");
+		String actor_id = GenerateIdUtil.generateId("ACTOR");
 		try {
 			Actor actor = null;
 			if (!InputValidate.createActor(actor_name, birth))
@@ -41,13 +41,13 @@ public class CreateActorController {
 				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
 			}
 			if (!dao.insert(actor)) {
-				MessageUtils.showInfo("Tạo không thành công");
+				MessageUtil.showInfo("Tạo không thành công");
 				return;
 			}
-			MessageUtils.showInfo("Tạo thành công");
+			MessageUtil.showInfo("Tạo thành công");
 			return;
 		} catch (Exception e) {
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!");
 			// TODO: handle exception
 		}
 	}

@@ -5,9 +5,9 @@ import javax.swing.event.ListSelectionListener;
 import Interfaces.IAccountView;
 import dao.AccountDAO;
 import models.Account;
-import utils.ErrorUtils;
-import utils.MessageUtils;
-import utils.PasswordUtils;
+import utils.ErrorUtil;
+import utils.MessageUtil;
+import utils.PasswordUtil;
 
 public class AccountsController {
 	private IAccountView view;
@@ -63,11 +63,11 @@ public class AccountsController {
 	public void updateAccount() {
 		try {
 			if (view.getMa().isEmpty()) {
-				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
 				return;
 			}
 			if (!checkData()) {
-				MessageUtils.showWarning("Thông tin không được để trống!!!");
+				MessageUtil.showWarning("Thông tin không được để trống!!!");
 				return;
 			}
 			Account user = dao.findByField("AccountId", view.getMa());
@@ -75,20 +75,20 @@ public class AccountsController {
 			user.setUser_Name(view.getName());
 			user.setStatus(view.getStatus().equals("Đang hoạt động") ? "active" : "inactive");
 			if (!view.getPassword().isEmpty()) {
-				user.setPassword(PasswordUtils.hashPassword(view.getPassword()));
+				user.setPassword(PasswordUtil.hashPassword(view.getPassword()));
 			}
-			if (!MessageUtils.confirm("Bạn có muốn cập nhật?"))
+			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
 				return;
 			if (!dao.update(user)) {
-				MessageUtils.showError("Cập nhật thất bại");
+				MessageUtil.showError("Cập nhật thất bại");
 				return;
 			}
-			MessageUtils.showInfo("Cập nhật thành công");
+			MessageUtil.showInfo("Cập nhật thành công");
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 
 	}
@@ -97,20 +97,20 @@ public class AccountsController {
 
 		try {
 			if (view.getMa().isEmpty()) {
-				MessageUtils.showWarning("Vui lòng chọn 1 tài khoản cần xóa!");
+				MessageUtil.showWarning("Vui lòng chọn 1 tài khoản cần xóa!");
 				return;
 			}
-			if (!MessageUtils.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
+			if (!MessageUtil.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
 				return;
 			if (!dao.delete(view.getMa())) {
-				MessageUtils.showError("Xóa thất bại!");
+				MessageUtil.showError("Xóa thất bại!");
 				return;
 			}
-			MessageUtils.showInfo("Đã xóa thành công");
+			MessageUtil.showInfo("Đã xóa thành công");
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 
 		} catch (Exception e) {
-			ErrorUtils.handle(e, "Đã xảy ra lỗi");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi");
 		}
 	}
 
@@ -118,7 +118,7 @@ public class AccountsController {
 		try {
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 		} catch (Exception e) {
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
 
@@ -126,7 +126,7 @@ public class AccountsController {
 		try {
 			view.loadDataFromForSearch(AccountDAO.findTksByName(view.getTextSearch()));
 		} catch (Exception e) {
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
 
@@ -144,7 +144,7 @@ public class AccountsController {
 
 		try {
 			if (view.getMa().isEmpty()) {
-				MessageUtils.showWarning("Vui lòng chọn tài khoản muốn đổi trạng thái!");
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn đổi trạng thái!");
 				return;
 			}
 			// Lấy trạng thái hiện tại từ view
@@ -157,7 +157,7 @@ public class AccountsController {
 			// Nếu muốn lưu ngay lập tức
 			updateAccount();
 		} catch (Exception e) {
-			ErrorUtils.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
 }

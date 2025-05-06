@@ -2,7 +2,7 @@ package utils;
 
 import javax.swing.JOptionPane;
 
-public class MessageUtils {
+public class MessageUtil {
 	public static void showInfo(String message) {
 		JOptionPane.showMessageDialog(null, message, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 	}
