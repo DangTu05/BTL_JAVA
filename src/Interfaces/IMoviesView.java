@@ -18,5 +18,9 @@ public interface IMoviesView {
 
 	public void setResetListener(ActionListener listener);
 
+	public void setTaoListener(ActionListener listener);
+
+	public void redirectCreateMovie();
+
 	public JTable getTable();
 }

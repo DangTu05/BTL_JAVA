@@ -25,6 +25,7 @@ import Interfaces.IMoviesView;
 import utils.ConvertUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
+import views.Login;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -316,6 +317,9 @@ public class Movies extends JFrame implements IMoviesView {
 	public void setResetListener(ActionListener listener) {
 		btnReset.addActionListener(listener);
 	}
+	public void setTaoListener(ActionListener listener) {
+		btnTao.addActionListener(listener);
+	}
 
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
@@ -345,6 +349,10 @@ public class Movies extends JFrame implements IMoviesView {
 		dateNgayPhatHanh.setValue(new Date());
 		doTuoi.setValue(1);
 		thoiLuong.setValue(1);
+	}
+	public void redirectCreateMovie() {
+		new CreateMovie().setVisible(true);
+		this.dispose();
 	}
 
 	public JTable getTable() {

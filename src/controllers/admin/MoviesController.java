@@ -19,6 +19,7 @@ public class MoviesController {
 	private void setUpEventListeners() {
 		view.setAccountSelectionListener(e -> addTableListener());
 		view.setResetListener(e -> view.reset());
+		view.setTaoListener(e->view.redirectCreateMovie());
 	}
 
 	private void loadDataFromDataBase() {
