@@ -1,10 +1,5 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
-import Configs.Database.ConnectDB;
-import Interfaces.IAccount;
 
 public class Account {
 	private String Account_Id;

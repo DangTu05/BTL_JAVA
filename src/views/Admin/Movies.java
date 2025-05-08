@@ -3,6 +3,8 @@ package views.Admin;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -16,9 +18,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import Interfaces.IMovies;
+import Interfaces.IMoviesView;
+import utils.ConvertUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
 
@@ -29,7 +33,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 
-public class Movies extends JFrame implements IMovies {
+public class Movies extends JFrame implements IMoviesView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -42,10 +46,12 @@ public class Movies extends JFrame implements IMovies {
 	private JTextField txtMaPhim;
 	private JTextField txtTenPhim;
 	private JSpinner dateNgayPhatHanh;
-	private JSpinner dateNgayPhatHanh_1;
 	private JTextField txtTacGia;
 	private JTextField txtAnh;
 	private JTextArea txtMoTa;
+	private JSpinner doTuoi;
+	private JSpinner thoiLuong;
+	private JButton btnStatus;
 
 	/**
 	 * Launch the application.
@@ -163,11 +169,13 @@ public class Movies extends JFrame implements IMovies {
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		table.setForeground(new Color(0, 0, 0));
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, },
-				new String[] { "Mã phim", "Tên phim", "Ngày phát hành", "Tác giả", "Thời lượng(phút)", "Độ tuổi",
-						"Mô tả", "Img" }) {
+		table.setModel(new DefaultTableModel(
+				new Object[][] { { null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null },
+						{ null, null, null, null, null, null, null, null, null }, },
+				new String[] { "Mã phim", "Tên phim", "Ngày phát hành", "Tác giả", "Thời lượng(phút)", "Mô tả",
+						"Độ tuổi", "Img", "Trạng thái" }) {
 			/**
 					 * 
 					 */
@@ -217,11 +225,11 @@ public class Movies extends JFrame implements IMovies {
 		separator_1.setBounds(452, 104, 160, 19);
 		contentPane.add(separator_1);
 
-		JButton btnStatus = new JButton("");
+		btnStatus = new JButton("");
 		btnStatus.setBackground(new Color(0, 255, 51));
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnStatus.setForeground(new Color(0, 0, 0));
-		btnStatus.setBounds(696, 409, 85, 21);
+		btnStatus.setBounds(669, 412, 85, 21);
 		contentPane.add(btnStatus);
 
 		JLabel lblNewLabel_1 = new JLabel("Ngày Phát Hành");
@@ -230,12 +238,11 @@ public class Movies extends JFrame implements IMovies {
 		lblNewLabel_1.setBounds(669, 50, 112, 19);
 		contentPane.add(lblNewLabel_1);
 
-		dateNgayPhatHanh = new JSpinner();
-		dateNgayPhatHanh_1 = new JSpinner(new SpinnerDateModel());
-		dateNgayPhatHanh_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		dateNgayPhatHanh_1.setEditor(new JSpinner.DateEditor(dateNgayPhatHanh_1, "dd/MM/yyyy"));
-		dateNgayPhatHanh_1.setBounds(679, 76, 102, 26);
-		contentPane.add(dateNgayPhatHanh_1);
+		dateNgayPhatHanh = new JSpinner(new SpinnerDateModel());
+		dateNgayPhatHanh.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		dateNgayPhatHanh.setEditor(new JSpinner.DateEditor(dateNgayPhatHanh, "dd/MM/yyyy"));
+		dateNgayPhatHanh.setBounds(679, 76, 102, 26);
+		contentPane.add(dateNgayPhatHanh);
 
 		JLabel lblNewLabel_2 = new JLabel("Tác Giả");
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -264,44 +271,83 @@ public class Movies extends JFrame implements IMovies {
 		txtAnh.setBorder(null);
 		contentPane.add(txtAnh);
 		txtAnh.setColumns(10);
-		
+
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(452, 196, 329, 19);
 		contentPane.add(separator_3);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("Mô Tả");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(417, 259, 59, 19);
 		contentPane.add(lblNewLabel_4);
-		
+
 		txtMoTa = new JTextArea();
 		Border redBorder = BorderFactory.createLineBorder(Color.BLACK); // tạo viền đỏ
 		txtMoTa.setBorder(redBorder);
 		txtMoTa.setBounds(291, 288, 321, 81);
 		contentPane.add(txtMoTa);
-		
-		JSpinner ThoiLuong = new JSpinner();
-		ThoiLuong.setBounds(669, 284, 78, 25);
-		contentPane.add(ThoiLuong);
-		
+
+		thoiLuong = new JSpinner();
+		thoiLuong.setBounds(669, 284, 78, 25);
+		contentPane.add(thoiLuong);
+
 		JLabel lblNewLabel_5 = new JLabel("Thời Lượng");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_5.setBounds(671, 259, 76, 19);
 		contentPane.add(lblNewLabel_5);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("Độ Tuổi");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_6.setBounds(669, 333, 69, 19);
 		contentPane.add(lblNewLabel_6);
-		
-		JSpinner DoTuoi = new JSpinner();
-		DoTuoi.setBounds(669, 362, 78, 25);
-		contentPane.add(DoTuoi);
+
+		doTuoi = new JSpinner();
+		doTuoi.setBounds(669, 362, 78, 25);
+		contentPane.add(doTuoi);
 
 	}
+
+	public void setAccountSelectionListener(ListSelectionListener listener) {
+		table.getSelectionModel().addListSelectionListener(listener);
+	}
+
+	public void setResetListener(ActionListener listener) {
+		btnReset.addActionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
+	}
+
+	public void setFormData(String movie_id, String movie_name, String release_date, String director, int duration,
+			String script, int age_permission, String poster, String status) {
+		txtMaPhim.setText(movie_id);
+		txtTenPhim.setText(movie_name);
+		txtTacGia.setText(director);
+		txtMoTa.setText(script);
+		txtAnh.setText(poster);
+		doTuoi.setValue(age_permission);
+		thoiLuong.setValue(duration);
+		dateNgayPhatHanh.setValue(ConvertUtil.convertDateFromDB(release_date));
+		btnStatus.setText(status);
+
+	}
+
+	public void reset() {
+		txtMaPhim.setText("");
+		txtTenPhim.setText("");
+		txtTacGia.setText("");
+		txtMoTa.setText("");
+		txtMoTa.setText("");
+		txtAnh.setText("");
+		dateNgayPhatHanh.setValue(new Date());
+		doTuoi.setValue(1);
+		thoiLuong.setValue(1);
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 }
