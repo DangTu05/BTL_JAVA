@@ -60,15 +60,15 @@ public class AccountsController {
 		});
 	}
 
-	public void updateAccount() {
+	public boolean updateAccount() {
 		try {
 			if (view.getMa().isEmpty()) {
 				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
-				return;
+				return false;
 			}
 			if (!checkData()) {
 				MessageUtil.showWarning("Thông tin không được để trống!!!");
-				return;
+				return false;
 			}
 			Account user = dao.findByField("AccountId", view.getMa());
 			user.setEmail(view.getEmail());
@@ -78,17 +78,19 @@ public class AccountsController {
 				user.setPassword(PasswordUtil.hashPassword(view.getPassword()));
 			}
 			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
-				return;
+				return false;
 			if (!dao.update(user)) {
 				MessageUtil.showError("Cập nhật thất bại");
-				return;
+				return false;
 			}
 			MessageUtil.showInfo("Cập nhật thành công");
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
+			return true;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			return false;
 		}
 
 	}
@@ -150,12 +152,15 @@ public class AccountsController {
 			// Lấy trạng thái hiện tại từ view
 			String currentStatus = view.getStatus();
 			String newStatus = currentStatus.equals("Đang hoạt động") ? "Tài khoản bị khóa" : "Đang hoạt động";
-
+			// Nếu muốn lưu ngay lập tức
+			if (!dao.changeStatus(view.getStatus().equals("Đang hoạt động") ? "inactive" : "active", view.getMa())) {
+				MessageUtil.showError("Cập nhật thất bại!!");
+				return;
+			}
 			// Cập nhật trạng thái trên giao diện
 			view.setStatus(newStatus);
+			loadDataFromDataBase();
 
-			// Nếu muốn lưu ngay lập tức
-			updateAccount();
 		} catch (Exception e) {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
