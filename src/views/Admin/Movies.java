@@ -317,12 +317,22 @@ public class Movies extends JFrame implements IMoviesView {
 	public void setResetListener(ActionListener listener) {
 		btnReset.addActionListener(listener);
 	}
+
 	public void setTaoListener(ActionListener listener) {
 		btnTao.addActionListener(listener);
 	}
 
+	public void setLuuListener(ActionListener listener) {
+		btnLuu.addActionListener(listener);
+	}
+
+	public void setXoaListener(ActionListener listener) {
+		btnXoa.addActionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
+		reset();
 	}
 
 	public void setFormData(String movie_id, String movie_name, String release_date, String director, int duration,
@@ -350,12 +360,46 @@ public class Movies extends JFrame implements IMoviesView {
 		doTuoi.setValue(1);
 		thoiLuong.setValue(1);
 	}
-	public void redirectCreateMovie() {
-		new CreateMovie().setVisible(true);
-		this.dispose();
-	}
 
 	public JTable getTable() {
 		return table;
+	}
+
+	public String getMovie_Id() {
+		return txtMaPhim.getText();
+	}
+
+	public String getMovie_Name() {
+		return txtTenPhim.getText();
+	}
+
+	public String getPoster() {
+		return txtAnh.getText();
+	}
+
+	public String getDirector() {
+		return txtTacGia.getText();
+	}
+
+	public String getScript() {
+		return txtMoTa.getText();
+	}
+
+	public String getStatus() {
+		return btnStatus.getText();
+	}
+
+	public java.sql.Date getNgayPhatHanh() {
+		java.util.Date selectedDate = (java.util.Date) dateNgayPhatHanh.getValue();
+		java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+		return sqlDate;
+	}
+
+	public int getThoiLuong() {
+		return (int) thoiLuong.getValue();
+	}
+
+	public int getDoTuoi() {
+		return (int) doTuoi.getValue();
 	}
 }

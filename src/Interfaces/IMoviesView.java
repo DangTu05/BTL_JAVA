@@ -20,7 +20,27 @@ public interface IMoviesView {
 
 	public void setTaoListener(ActionListener listener);
 
-	public void redirectCreateMovie();
+	public void setLuuListener(ActionListener listener);
+
+	public void setXoaListener(ActionListener listener);
+
+	public String getMovie_Id();
+
+	public String getMovie_Name();
+
+	public String getPoster();
+
+	public String getDirector();
+
+	public String getScript();
+
+	public String getStatus();
+
+	public java.sql.Date getNgayPhatHanh();
+
+	public int getThoiLuong();
+
+	public int getDoTuoi();
 
 	public JTable getTable();
 }

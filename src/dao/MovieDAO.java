@@ -25,7 +25,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 
 	@Override
 	protected PreparedStatement buildInsertStatement(Connection conn, Movie entity) throws SQLException {
-		String sql = "Insert into tblMovie (movie_id,movie_name,release_date,director,duration,script,age_permisson,poster,status) values(?,?,?,?,?,?,?,?,?)";
+		String sql = "Insert into tblMovie (movie_id,movie_name,release_date,director,duration,script,age_permisson,poster,status,deleted) values(?,?,?,?,?,?,?,?,?,false)";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, entity.getMovie_id());
 		statement.setString(2, entity.getMovie_name());
@@ -40,7 +40,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 	}
 
 	public static List<String[]> getAllMoive() {
-		String sql = "Select * from tblMovie";
+		String sql = "Select * from tblMovie where deleted=false";
 		List<String[]> movies = new ArrayList<>();
 		try (Connection conn = ConnectDB.getConnection();
 				Statement statement = conn.createStatement();
@@ -56,5 +56,28 @@ public class MovieDAO extends BaseDAO<Movie> {
 			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản " + e.getMessage(), e);
 		}
 		return movies;
+	}
+
+	@Override
+	protected PreparedStatement buildUpdateStatement(Connection conn, Movie entity) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE tblMovie SET movie_name=?, release_date=?,director=?,duration=?,script=?,	age_permisson=?,poster=?,status=? where movie_id = ?";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, entity.getMovie_name());
+		statement.setDate(2, entity.getRelease_date());
+		statement.setString(3, entity.getDirector());
+		statement.setInt(4, entity.getDuration());
+		statement.setString(5, entity.getScript());
+		statement.setInt(6, entity.getAge_permisson());
+		statement.setString(7, entity.getPoster());
+		statement.setString(8, entity.getStatus());
+		statement.setString(9, entity.getMovie_id());
+		return statement;
+	}
+
+	@Override
+	protected Movie mapRow(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

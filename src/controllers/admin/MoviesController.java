@@ -5,13 +5,19 @@ import javax.swing.event.ListSelectionEvent;
 
 import Interfaces.IMoviesView;
 import dao.MovieDAO;
+import models.Movie;
 import utils.ErrorUtil;
+import utils.MessageUtil;
 
 public class MoviesController {
 	private IMoviesView view;
+	private MovieDAO dao;
+	private AppController app;
 
 	public MoviesController(IMoviesView view) {
 		this.view = view;
+		dao = new MovieDAO();
+		app = new AppController();
 		setUpEventListeners();
 		loadDataFromDataBase();
 	}
@@ -19,7 +25,9 @@ public class MoviesController {
 	private void setUpEventListeners() {
 		view.setAccountSelectionListener(e -> addTableListener());
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e->view.redirectCreateMovie());
+		view.setTaoListener(e -> app.startCreateMovie());
+		view.setLuuListener(e -> updateMovie());
+		view.setXoaListener(e -> softDelete());
 	}
 
 	private void loadDataFromDataBase() {
@@ -61,5 +69,47 @@ public class MoviesController {
 
 			}
 		});
+	}
+
+	private void updateMovie() {
+		try {
+			if (view.getMovie_Id().isEmpty()) {
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa");
+				return;
+			}
+			Movie movie = new Movie(view.getMovie_Id(), view.getMovie_Name(), view.getNgayPhatHanh(),
+					view.getDirector(), view.getThoiLuong(), view.getScript(), view.getDoTuoi(), view.getPoster(),
+					view.getStatus());
+			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
+				return;
+			if (!dao.update(movie)) {
+				MessageUtil.showError("Cập nhật thất bại!!!");
+				return;
+			}
+			MessageUtil.showInfo("Cập nhật thành công!");
+			view.loadDataFromDataBase(MovieDAO.getAllMoive());
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+		}
+	}
+
+	private void softDelete() {
+
+		try {
+			if (view.getMovie_Id().isEmpty()) {
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa");
+				return;
+			}
+			if (!dao.softDelete(view.getMovie_Id())) {
+				MessageUtil.showError("Cập nhật thất bại!!!");
+				return;
+			}
+			MessageUtil.showInfo("Cập nhật thành công!");
+			view.loadDataFromDataBase(MovieDAO.getAllMoive());
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+		}
 	}
 }
