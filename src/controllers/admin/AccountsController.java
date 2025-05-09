@@ -160,7 +160,6 @@ public class AccountsController {
 			// Cập nhật trạng thái trên giao diện
 			view.setStatus(newStatus);
 			loadDataFromDataBase();
-
 		} catch (Exception e) {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}

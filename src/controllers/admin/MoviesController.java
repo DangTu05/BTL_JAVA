@@ -8,6 +8,7 @@ import dao.MovieDAO;
 import models.Movie;
 import utils.ErrorUtil;
 import utils.MessageUtil;
+import validator.InputValidate;
 
 public class MoviesController {
 	private IMoviesView view;
@@ -112,4 +113,5 @@ public class MoviesController {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
+
 }

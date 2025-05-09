@@ -33,6 +33,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class Movies extends JFrame implements IMoviesView {
 
@@ -52,7 +53,7 @@ public class Movies extends JFrame implements IMoviesView {
 	private JTextArea txtMoTa;
 	private JSpinner doTuoi;
 	private JSpinner thoiLuong;
-	private JButton btnStatus;
+	private JComboBox<String> cmbTrangThai;
 
 	/**
 	 * Launch the application.
@@ -84,9 +85,9 @@ public class Movies extends JFrame implements IMoviesView {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 255, 573);
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(new Color(102, 51, 102));
-		panel.setBounds(0, 0, 255, 573);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -122,16 +123,16 @@ public class Movies extends JFrame implements IMoviesView {
 		panel.add(lblName);
 
 		JLabel lblTitle = new JLabel("Quản Lý Phim");
+		lblTitle.setBounds(255, 0, 680, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));
 		lblTitle.setForeground(new Color(240, 255, 240));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(255, 0, 680, 25);
 		contentPane.add(lblTitle);
 		panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 255, 255));
 		panel_2.setBounds(813, 101, 112, 203);
+		panel_2.setBackground(new Color(255, 255, 255));
 		panel_2.setBorder(new LineBorder(Color.GREEN, 2));
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
@@ -190,13 +191,13 @@ public class Movies extends JFrame implements IMoviesView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(255, 468, 680, 90); // X, Y, Width, Height
+		scrollPane.setBounds(255, 468, 680, 90);
 		contentPane.add(scrollPane);
 
 		JLabel lblMaPhim = new JLabel("Mã Phim");
+		lblMaPhim.setBounds(319, 50, 59, 19);
 		lblMaPhim.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblMaPhim.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMaPhim.setBounds(319, 50, 59, 19);
 		contentPane.add(lblMaPhim);
 
 		txtMaPhim = new JTextField();
@@ -207,9 +208,9 @@ public class Movies extends JFrame implements IMoviesView {
 		txtMaPhim.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Tên Phim");
+		lblNewLabel.setBounds(488, 52, 71, 15);
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(488, 52, 71, 15);
 		contentPane.add(lblNewLabel);
 
 		JSeparator separator = new JSeparator();
@@ -226,34 +227,27 @@ public class Movies extends JFrame implements IMoviesView {
 		separator_1.setBounds(452, 104, 160, 19);
 		contentPane.add(separator_1);
 
-		btnStatus = new JButton("");
-		btnStatus.setBackground(new Color(0, 255, 51));
-		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnStatus.setForeground(new Color(0, 0, 0));
-		btnStatus.setBounds(669, 412, 85, 21);
-		contentPane.add(btnStatus);
-
 		JLabel lblNewLabel_1 = new JLabel("Ngày Phát Hành");
+		lblNewLabel_1.setBounds(669, 50, 112, 19);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(669, 50, 112, 19);
 		contentPane.add(lblNewLabel_1);
 
 		dateNgayPhatHanh = new JSpinner(new SpinnerDateModel());
+		dateNgayPhatHanh.setBounds(679, 76, 102, 26);
 		dateNgayPhatHanh.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dateNgayPhatHanh.setEditor(new JSpinner.DateEditor(dateNgayPhatHanh, "dd/MM/yyyy"));
-		dateNgayPhatHanh.setBounds(679, 76, 102, 26);
 		contentPane.add(dateNgayPhatHanh);
 
 		JLabel lblNewLabel_2 = new JLabel("Tác Giả");
+		lblNewLabel_2.setBounds(319, 147, 59, 19);
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(319, 147, 59, 19);
 		contentPane.add(lblNewLabel_2);
 
 		txtTacGia = new JTextField();
-		txtTacGia.setBorder(null);
 		txtTacGia.setBounds(291, 176, 112, 19);
+		txtTacGia.setBorder(null);
 		contentPane.add(txtTacGia);
 		txtTacGia.setColumns(10);
 
@@ -262,9 +256,9 @@ public class Movies extends JFrame implements IMoviesView {
 		contentPane.add(separator_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Ảnh");
+		lblNewLabel_3.setBounds(585, 145, 71, 20);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(585, 145, 71, 20);
 		contentPane.add(lblNewLabel_3);
 
 		txtAnh = new JTextField();
@@ -278,15 +272,15 @@ public class Movies extends JFrame implements IMoviesView {
 		contentPane.add(separator_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Mô Tả");
+		lblNewLabel_4.setBounds(417, 259, 59, 19);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(417, 259, 59, 19);
 		contentPane.add(lblNewLabel_4);
 
 		txtMoTa = new JTextArea();
+		txtMoTa.setBounds(291, 288, 321, 81);
 		Border redBorder = BorderFactory.createLineBorder(Color.BLACK); // tạo viền đỏ
 		txtMoTa.setBorder(redBorder);
-		txtMoTa.setBounds(291, 288, 321, 81);
 		contentPane.add(txtMoTa);
 
 		thoiLuong = new JSpinner();
@@ -294,19 +288,26 @@ public class Movies extends JFrame implements IMoviesView {
 		contentPane.add(thoiLuong);
 
 		JLabel lblNewLabel_5 = new JLabel("Thời Lượng");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_5.setBounds(671, 259, 76, 19);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Độ Tuổi");
+		lblNewLabel_6.setBounds(669, 333, 69, 19);
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_6.setBounds(669, 333, 69, 19);
 		contentPane.add(lblNewLabel_6);
 
 		doTuoi = new JSpinner();
 		doTuoi.setBounds(669, 362, 78, 25);
 		contentPane.add(doTuoi);
+
+		cmbTrangThai = new JComboBox<>();
+		cmbTrangThai.addItem("Sắp chiếu");
+		cmbTrangThai.addItem("Đang chiếu");
+		cmbTrangThai.addItem("Đã ngưng");
+		cmbTrangThai.setBounds(813, 332, 112, 25);
+		contentPane.add(cmbTrangThai);
 
 	}
 
@@ -345,7 +346,7 @@ public class Movies extends JFrame implements IMoviesView {
 		doTuoi.setValue(age_permission);
 		thoiLuong.setValue(duration);
 		dateNgayPhatHanh.setValue(ConvertUtil.convertDateFromDB(release_date));
-		btnStatus.setText(status);
+		cmbTrangThai.setSelectedItem(status);
 
 	}
 
@@ -359,6 +360,7 @@ public class Movies extends JFrame implements IMoviesView {
 		dateNgayPhatHanh.setValue(new Date());
 		doTuoi.setValue(1);
 		thoiLuong.setValue(1);
+		cmbTrangThai.setSelectedIndex(0);
 	}
 
 	public JTable getTable() {
@@ -386,7 +388,7 @@ public class Movies extends JFrame implements IMoviesView {
 	}
 
 	public String getStatus() {
-		return btnStatus.getText();
+		return (String) cmbTrangThai.getSelectedItem();
 	}
 
 	public java.sql.Date getNgayPhatHanh() {

@@ -60,4 +60,12 @@ public class InputValidate {
 		}
 		return true;
 	}
+
+	public static boolean checkId(String id, String message) {
+		if (id.isEmpty()) {
+			MessageUtil.showWarning(message);
+			return false;
+		}
+		return true;
+	}
 }
