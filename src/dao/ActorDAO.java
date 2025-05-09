@@ -52,6 +52,27 @@ public class ActorDAO extends BaseDAO<Actor> {
 		return null;
 	}
 
+	public static List<String[]> getAllActor() {
+		String sql = "Select * from tblActor";
+		try (Connection conn = ConnectDB.getConnection();
+				Statement statement = conn.createStatement();
+				ResultSet rs = statement.executeQuery(sql)) {
+			List<String[]> actors = new ArrayList<>();
+			while (rs.next()) {
+				actors.add(new String[] { rs.getString("actor_id"), rs.getString("actor_name"), rs.getString("birth"),
+						rs.getString("nationality"), rs.getString("biography"), rs.getString("actor_image") });
+			}
+			return actors;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+	}
+
 	@Override
 	protected PreparedStatement buildUpdateStatement(Connection conn, Actor entity) throws SQLException {
 		// TODO Auto-generated method stub

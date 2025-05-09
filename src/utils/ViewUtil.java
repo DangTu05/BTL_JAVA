@@ -22,4 +22,5 @@ public class ViewUtil {
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		}
 	}
+
 }
