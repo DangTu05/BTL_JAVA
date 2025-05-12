@@ -12,6 +12,7 @@ import java.util.logging.ErrorManager;
 import Configs.Database.ConnectDB;
 import models.Actor;
 import utils.ErrorUtil;
+import utils.MessageUtil;
 
 public class ActorDAO extends BaseDAO<Actor> {
 
@@ -75,8 +76,15 @@ public class ActorDAO extends BaseDAO<Actor> {
 
 	@Override
 	protected PreparedStatement buildUpdateStatement(Connection conn, Actor entity) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "Update tblActor SET actor_name=?, birth=?,nationality=?, biography=?,actor_image=? where actor_id=?";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, entity.getActor_name());
+		statement.setDate(2, entity.getBirth());
+		statement.setString(3, entity.getNationality());
+		statement.setString(4, entity.getBiography());
+		statement.setString(5, entity.getActor_image());
+		statement.setString(6, entity.getActor_id());
+		return statement;
 	}
 
 	@Override

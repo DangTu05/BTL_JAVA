@@ -20,7 +20,6 @@ public class Actor {
 	}
 
 	public Actor(String actor_id, String actor_name, String nationality, java.sql.Date birth, String biography) {
-		super();
 		this.actor_id = actor_id;
 		this.actor_name = actor_name;
 		this.nationality = nationality;

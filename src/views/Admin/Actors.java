@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IActorsView;
 import utils.ConvertUtil;
+import utils.MessageUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
 
@@ -280,6 +281,14 @@ public class Actors extends JFrame implements IActorsView {
 		btnReset.addActionListener(listener);
 	}
 
+	public void setTaoListener(ActionListener listener) {
+		btnTao.addActionListener(listener);
+	}
+
+	public void setLuuListener(ActionListener listener) {
+		btnLuu.addActionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
 	}
@@ -301,6 +310,32 @@ public class Actors extends JFrame implements IActorsView {
 		txtQuocGia.setText("");
 		txtAnh.setText("");
 		dateNgaySinh.setValue(new Date());
+	}
+
+	public String getActor_Id() {
+		return txtMaDienVien.getText().trim();
+	}
+
+	public String getActor_Name() {
+		return txtTenDienVien.getText().trim();
+	}
+
+	public java.sql.Date getNgaySinh() {
+		java.util.Date selectedDate = (java.util.Date) dateNgaySinh.getValue();
+		java.sql.Date sqlDate = new java.sql.Date(selectedDate.getTime());
+		return sqlDate;
+	}
+
+	public String getActor_Image() {
+		return txtAnh.getText().trim();
+	}
+
+	public String getBiography() {
+		return txtTieuSu.getText().trim();
+	}
+
+	public String getNationality() {
+		return txtQuocGia.getText().trim();
 	}
 
 	public JTable getTable() {

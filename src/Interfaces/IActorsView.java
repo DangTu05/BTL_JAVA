@@ -16,7 +16,23 @@ public interface IActorsView {
 
 	public JTable getTable();
 
+	public String getActor_Id();
+
+	public String getActor_Name();
+
+	public String getActor_Image();
+
+	public String getBiography();
+
+	public String getNationality();
+
+	public java.sql.Date getNgaySinh();
+
 	public void setActorSelectionListener(ListSelectionListener listener);
 
 	public void setResetListener(ActionListener listener);
+
+	public void setTaoListener(ActionListener listener);
+
+	public void setLuuListener(ActionListener listener);
 }
