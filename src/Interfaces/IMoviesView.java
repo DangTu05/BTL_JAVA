@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
 public interface IMoviesView {
-	public void setAccountSelectionListener(ListSelectionListener listener);
+	public void setMovieSelectionListener(ListSelectionListener listener);
 
 	public void loadDataFromDataBase(List<String[]> list);
 

@@ -15,9 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IActorsView;
+import utils.ConvertUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
 
@@ -43,6 +45,7 @@ public class Actors extends JFrame implements IActorsView {
 	private JTextField txtAnh;
 	private JSpinner dateNgaySinh;
 	private JTable table;
+	private JTextArea txtTieuSu;
 
 	/**
 	 * Launch the application.
@@ -211,7 +214,7 @@ public class Actors extends JFrame implements IActorsView {
 		lblNewLabel_3.setBounds(621, 202, 70, 13);
 		contentPane.add(lblNewLabel_3);
 
-		JTextArea txtTieuSu = new JTextArea();
+		txtTieuSu = new JTextArea();
 		txtTieuSu.setBounds(563, 225, 185, 93);
 		contentPane.add(txtTieuSu);
 
@@ -266,7 +269,25 @@ public class Actors extends JFrame implements IActorsView {
 
 	}
 
+	public void setActorSelectionListener(ListSelectionListener listener) {
+		table.getSelectionModel().addListSelectionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
+	}
+
+	public void setFormData(String actor_id, String actor_name, String birth, String nationality, String biography,
+			String actor_image) {
+		txtMaDienVien.setText(actor_id);
+		txtTenDienVien.setText(actor_name);
+		txtQuocGia.setText(nationality);
+		txtAnh.setText(actor_name);
+		txtTieuSu.setText(biography);
+		dateNgaySinh.setValue(ConvertUtil.convertDateFromDB(birth));
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 }

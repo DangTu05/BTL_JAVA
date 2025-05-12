@@ -311,7 +311,7 @@ public class Movies extends JFrame implements IMoviesView {
 
 	}
 
-	public void setAccountSelectionListener(ListSelectionListener listener) {
+	public void setMovieSelectionListener(ListSelectionListener listener) {
 		table.getSelectionModel().addListSelectionListener(listener);
 	}
 

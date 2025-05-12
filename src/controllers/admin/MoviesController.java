@@ -24,7 +24,7 @@ public class MoviesController {
 	}
 
 	private void setUpEventListeners() {
-		view.setAccountSelectionListener(e -> addTableListener());
+		view.setMovieSelectionListener(e -> addTableListener());
 		view.setResetListener(e -> view.reset());
 		view.setTaoListener(e -> app.startCreateMovie());
 		view.setLuuListener(e -> updateMovie());
