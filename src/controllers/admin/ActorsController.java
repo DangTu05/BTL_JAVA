@@ -18,6 +18,7 @@ public class ActorsController extends BaseController<Actor> {
 
 	private void setUpEventListeners() {
 		view.setActorSelectionListener(e -> addTableListener(view.getTable()));
+		view.setResetListener(e -> view.reset());
 	}
 
 	private void loadDataFromDataBase() {

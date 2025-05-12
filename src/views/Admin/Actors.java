@@ -3,6 +3,8 @@ package views.Admin;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -216,6 +218,7 @@ public class Actors extends JFrame implements IActorsView {
 
 		txtTieuSu = new JTextArea();
 		txtTieuSu.setBounds(563, 225, 185, 93);
+		txtTieuSu.setBorder(new LineBorder(Color.BLACK, 1));
 		contentPane.add(txtTieuSu);
 
 		JLabel lblNewLabel_4 = new JLabel("Ảnh");
@@ -273,6 +276,10 @@ public class Actors extends JFrame implements IActorsView {
 		table.getSelectionModel().addListSelectionListener(listener);
 	}
 
+	public void setResetListener(ActionListener listener) {
+		btnReset.addActionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
 	}
@@ -282,9 +289,18 @@ public class Actors extends JFrame implements IActorsView {
 		txtMaDienVien.setText(actor_id);
 		txtTenDienVien.setText(actor_name);
 		txtQuocGia.setText(nationality);
-		txtAnh.setText(actor_name);
+		txtAnh.setText(actor_image);
 		txtTieuSu.setText(biography);
 		dateNgaySinh.setValue(ConvertUtil.convertDateFromDB(birth));
+	}
+
+	public void reset() {
+		txtMaDienVien.setText("");
+		txtTenDienVien.setText("");
+		txtTieuSu.setText("");
+		txtQuocGia.setText("");
+		txtAnh.setText("");
+		dateNgaySinh.setValue(new Date());
 	}
 
 	public JTable getTable() {
