@@ -35,4 +35,6 @@ public interface IActorsView {
 	public void setTaoListener(ActionListener listener);
 
 	public void setLuuListener(ActionListener listener);
+
+	public void setXoaListener(ActionListener listener);
 }

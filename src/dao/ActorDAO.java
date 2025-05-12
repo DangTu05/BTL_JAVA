@@ -102,6 +102,6 @@ public class ActorDAO extends BaseDAO<Actor> {
 	@Override
 	protected String getPrimaryKeyColumn() {
 		// TODO Auto-generated method stub
-		return null;
+		return "actor_id";
 	}
 }

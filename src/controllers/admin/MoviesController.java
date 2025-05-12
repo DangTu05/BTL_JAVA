@@ -67,14 +67,14 @@ public class MoviesController extends BaseController<Movie> {
 
 		try {
 			if (view.getMovie_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa");
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn xóa!");
 				return;
 			}
 			if (!dao.softDelete(view.getMovie_Id())) {
-				MessageUtil.showError("Cập nhật thất bại!!!");
+				MessageUtil.showError("Xóa thất bại!!!");
 				return;
 			}
-			MessageUtil.showInfo("Cập nhật thành công!");
+			MessageUtil.showInfo("Xóa thành công!");
 			view.loadDataFromDataBase(MovieDAO.getAllMoive());
 		} catch (Exception e) {
 			// TODO: handle exception

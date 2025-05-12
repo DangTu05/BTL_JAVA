@@ -2,6 +2,7 @@ package controllers.admin;
 
 import Interfaces.IActorsView;
 import dao.ActorDAO;
+import dao.MovieDAO;
 import models.Actor;
 import utils.ErrorUtil;
 import utils.MessageUtil;
@@ -25,6 +26,7 @@ public class ActorsController extends BaseController<Actor> {
 		view.setResetListener(e -> view.reset());
 		view.setTaoListener(e -> app.startCreateActor());
 		view.setLuuListener(e -> updateActor());
+		view.setXoaListener(e -> softDelete());
 	}
 
 	private void loadDataFromDataBase() {
@@ -75,6 +77,25 @@ public class ActorsController extends BaseController<Actor> {
 			}
 			MessageUtil.showInfo("Cập nhật thành công!");
 			loadDataFromDataBase();
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+		}
+	}
+
+	private void softDelete() {
+
+		try {
+			if (view.getActor_Id().isEmpty()) {
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa");
+				return;
+			}
+			if (!dao.softDelete(view.getActor_Id())) {
+				MessageUtil.showError("Xóa thất bại!!!");
+				return;
+			}
+			MessageUtil.showInfo("Xóa thành công!");
+			view.loadDataFromDataBase(ActorDAO.getAllActor());
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");

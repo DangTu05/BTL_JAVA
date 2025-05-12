@@ -288,7 +288,9 @@ public class Actors extends JFrame implements IActorsView {
 	public void setLuuListener(ActionListener listener) {
 		btnLuu.addActionListener(listener);
 	}
-
+	public void setXoaListener(ActionListener listener) {
+		btnXoa.addActionListener(listener);
+	}
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
 	}
