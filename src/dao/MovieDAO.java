@@ -25,7 +25,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 
 	@Override
 	protected PreparedStatement buildInsertStatement(Connection conn, Movie entity) throws SQLException {
-		String sql = "Insert into tblMovie (movie_id,movie_name,release_date,director,duration,script,age_permisson,poster,status,deleted) values(?,?,?,?,?,?,?,?,?,false)";
+		String sql = "Insert into tblMovie (movie_id,movie_name,release_date,director,duration,script,age_permission,poster,status,deleted) values(?,?,?,?,?,?,?,?,?,false)";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, entity.getMovie_id());
 		statement.setString(2, entity.getMovie_name());
@@ -48,7 +48,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 			while (rs.next()) {
 				movies.add(new String[] { rs.getString("movie_id"), rs.getString("movie_name"),
 						rs.getString("release_date"), rs.getString("director"), rs.getString("duration"),
-						rs.getString("script"), rs.getString("age_permisson"), rs.getString("poster"),
+						rs.getString("script"), rs.getString("age_permission"), rs.getString("poster"),
 						rs.getString("status") });
 			}
 
@@ -61,7 +61,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 	@Override
 	protected PreparedStatement buildUpdateStatement(Connection conn, Movie entity) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE tblMovie SET movie_name=?, release_date=?,director=?,duration=?,script=?,	age_permisson=?,poster=?,status=? where movie_id = ?";
+		String sql = "UPDATE tblMovie SET movie_name=?, release_date=?,director=?,duration=?,script=?,	age_permission=?,poster=?,status=? where movie_id = ?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, entity.getMovie_name());
 		statement.setDate(2, entity.getRelease_date());
@@ -73,6 +73,27 @@ public class MovieDAO extends BaseDAO<Movie> {
 		statement.setString(8, entity.getStatus());
 		statement.setString(9, entity.getMovie_id());
 		return statement;
+	}
+
+	public static List<String[]> findMovieByName(String movie_name) {
+		List<String[]> movies = new ArrayList<>();
+		String query = "Select * from tblMovie where deleted=false and movie_name Like ?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setString(1, "%" + movie_name + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				movies.add(new String[] { rs.getString("movie_id"), rs.getString("movie_name"),
+						rs.getString("release_date"), rs.getString("director"), rs.getString("duration"),
+						rs.getString("script"), rs.getString("age_permission"), rs.getString("poster"),
+						rs.getString("status") });
+			}
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
+		}
+		return movies;
+
 	}
 
 	@Override

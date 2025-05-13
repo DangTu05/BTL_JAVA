@@ -54,6 +54,8 @@ public class Movies extends JFrame implements IMoviesView {
 	private JSpinner doTuoi;
 	private JSpinner thoiLuong;
 	private JComboBox<String> cmbTrangThai;
+	private JTextField txtSearch;
+	private JButton btnSearch;
 
 	/**
 	 * Launch the application.
@@ -191,7 +193,7 @@ public class Movies extends JFrame implements IMoviesView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(255, 468, 680, 90);
+		scrollPane.setBounds(255, 434, 680, 90);
 		contentPane.add(scrollPane);
 
 		JLabel lblMaPhim = new JLabel("Mã Phim");
@@ -309,6 +311,28 @@ public class Movies extends JFrame implements IMoviesView {
 		cmbTrangThai.setBounds(813, 332, 112, 25);
 		contentPane.add(cmbTrangThai);
 
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 51, 255));
+		panel_1.setBounds(255, 525, 680, 42);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_7 = new JLabel("Tìm phim theo tên");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_7.setForeground(new Color(0, 0, 0));
+		lblNewLabel_7.setBounds(306, 10, 118, 22);
+		panel_1.add(lblNewLabel_7);
+
+		txtSearch = new JTextField();
+		txtSearch.setBounds(434, 14, 195, 19);
+		panel_1.add(txtSearch);
+		txtSearch.setColumns(10);
+		btnSearch = new JButton("");
+		btnSearch.setBounds(630, 12, 20, 21);
+		btnSearch.setIcon(new ImageIcon(UrlUtil.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745899467/search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_na27t8.png")));
+		panel_1.add(btnSearch);
+
 	}
 
 	public void setMovieSelectionListener(ListSelectionListener listener) {
@@ -329,6 +353,10 @@ public class Movies extends JFrame implements IMoviesView {
 
 	public void setXoaListener(ActionListener listener) {
 		btnXoa.addActionListener(listener);
+	}
+
+	public void setSearchListener(ActionListener listener) {
+		btnSearch.addActionListener(listener);
 	}
 
 	public void loadDataFromDataBase(List<String[]> list) {
@@ -403,5 +431,9 @@ public class Movies extends JFrame implements IMoviesView {
 
 	public int getDoTuoi() {
 		return (int) doTuoi.getValue();
+	}
+
+	public String getTextSearch() {
+		return txtSearch.getText().trim();
 	}
 }

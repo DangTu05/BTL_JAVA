@@ -87,7 +87,7 @@ public class ActorsController extends BaseController<Actor> {
 
 		try {
 			if (view.getActor_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa");
+				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn xóa!");
 				return;
 			}
 			if (!dao.softDelete(view.getActor_Id())) {

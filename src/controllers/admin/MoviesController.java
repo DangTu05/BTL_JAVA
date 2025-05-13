@@ -29,6 +29,7 @@ public class MoviesController extends BaseController<Movie> {
 		view.setTaoListener(e -> app.startCreateMovie());
 		view.setLuuListener(e -> updateMovie());
 		view.setXoaListener(e -> softDelete());
+		view.setSearchListener(e -> loadDataFromSearch());
 	}
 
 	private void loadDataFromDataBase() {
@@ -38,7 +39,6 @@ public class MoviesController extends BaseController<Movie> {
 			ErrorUtil.handle(e, "đã xảy ra lỗi!!!");
 		}
 	}
-
 
 	private void updateMovie() {
 		try {
@@ -101,6 +101,15 @@ public class MoviesController extends BaseController<Movie> {
 					duration != null ? Integer.parseInt((String) duration) : 1, script != null ? script.toString() : "",
 					age_permission != null ? Integer.parseInt((String) age_permission) : 1,
 					poster != null ? poster.toString() : "", status != null ? status.toString() : "");
+		}
+	}
+
+	public void loadDataFromSearch() {
+		try {
+			view.loadDataFromDataBase(MovieDAO.findMovieByName(view.getTextSearch()));
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
 

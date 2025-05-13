@@ -24,7 +24,11 @@ public interface IMoviesView {
 
 	public void setXoaListener(ActionListener listener);
 
+	public void setSearchListener(ActionListener listener);
+
 	public String getMovie_Id();
+
+	public String getTextSearch();
 
 	public String getMovie_Name();
 

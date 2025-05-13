@@ -57,7 +57,7 @@ public class AccountDAO extends BaseDAO<Account> {
 
 	public static List<String[]> findTksByName(String name) {
 		List<String[]> accounts = new ArrayList<>();
-		String query = "Select * from account where UserName Like ?";
+		String query = "Select * from account where deleted=false and UserName Like ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
 			ps.setString(1, "%" + name + "%");
 			ResultSet rs = ps.executeQuery();
