@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
@@ -28,6 +29,8 @@ public interface IAccountView {
 	public String getTextSearch();
 
 	public String getPassword();
+
+	public JFrame getFrame();
 
 	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role);
 

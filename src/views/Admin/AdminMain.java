@@ -7,6 +7,7 @@ import controllers.admin.ActorsController;
 import controllers.admin.CreateActorController;
 import controllers.admin.CreateCategoryController;
 import controllers.admin.CreateMovieController;
+import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
 import views.Login;
 import views.Register;
@@ -20,7 +21,8 @@ public class AdminMain {
 //		CreateActor view = new CreateActor();
 //		CreateMovie view = new CreateMovie();
 //		CreateCategory view=new CreateCategory();
-		Movies view = new Movies();
+//		Movies view = new Movies();
+		Menu view=new Menu();
 //		Actors view = new Actors();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
 //		AccountsController controller = new AccountsController(view);
@@ -29,7 +31,8 @@ public class AdminMain {
 //		CreateActorController controller = new CreateActorController(view);
 //		CreateMovieController controller = new CreateMovieController(view);
 //		new CreateCategoryController(view); 
-		new MoviesController(view);
+//		new MoviesController(view);
+		new MenuController(view);
 //		new ActorsController(view);
 		// 3. Hiển thị giao diện
 		view.setVisible(true);

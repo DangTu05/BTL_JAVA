@@ -400,4 +400,7 @@ public class Accounts extends JFrame implements IAccountView {
 		btnSearch.addActionListener(listener);
 	}
 
+	public JFrame getFrame() {
+		return this;
+	}
 }

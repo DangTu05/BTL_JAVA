@@ -1,29 +1,34 @@
 package controllers.admin;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import Interfaces.IAccountView;
+import Interfaces.IMenuView;
+import Interfaces.IMoviesView;
+import utils.MessageUtil;
+import views.Login;
 import views.Admin.Accounts;
 import views.Admin.Menu;
+import views.Admin.Movies;
 
-public class MenuController implements ActionListener {
-	public Menu menu;
+public class MenuController {
+	private IMenuView viewMenu;
+	private AppController app;
 
-	public MenuController(Menu menu) {
-		this.menu = menu;
+	public MenuController(IMenuView viewMenu) {
+		this.viewMenu = viewMenu;
+		app = new AppController();
+		setUpEventListeners();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		String cm=e.getActionCommand();
-		if(cm.equals("Tài Khoản")) {
-			new Accounts().setVisible(true);
-		}
-		else if(cm.equals("Trang Chủ")) {
-			new Menu().setVisible(true);
-		}
-
+	private void setUpEventListeners() {
+		viewMenu.setHomeListener(e -> app.startHome(viewMenu.getFrame()));
+		viewMenu.setAccountListener(e -> app.startAccounts(viewMenu.getFrame()));
+		viewMenu.setLogoutListener(e -> logout());
+		viewMenu.setMovieListener(e -> app.startMovies(viewMenu.getFrame()));
 	}
 
+	private void logout() {
+		if (!MessageUtil.confirm("Bạn có muốn đăng xuất không?"))
+			return;
+		app.startLogin(viewMenu.getFrame());
+	}
 }

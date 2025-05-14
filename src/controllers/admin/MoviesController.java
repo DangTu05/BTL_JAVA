@@ -26,7 +26,7 @@ public class MoviesController extends BaseController<Movie> {
 	private void setUpEventListeners() {
 		view.setMovieSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e -> app.startCreateMovie());
+//		view.setTaoListener(e -> app.startCreateMovie());
 		view.setLuuListener(e -> updateMovie());
 		view.setXoaListener(e -> softDelete());
 		view.setSearchListener(e -> loadDataFromSearch());

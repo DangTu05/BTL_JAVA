@@ -436,4 +436,8 @@ public class Movies extends JFrame implements IMoviesView {
 	public String getTextSearch() {
 		return txtSearch.getText().trim();
 	}
+
+	public JFrame getFrame() {
+		return this;
+	}
 }
