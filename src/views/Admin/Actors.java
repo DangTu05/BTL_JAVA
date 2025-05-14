@@ -21,6 +21,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IActorsView;
+import Interfaces.IHomeNavigableView;
+import components.SideBarMenu;
 import utils.ConvertUtil;
 import utils.MessageUtil;
 import utils.UrlUtil;
@@ -33,7 +35,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 
-public class Actors extends JFrame implements IActorsView {
+public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -49,6 +51,7 @@ public class Actors extends JFrame implements IActorsView {
 	private JSpinner dateNgaySinh;
 	private JTable table;
 	private JTextArea txtTieuSu;
+	private SideBarMenu sidebar;
 
 	/**
 	 * Launch the application.
@@ -78,44 +81,8 @@ public class Actors extends JFrame implements IActorsView {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 255, 573);
-		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(new Color(102, 51, 102));
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		JButton btnAccount = new JButton("Tài Khoản");
-		btnAccount.setBackground(new Color(204, 0, 153));
-		btnAccount.setBounds(0, 143, 255, 43);
-		btnAccount.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnAccount);
-
-		JButton btnPhim = new JButton("Phim");
-		btnPhim.setForeground(new Color(0, 0, 0));
-		btnPhim.setBackground(new Color(153, 51, 153));
-		btnPhim.setBounds(0, 184, 255, 43);
-		btnPhim.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnPhim);
-
-		JButton btnLogout = new JButton("Đăng Xuất");
-		btnLogout.setBackground(new Color(0, 250, 154));
-		btnLogout.setBounds(0, 525, 255, 43);
-		panel.add(btnLogout);
-
-		JButton btnHome = new JButton("Trang Chủ");
-		btnHome.setBackground(new Color(153, 51, 153));
-		btnHome.setBounds(0, 101, 255, 43);
-		btnHome.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnHome);
-
-		JLabel lblName = new JLabel("Đặng Quang Tú");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblName.setForeground(new Color(255, 255, 255));
-		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setBounds(59, 50, 135, 21);
-		panel.add(lblName);
+		sidebar = new SideBarMenu();
+		contentPane.add(sidebar);
 		JLabel lblTitle = new JLabel("Quản Lý Diễn Viên");
 		lblTitle.setBounds(255, 0, 680, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -288,9 +255,11 @@ public class Actors extends JFrame implements IActorsView {
 	public void setLuuListener(ActionListener listener) {
 		btnLuu.addActionListener(listener);
 	}
+
 	public void setXoaListener(ActionListener listener) {
 		btnXoa.addActionListener(listener);
 	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
 		ViewUtil.loadDataFromDataBase(table, list);
 	}
@@ -342,5 +311,33 @@ public class Actors extends JFrame implements IActorsView {
 
 	public JTable getTable() {
 		return table;
+	}
+
+	public JFrame getFrame() {
+		return this;
+	}
+
+	@Override
+	public void setHomeListener(ActionListener listener) {
+		// TODO Auto-generated method stub
+		sidebar.btnHome.addActionListener(listener);
+	}
+
+	@Override
+	public void setAccountListener(ActionListener listener) {
+		// TODO Auto-generated method stub
+		sidebar.btnAccount.addActionListener(listener);
+	}
+
+	@Override
+	public void setLogoutListener(ActionListener listener) {
+		// TODO Auto-generated method stub
+		sidebar.btnLogout.addActionListener(listener);
+	}
+
+	@Override
+	public void setMovieListener(ActionListener listener) {
+		// TODO Auto-generated method stub
+		sidebar.btnPhim.addActionListener(listener);
 	}
 }

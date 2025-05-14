@@ -27,6 +27,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IAccountView;
+import Interfaces.IHomeNavigableView;
+import components.SideBarMenu;
 
 //import com.mysql.cj.xdevapi.Table;
 
@@ -40,7 +42,7 @@ import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
-public class Accounts extends JFrame implements IAccountView {
+public class Accounts extends JFrame implements IAccountView, IHomeNavigableView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -59,6 +61,7 @@ public class Accounts extends JFrame implements IAccountView {
 	private JButton btnStatus;
 	public JButton btnSearch;
 	private JLabel lblBanGhi;
+	private SideBarMenu sidebar;
 
 	/**
 	 * Launch the application.
@@ -90,44 +93,9 @@ public class Accounts extends JFrame implements IAccountView {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(new Color(102, 51, 102));
-		panel.setBounds(0, 0, 255, 573);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		JButton btnAccount = new JButton("Tài Khoản");
-		btnAccount.setBackground(new Color(204, 0, 153));
-		btnAccount.setBounds(0, 143, 255, 43);
-		btnAccount.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnAccount);
-
-		JButton btnPhim = new JButton("Phim");
-		btnPhim.setForeground(new Color(0, 0, 0));
-		btnPhim.setBackground(new Color(153, 51, 153));
-		btnPhim.setBounds(0, 184, 255, 43);
-		btnPhim.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnPhim);
-
-		JButton btnLogout = new JButton("Đăng Xuất");
-		btnLogout.setBackground(new Color(0, 250, 154));
-		btnLogout.setBounds(0, 525, 255, 43);
-		panel.add(btnLogout);
-
-		JButton btnHome = new JButton("Trang Chủ");
-		btnHome.setBackground(new Color(153, 51, 153));
-		btnHome.setBounds(0, 101, 255, 43);
-		btnHome.setBorder(BorderFactory.createEmptyBorder());
-		panel.add(btnHome);
-
-		JLabel lblName = new JLabel("Đặng Quang Tú");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblName.setForeground(new Color(255, 255, 255));
-		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setBounds(59, 50, 135, 21);
-		panel.add(lblName);
-
+		sidebar = new SideBarMenu();
+		sidebar.setFrame(this);
+		contentPane.add(sidebar);
 		JLabel lblTitle = new JLabel("Quản Lý Tài Khoản");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
@@ -399,6 +367,10 @@ public class Accounts extends JFrame implements IAccountView {
 	public void setSearchListener(ActionListener listener) {
 		btnSearch.addActionListener(listener);
 	}
+
+	public SideBarMenu getSideBar() {
+		return sidebar;
+	};
 
 	public JFrame getFrame() {
 		return this;

@@ -3,6 +3,7 @@ package controllers.admin;
 import javax.swing.JFrame;
 
 import controllers.LoginController;
+import utils.MessageUtil;
 import views.Login;
 import views.Admin.Accounts;
 import views.Admin.Actors;
@@ -25,32 +26,32 @@ public class AppController {
 	}
 
 	public void startCreateMovie(JFrame previousFrame) {
-		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 		viewCreateMovie = new CreateMovie();
 		new CreateMovieController(viewCreateMovie);
 		viewCreateMovie.setVisible(true);
+		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 	}
 
 	public void startActors(JFrame previousFrame) {
-		// 1. Tắt frame hiện tại
-		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 		viewActors = new Actors();
 		new ActorsController(viewActors);
 		viewActors.setVisible(true);
+		// 1. Tắt frame hiện tại
+		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 	}
 
 	public void startCreateActor(JFrame previousFrame) {
-		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 		viewCreateActor = new CreateActor();
 		new CreateActorController(viewCreateActor);
 		viewCreateActor.setVisible(true);
+		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 	}
 
 	public void startHome(JFrame previousFrame) {
-		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 		viewMenu = new Menu();
 		new MenuController(viewMenu);
 		viewMenu.setVisible(true);
+		previousFrame.dispose(); // hoặc previousFrame.setVisible(false);
 	}
 
 	public void startAccounts(JFrame previousFrame) {

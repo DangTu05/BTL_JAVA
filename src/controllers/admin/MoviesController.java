@@ -1,8 +1,13 @@
 package controllers.admin;
 
 import javax.swing.event.ListSelectionListener;
+
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 
+import Interfaces.IHomeNavigableView;
 import Interfaces.IMoviesView;
 import dao.MovieDAO;
 import models.Movie;
@@ -12,6 +17,7 @@ import validator.InputValidate;
 
 public class MoviesController extends BaseController<Movie> {
 	private IMoviesView view;
+	private IHomeNavigableView viewSideBar;
 	private MovieDAO dao;
 	private AppController app;
 
@@ -21,12 +27,14 @@ public class MoviesController extends BaseController<Movie> {
 		app = new AppController();
 		setUpEventListeners();
 		loadDataFromDataBase();
+		viewSideBar = view.getSideBar();
+		setAction();
 	}
 
 	private void setUpEventListeners() {
 		view.setMovieSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-//		view.setTaoListener(e -> app.startCreateMovie());
+		view.setTaoListener(e -> app.startCreateMovie(view.getFrame()));
 		view.setLuuListener(e -> updateMovie());
 		view.setXoaListener(e -> softDelete());
 		view.setSearchListener(e -> loadDataFromSearch());
@@ -111,6 +119,12 @@ public class MoviesController extends BaseController<Movie> {
 			// TODO: handle exception
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
+	}
+
+	@Override
+	protected IHomeNavigableView getView() {
+		// TODO Auto-generated method stub
+		return viewSideBar;
 	}
 
 }
