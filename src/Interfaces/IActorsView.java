@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
@@ -27,6 +28,8 @@ public interface IActorsView {
 	public String getNationality();
 
 	public java.sql.Date getNgaySinh();
+
+	public JFrame getFrame();
 
 	public void setActorSelectionListener(ListSelectionListener listener);
 

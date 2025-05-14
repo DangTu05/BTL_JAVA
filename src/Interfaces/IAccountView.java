@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
+import components.SideBarMenu;
+
 public interface IAccountView {
 	public void loadDataFromDataBase(List<String[]> list);
 
@@ -31,6 +33,8 @@ public interface IAccountView {
 	public String getPassword();
 
 	public JFrame getFrame();
+
+	public SideBarMenu getSideBar();
 
 	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role);
 

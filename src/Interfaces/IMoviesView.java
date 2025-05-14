@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
+import components.SideBarMenu;
+
 public interface IMoviesView {
 	public void setMovieSelectionListener(ListSelectionListener listener);
 
@@ -50,4 +52,6 @@ public interface IMoviesView {
 	public JTable getTable();
 
 	public JFrame getFrame();
+
+	public SideBarMenu getSideBar();
 }

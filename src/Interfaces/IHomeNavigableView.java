@@ -4,9 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import components.SideBarMenu;
-
-public interface IMenuView {
+public interface IHomeNavigableView {
 	public void setHomeListener(ActionListener listener);
 
 	public void setAccountListener(ActionListener listener);
@@ -15,7 +13,5 @@ public interface IMenuView {
 
 	public void setMovieListener(ActionListener listener);
 
-	public SideBarMenu getSideBar();
-
-	public JFrame getFrame();
+	public JFrame getFrame(); 
 }

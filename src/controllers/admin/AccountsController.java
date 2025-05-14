@@ -3,21 +3,25 @@ package controllers.admin;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import Interfaces.IAccountView;
+import Interfaces.IHomeNavigableView;
 import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtil;
 import utils.MessageUtil;
 import utils.PasswordUtil;
 
-public class AccountsController {
+public class AccountsController extends BaseController<Account> {
 	private IAccountView view;
 	private AccountDAO dao;
+	private IHomeNavigableView viewSideBar;
 
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
+		viewSideBar = view.getSideBar();
 		dao = new AccountDAO();
 		setupEventListeners();
 		loadDataFromDataBase();
+		setAction();
 	}
 
 	public AccountsController() {
@@ -164,4 +168,11 @@ public class AccountsController {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
+
+	@Override
+	protected IHomeNavigableView getView() {
+		// TODO Auto-generated method stub
+		return viewSideBar;
+	}
+
 }

@@ -4,8 +4,15 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interfaces.IHomeNavigableView;
+import utils.MessageUtil;
+
 public abstract class BaseController<T> {
+	private AppController app;
+
 	protected abstract void getSetData();
+
+	protected abstract IHomeNavigableView getView();
 
 	protected void addTableListener(JTable table) {
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -19,5 +26,19 @@ public abstract class BaseController<T> {
 
 			}
 		});
+	}
+
+	protected void setAction() {
+		app = new AppController();
+		getView().setHomeListener(e -> app.startHome(getView().getFrame()));
+		getView().setAccountListener(e -> app.startAccounts(getView().getFrame()));
+		getView().setLogoutListener(e -> logout());
+		getView().setMovieListener(e -> app.startMovies(getView().getFrame()));
+	}
+
+	private void logout() {
+		if (!MessageUtil.confirm("Bạn có muốn đăng xuất không?"))
+			return;
+		app.startLogin(getView().getFrame());
 	}
 }
