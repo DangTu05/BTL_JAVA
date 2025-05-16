@@ -105,7 +105,7 @@ public class Accounts extends JPanel implements IAccountView, IHomeNavigableView
 		lblTitle.setBackground(new Color(218, 112, 214));
 		lblTitle.setForeground(new Color(240, 255, 240));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(0, 0, 680, 25);
+		lblTitle.setBounds(0, 0, 692, 25);
 		add(lblTitle);
 
 		JLabel lblNewLabel = new JLabel("Mã tài khoản");

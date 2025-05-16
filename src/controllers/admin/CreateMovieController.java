@@ -19,6 +19,7 @@ import models.MovieActor;
 import models.MovieCategory;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
 import views.Admin.CreateMovie;
@@ -62,13 +63,13 @@ public class CreateMovieController {
 			movie = new Movie(movie_id, movie_name, release_date, director, duration, script, age_permisson, urlImg,
 					status);
 			if (!dao.insert(movie)) {
-				MessageUtil.showInfo("Tạo không thành công!!!");
+				MessageUtil.showError(MessageConstants.ERROR_CREATE);
 				return;
 			}
 			if (!actors.isEmpty()) {
 				for (Actor actor : actors) {
 					if (!movie_actorDao.insert(new MovieActor(movie_id, actor.getActor_id()))) {
-						MessageUtil.showInfo("Tạo không thành công!!!");
+						MessageUtil.showInfo(MessageConstants.ERROR_CREATE);
 						return;
 					}
 				}
@@ -77,16 +78,16 @@ public class CreateMovieController {
 			if (!categories.isEmpty()) {
 				for (Category category : categories) {
 					if (!movie_categoryDao.insert(new MovieCategory(category.getCategory_id(), movie_id))) {
-						MessageUtil.showInfo("Tạo không thành công!!!");
+						MessageUtil.showInfo(MessageConstants.ERROR_CREATE);
 						return;
 					}
 				}
 			}
-			MessageUtil.showInfo("Tạo thành công");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
 			view.reSetForm();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 

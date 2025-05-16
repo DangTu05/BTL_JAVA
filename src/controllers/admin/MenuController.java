@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Interfaces.IAccountView;
@@ -93,4 +94,6 @@ public class MenuController extends BaseController {
 		view.getSideBar().getBtnDienVien().addActionListener(e -> navigateTo("actors"));
 
 	}
+
+
 }

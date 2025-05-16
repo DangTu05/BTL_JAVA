@@ -6,6 +6,7 @@ import middlewares.UploadCloud;
 import models.Actor;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
 
@@ -41,13 +42,13 @@ public class CreateActorController {
 				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
 			}
 			if (!dao.insert(actor)) {
-				MessageUtil.showInfo("Tạo không thành công");
+				MessageUtil.showError(MessageConstants.ERROR_CREATE);
 				return;
 			}
-			MessageUtil.showInfo("Tạo thành công");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
 			return;
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 			// TODO: handle exception
 		}
 	}

@@ -2,11 +2,16 @@ package controllers.admin;
 
 import java.awt.CardLayout;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import Interfaces.IHomeNavigableView;
 import Interfaces.IMoviesView;
 import dao.MovieDAO;
 import models.Movie;
 import utils.ErrorUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
 
@@ -28,7 +33,7 @@ public class MoviesController extends BaseController<Movie> {
 	private void setUpEventListeners() {
 		view.setMovieSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e -> app.startCreateMovie(view.getFrame()));
+		view.setTaoListener(e -> app.startCreateMovie(getFrame()));
 		view.setLuuListener(e -> updateMovie());
 		view.setXoaListener(e -> softDelete());
 		view.setSearchListener(e -> loadDataFromSearch());
@@ -38,30 +43,30 @@ public class MoviesController extends BaseController<Movie> {
 		try {
 			view.loadDataFromDataBase(MovieDAO.getAllMoive());
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
 	private void updateMovie() {
 		try {
 			if (view.getMovie_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa!");
+				MessageUtil.showWarning("Vui lòng chọn phim muốn sửa!");
 				return;
 			}
 			Movie movie = new Movie(view.getMovie_Id(), view.getMovie_Name(), view.getNgayPhatHanh(),
 					view.getDirector(), view.getThoiLuong(), view.getScript(), view.getDoTuoi(), view.getPoster(),
 					view.getStatus());
-			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
+			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return;
 			if (!dao.update(movie)) {
-				MessageUtil.showError("Cập nhật thất bại!!!");
+				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return;
 			}
-			MessageUtil.showInfo("Cập nhật thành công!");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_UPDATE);
 			view.loadDataFromDataBase(MovieDAO.getAllMoive());
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -69,18 +74,18 @@ public class MoviesController extends BaseController<Movie> {
 
 		try {
 			if (view.getMovie_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn xóa!");
+				MessageUtil.showWarning("Vui lòng chọn phim muốn xóa!");
 				return;
 			}
 			if (!dao.softDelete(view.getMovie_Id())) {
-				MessageUtil.showError("Xóa thất bại!!!");
+				MessageUtil.showError(MessageConstants.ERROR_DELETE_FAILED);
 				return;
 			}
-			MessageUtil.showInfo("Xóa thành công!");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
 			view.loadDataFromDataBase(MovieDAO.getAllMoive());
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -106,12 +111,16 @@ public class MoviesController extends BaseController<Movie> {
 		}
 	}
 
+	protected JPanel getJPanel() {
+		return view.getMainPanel();
+	}
+
 	public void loadDataFromSearch() {
 		try {
 			view.loadDataFromDataBase(MovieDAO.findMovieByName(view.getTextSearch()));
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
