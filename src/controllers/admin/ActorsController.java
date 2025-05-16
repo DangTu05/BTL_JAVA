@@ -1,5 +1,7 @@
 package controllers.admin;
 
+import javax.swing.JPanel;
+
 import Interfaces.IActorsView;
 import Interfaces.IHomeNavigableView;
 import dao.ActorDAO;
@@ -18,18 +20,16 @@ public class ActorsController extends BaseController<Actor> {
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
-//		viewSideBar = view.getSideBar();
 		dao = new ActorDAO();
 		app = new AppController();
 		loadDataFromDataBase();
 		setUpEventListeners();
-//		setAction();
 	}
 
 	private void setUpEventListeners() {
 		view.setActorSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e -> app.startCreateActor(view.getFrame()));
+		view.setTaoListener(e -> app.startCreateActor(getFrame()));
 		view.setLuuListener(e -> updateActor());
 		view.setXoaListener(e -> softDelete());
 	}
@@ -61,6 +61,10 @@ public class ActorsController extends BaseController<Actor> {
 					actor_image != null ? actor_image.toString() : "");
 		}
 
+	}
+
+	protected JPanel getJPanel() {
+		return view.getJPanel();
 	}
 
 	private void updateActor() {

@@ -17,7 +17,6 @@ import validator.InputValidate;
 
 public class MoviesController extends BaseController<Movie> {
 	private IMoviesView view;
-	private IHomeNavigableView viewSideBar;
 	private MovieDAO dao;
 	private AppController app;
 
@@ -27,7 +26,6 @@ public class MoviesController extends BaseController<Movie> {
 		app = new AppController();
 		setUpEventListeners();
 		loadDataFromDataBase();
-		viewSideBar = view.getSideBar();
 	}
 
 	private void setUpEventListeners() {

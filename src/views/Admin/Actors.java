@@ -317,7 +317,7 @@ public class Actors extends JPanel implements IActorsView, IHomeNavigableView {
 		return table;
 	}
 
-	public SideBarMenu getSideBar() {
-		return sidebar;
+	public JPanel getJPanel() {
+		return this;
 	}
 }

@@ -37,10 +37,6 @@ public class MenuController extends BaseController {
 
 	}
 
-//	public void setMainContent(JPanel mainContentPanel) {
-//		this.mainContentPanel = mainContentPanel;
-//		this.cardLayout = (CardLayout) mainContentPanel.getLayout();
-//	}
 
 	@Override
 	protected void getSetData() {

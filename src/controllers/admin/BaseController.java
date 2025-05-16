@@ -9,13 +9,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import Interfaces.IHomeNavigableView;
-import utils.MessageUtil;
-import views.Admin.Accounts;
-import views.Admin.Actors;
-import views.Admin.Menu;
-import views.Admin.Movies;
-
 public abstract class BaseController<T> {
 	private AppController app;
 
@@ -41,19 +34,5 @@ public abstract class BaseController<T> {
 	protected JFrame getFrame() {
 		return (JFrame) SwingUtilities.getWindowAncestor(getJPanel());
 	}
-
-//	protected void setAction() {
-//		app = new AppController();
-//		getView().setHomeListener(e -> app.startHome(getView().getFrame()));
-//		getView().setAccountListener(e -> app.startAccounts(getView().getFrame()));
-//		getView().setLogoutListener(e -> logout());
-//		getView().setMovieListener(e -> app.startMovies(getView().getFrame()));
-//	}
-//
-//	private void logout() {
-//		if (!MessageUtil.confirm("Bạn có muốn đăng xuất không?"))
-//			return;
-//		app.startLogin(getView().getFrame());
-//	}
 
 }
