@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
@@ -54,4 +55,6 @@ public interface IMoviesView {
 	public JFrame getFrame();
 
 	public SideBarMenu getSideBar();
+
+	public JPanel getMainPanel();
 }

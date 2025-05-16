@@ -34,8 +34,6 @@ public interface IAccountView {
 
 	public JFrame getFrame();
 
-	public SideBarMenu getSideBar();
-
 	public void setFormData(String maTk, String tenTk, String email, String mk, String status, String role);
 
 	public void setTextLblBanGhi(int countRow, int selectedRow);

@@ -74,4 +74,5 @@ public class AppController {
 		viewLogin.setVisible(true);
 		previousFrame.dispose();
 	}
+
 }

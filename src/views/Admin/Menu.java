@@ -41,6 +41,8 @@ public class Menu extends JFrame implements IMenuView, IHomeNavigableView {
 //	private JButton btnPhim;
 //	private JButton btnLogout;
 	private SideBarMenu sidebar;
+	private CardLayout cardLayout;
+	private JPanel mainContent;
 
 	/**
 	 * Launch the application.
@@ -64,16 +66,21 @@ public class Menu extends JFrame implements IMenuView, IHomeNavigableView {
 	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 604);
-		contentPane = new JPanel();
+		setSize(970, 604);  // Cửa sổ to hơn
+		setLocationRelativeTo(null);  // Ở giữa màn hình
+		cardLayout = new CardLayout();
+		mainContent = new JPanel(cardLayout);
+		contentPane = new JPanel(new BorderLayout());
+		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		// Tạo sidebar
 		sidebar = new SideBarMenu();
-		sidebar.setFrame(this);
-		contentPane.add(sidebar);
+		sidebar.getBtnLogout().setSize(255, 53);
+		sidebar.getBtnLogout().setLocation(0, 503);
+		contentPane.add(sidebar, BorderLayout.WEST);
+		contentPane.add(mainContent, BorderLayout.CENTER);
 
 	}
 
@@ -81,4 +88,11 @@ public class Menu extends JFrame implements IMenuView, IHomeNavigableView {
 		return sidebar;
 	}
 
+	public JPanel getMainContentJpanel() {
+		return mainContent;
+	}
+
+	public JFrame getFrame() {
+		return this;
+	}
 }

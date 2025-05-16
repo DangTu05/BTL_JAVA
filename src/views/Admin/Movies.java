@@ -1,5 +1,6 @@
 package views.Admin;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -37,7 +38,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 
-public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
+public class Movies extends JPanel implements IMoviesView, IHomeNavigableView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -59,6 +60,7 @@ public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
 	private JTextField txtSearch;
 	private JButton btnSearch;
 	public SideBarMenu sidebar;
+	private CardLayout cardLayout;
 
 	/**
 	 * Launch the application.
@@ -67,7 +69,12 @@ public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Movies frame = new Movies();
+					JFrame frame = new JFrame("Quản Lý Phim");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setBounds(100, 100, 949, 604);
+					frame.setLocationRelativeTo(null);
+					Movies moviesPanel = new Movies();
+					frame.setContentPane(moviesPanel);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,30 +87,26 @@ public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
 	 * Create the frame.
 	 */
 	public Movies() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 949, 605);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 682, 604);
+		setBackground(new Color(255, 255, 255));
+		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		sidebar = new SideBarMenu();
-		sidebar.setFrame(this);
-		contentPane.add(sidebar);
+//		setContentPane(contentPane);
+		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Phim");
-		lblTitle.setBounds(255, 0, 680, 25);
+		lblTitle.setBounds(0, 0, 680, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));
 		lblTitle.setForeground(new Color(240, 255, 240));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblTitle);
+		add(lblTitle);
 		panel_2 = new JPanel();
-		panel_2.setBounds(813, 101, 112, 203);
+		panel_2.setBounds(538, 115, 112, 203);
 		panel_2.setBackground(new Color(255, 255, 255));
 		panel_2.setBorder(new LineBorder(Color.GREEN, 2));
-		contentPane.add(panel_2);
+		add(panel_2);
 		panel_2.setLayout(null);
 		btnReset = new JButton("Làm mới");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -160,128 +163,128 @@ public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(255, 434, 680, 90);
-		contentPane.add(scrollPane);
+		scrollPane.setBounds(0, 417, 680, 90);
+		add(scrollPane);
 
 		JLabel lblMaPhim = new JLabel("Mã Phim");
-		lblMaPhim.setBounds(319, 50, 59, 19);
+		lblMaPhim.setBounds(36, 35, 59, 19);
 		lblMaPhim.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblMaPhim.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblMaPhim);
+		add(lblMaPhim);
 
 		txtMaPhim = new JTextField();
-		txtMaPhim.setBounds(291, 83, 112, 19);
+		txtMaPhim.setBounds(10, 65, 112, 19);
 		txtMaPhim.setBorder(null);
 		txtMaPhim.setEditable(false);
-		contentPane.add(txtMaPhim);
+		add(txtMaPhim);
 		txtMaPhim.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Tên Phim");
-		lblNewLabel.setBounds(488, 52, 71, 15);
+		lblNewLabel.setBounds(244, 35, 71, 15);
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel);
+		add(lblNewLabel);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(291, 104, 112, 2);
-		contentPane.add(separator);
+		separator.setBounds(10, 85, 112, 19);
+		add(separator);
 
 		txtTenPhim = new JTextField();
-		txtTenPhim.setBounds(452, 83, 160, 19);
+		txtTenPhim.setBounds(202, 65, 160, 19);
 		txtTenPhim.setBorder(null);
-		contentPane.add(txtTenPhim);
+		add(txtTenPhim);
 		txtTenPhim.setColumns(10);
 
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(452, 104, 160, 19);
-		contentPane.add(separator_1);
+		separator_1.setBounds(202, 85, 160, 2);
+		add(separator_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Ngày Phát Hành");
-		lblNewLabel_1.setBounds(669, 50, 112, 19);
+		lblNewLabel_1.setBounds(427, 35, 112, 19);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel_1);
+		add(lblNewLabel_1);
 
 		dateNgayPhatHanh = new JSpinner(new SpinnerDateModel());
-		dateNgayPhatHanh.setBounds(679, 76, 102, 26);
+		dateNgayPhatHanh.setBounds(427, 65, 112, 26);
 		dateNgayPhatHanh.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		dateNgayPhatHanh.setEditor(new JSpinner.DateEditor(dateNgayPhatHanh, "dd/MM/yyyy"));
-		contentPane.add(dateNgayPhatHanh);
+		add(dateNgayPhatHanh);
 
 		JLabel lblNewLabel_2 = new JLabel("Tác Giả");
-		lblNewLabel_2.setBounds(319, 147, 59, 19);
+		lblNewLabel_2.setBounds(36, 147, 59, 19);
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel_2);
+		add(lblNewLabel_2);
 
 		txtTacGia = new JTextField();
-		txtTacGia.setBounds(291, 176, 112, 19);
+		txtTacGia.setBounds(10, 176, 112, 19);
 		txtTacGia.setBorder(null);
-		contentPane.add(txtTacGia);
+		add(txtTacGia);
 		txtTacGia.setColumns(10);
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(291, 196, 112, 19);
-		contentPane.add(separator_2);
+		separator_2.setBounds(10, 196, 112, 2);
+		add(separator_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Ảnh");
-		lblNewLabel_3.setBounds(585, 145, 71, 20);
+		lblNewLabel_3.setBounds(332, 145, 71, 20);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel_3);
+		add(lblNewLabel_3);
 
 		txtAnh = new JTextField();
-		txtAnh.setBounds(452, 176, 329, 19);
+		txtAnh.setBounds(199, 176, 329, 19);
 		txtAnh.setBorder(null);
-		contentPane.add(txtAnh);
+		add(txtAnh);
 		txtAnh.setColumns(10);
 
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(452, 196, 329, 19);
-		contentPane.add(separator_3);
+		separator_3.setBounds(199, 197, 329, 2);
+		add(separator_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Mô Tả");
-		lblNewLabel_4.setBounds(417, 259, 59, 19);
+		lblNewLabel_4.setBounds(132, 243, 59, 19);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblNewLabel_4);
+		add(lblNewLabel_4);
 
 		txtMoTa = new JTextArea();
-		txtMoTa.setBounds(291, 288, 321, 81);
+		txtMoTa.setBounds(10, 272, 321, 81);
 		Border redBorder = BorderFactory.createLineBorder(Color.BLACK); // tạo viền đỏ
 		txtMoTa.setBorder(redBorder);
-		contentPane.add(txtMoTa);
+		add(txtMoTa);
 
 		thoiLuong = new JSpinner();
-		thoiLuong.setBounds(669, 284, 78, 25);
-		contentPane.add(thoiLuong);
+		thoiLuong.setBounds(393, 272, 78, 25);
+		add(thoiLuong);
 
 		JLabel lblNewLabel_5 = new JLabel("Thời Lượng");
-		lblNewLabel_5.setBounds(671, 259, 76, 19);
+		lblNewLabel_5.setBounds(395, 243, 76, 19);
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblNewLabel_5);
+		add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Độ Tuổi");
-		lblNewLabel_6.setBounds(669, 333, 69, 19);
+		lblNewLabel_6.setBounds(393, 315, 69, 19);
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		contentPane.add(lblNewLabel_6);
+		add(lblNewLabel_6);
 
 		doTuoi = new JSpinner();
-		doTuoi.setBounds(669, 362, 78, 25);
-		contentPane.add(doTuoi);
+		doTuoi.setBounds(393, 344, 78, 25);
+		add(doTuoi);
 
 		cmbTrangThai = new JComboBox<>();
 		cmbTrangThai.addItem("Sắp chiếu");
 		cmbTrangThai.addItem("Đang chiếu");
 		cmbTrangThai.addItem("Đã ngưng");
-		cmbTrangThai.setBounds(813, 332, 112, 25);
-		contentPane.add(cmbTrangThai);
+		cmbTrangThai.setBounds(538, 328, 112, 25);
+		add(cmbTrangThai);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 51, 255));
-		panel_1.setBounds(255, 525, 680, 42);
-		contentPane.add(panel_1);
+		panel_1.setBounds(0, 506, 680, 47);
+		add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_7 = new JLabel("Tìm phim theo tên");
@@ -404,13 +407,11 @@ public class Movies extends JFrame implements IMoviesView, IHomeNavigableView {
 		return txtSearch.getText().trim();
 	}
 
-	public JFrame getFrame() {
-		return this;
-	}
-
 	public SideBarMenu getSideBar() {
 		return sidebar;
 	}
 
-
+	public JPanel getMainPanel() {
+		return this;
+	}
 }

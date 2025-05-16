@@ -32,6 +32,12 @@ public class LoginController {
 				redirectRegister();
 			}
 		});
+		login.setForgotPassWord((MouseListener) new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 	}
 
 	private void loginAccount() {

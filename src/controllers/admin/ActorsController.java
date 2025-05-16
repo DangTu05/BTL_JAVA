@@ -1,6 +1,7 @@
 package controllers.admin;
 
 import Interfaces.IActorsView;
+import Interfaces.IHomeNavigableView;
 import dao.ActorDAO;
 import dao.MovieDAO;
 import models.Actor;
@@ -12,13 +13,16 @@ public class ActorsController extends BaseController<Actor> {
 	private IActorsView view;
 	private ActorDAO dao;
 	private AppController app;
+	private IHomeNavigableView viewSideBar;
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
+//		viewSideBar = view.getSideBar();
 		dao = new ActorDAO();
 		app = new AppController();
 		loadDataFromDataBase();
 		setUpEventListeners();
+//		setAction();
 	}
 
 	private void setUpEventListeners() {
@@ -101,4 +105,8 @@ public class ActorsController extends BaseController<Actor> {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
 	}
+
+//	protected IHomeNavigableView getView() {
+//		return viewSideBar;
+//	}
 }

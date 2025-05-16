@@ -1,11 +1,6 @@
 package controllers.admin;
 
-import javax.swing.event.ListSelectionListener;
-
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.event.ListSelectionEvent;
+import java.awt.CardLayout;
 
 import Interfaces.IHomeNavigableView;
 import Interfaces.IMoviesView;
@@ -28,7 +23,6 @@ public class MoviesController extends BaseController<Movie> {
 		setUpEventListeners();
 		loadDataFromDataBase();
 		viewSideBar = view.getSideBar();
-		setAction();
 	}
 
 	private void setUpEventListeners() {
@@ -119,12 +113,6 @@ public class MoviesController extends BaseController<Movie> {
 			// TODO: handle exception
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
-	}
-
-	@Override
-	protected IHomeNavigableView getView() {
-		// TODO Auto-generated method stub
-		return viewSideBar;
 	}
 
 }
