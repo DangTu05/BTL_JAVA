@@ -52,8 +52,6 @@ public interface IMoviesView {
 
 	public JTable getTable();
 
-	public JFrame getFrame();
-
 	public SideBarMenu getSideBar();
 
 	public JPanel getMainPanel();

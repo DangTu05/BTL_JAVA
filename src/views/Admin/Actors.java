@@ -87,7 +87,7 @@ public class Actors extends JPanel implements IActorsView, IHomeNavigableView {
 //		setContentPane(contentPane);
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Diễn Viên");
-		lblTitle.setBounds(0, 0, 680, 25);
+		lblTitle.setBounds(0, 0, 692, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));

@@ -6,6 +6,7 @@ import dao.ActorDAO;
 import dao.MovieDAO;
 import models.Actor;
 import utils.ErrorUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
 
@@ -73,17 +74,17 @@ public class ActorsController extends BaseController<Actor> {
 				return;
 			Actor actor = new Actor(view.getActor_Id(), view.getActor_Name(), view.getActor_Image(),
 					view.getNationality(), view.getNgaySinh(), view.getBiography());
-			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
+			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return;
 			if (!dao.update(actor)) {
-				MessageUtil.showError("Cập nhật thất bại!!!");
+				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return;
 			}
-			MessageUtil.showInfo("Cập nhật thành công!");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_UPDATE);
 			loadDataFromDataBase();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -95,14 +96,14 @@ public class ActorsController extends BaseController<Actor> {
 				return;
 			}
 			if (!dao.softDelete(view.getActor_Id())) {
-				MessageUtil.showError("Xóa thất bại!!!");
+				MessageUtil.showError(MessageConstants.ERROR_DELETE_FAILED);
 				return;
 			}
-			MessageUtil.showInfo("Xóa thành công!");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
 			view.loadDataFromDataBase(ActorDAO.getAllActor());
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 

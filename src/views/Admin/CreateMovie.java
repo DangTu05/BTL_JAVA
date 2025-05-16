@@ -55,6 +55,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JPanel panel;
 	private JList<Actor> listActor;
 	private JList<Category> listCategory;
+	private JButton btnTrangChu;
 
 	/**
 	 * Launch the application.
@@ -194,6 +195,13 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		JScrollPane scrollPane_1 = new JScrollPane(listCategory);
 		scrollPane_1.setBounds(652, 220, 162, 98);
 		panel.add(scrollPane_1);
+
+		btnTrangChu = new JButton("");
+		btnTrangChu.setBackground(new Color(204, 255, 255));
+		btnTrangChu.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
+		btnTrangChu.setBounds(0, 0, 85, 41);
+		contentPane.add(btnTrangChu);
 	}
 
 	public void setFileImg(File fileImg) {
@@ -277,5 +285,4 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	public JList<Category> getListCategory() {
 		return listCategory;
 	}
-
 }

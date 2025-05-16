@@ -88,14 +88,14 @@ public class Movies extends JPanel implements IMoviesView, IHomeNavigableView {
 	 */
 	public Movies() {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 682, 604);
+		setBounds(100, 100, 696, 604);
 		setBackground(new Color(255, 255, 255));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
 //		setContentPane(contentPane);
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Phim");
-		lblTitle.setBounds(0, 0, 680, 25);
+		lblTitle.setBounds(0, 0, 694, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));

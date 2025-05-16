@@ -2,8 +2,10 @@ package controllers.admin;
 
 import java.awt.CardLayout;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -17,9 +19,9 @@ import views.Admin.Movies;
 public abstract class BaseController<T> {
 	private AppController app;
 
-
 	protected abstract void getSetData();
 
+	protected abstract JPanel getJPanel();
 //	protected abstract IHomeNavigableView getView();
 
 	protected void addTableListener(JTable table) {
@@ -36,6 +38,10 @@ public abstract class BaseController<T> {
 		});
 	}
 
+	protected JFrame getFrame() {
+		return (JFrame) SwingUtilities.getWindowAncestor(getJPanel());
+	}
+
 //	protected void setAction() {
 //		app = new AppController();
 //		getView().setHomeListener(e -> app.startHome(getView().getFrame()));
@@ -49,6 +55,5 @@ public abstract class BaseController<T> {
 //			return;
 //		app.startLogin(getView().getFrame());
 //	}
-	
 
 }

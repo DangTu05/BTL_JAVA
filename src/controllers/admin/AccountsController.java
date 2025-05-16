@@ -7,6 +7,7 @@ import Interfaces.IHomeNavigableView;
 import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.PasswordUtil;
 
@@ -67,11 +68,11 @@ public class AccountsController extends BaseController<Account> {
 	public boolean updateAccount() {
 		try {
 			if (view.getMa().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa!!!");
+				MessageUtil.showWarning("Vui lòng chọn tìa khoản cần sửa!");
 				return false;
 			}
 			if (!checkData()) {
-				MessageUtil.showWarning("Thông tin không được để trống!!!");
+				MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 				return false;
 			}
 			Account user = dao.findByField("AccountId", view.getMa());
@@ -81,19 +82,19 @@ public class AccountsController extends BaseController<Account> {
 			if (!view.getPassword().isEmpty()) {
 				user.setPassword(PasswordUtil.hashPassword(view.getPassword()));
 			}
-			if (!MessageUtil.confirm("Bạn có muốn cập nhật?"))
+			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return false;
 			if (!dao.update(user)) {
-				MessageUtil.showError("Cập nhật thất bại");
+				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return false;
 			}
-			MessageUtil.showInfo("Cập nhật thành công");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_UPDATE);
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 			return true;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 			return false;
 		}
 
@@ -109,14 +110,14 @@ public class AccountsController extends BaseController<Account> {
 			if (!MessageUtil.confirm("Bạn có chắc chắn muốn xóa tài khoản này không?"))
 				return;
 			if (!dao.delete(view.getMa())) {
-				MessageUtil.showError("Xóa thất bại!");
+				MessageUtil.showError(MessageConstants.ERROR_DELETE_FAILED);
 				return;
 			}
-			MessageUtil.showInfo("Đã xóa thành công");
+			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "Đã xảy ra lỗi");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -124,7 +125,7 @@ public class AccountsController extends BaseController<Account> {
 		try {
 			view.loadDataFromDataBase(AccountDAO.getAllAccounts());
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -132,7 +133,7 @@ public class AccountsController extends BaseController<Account> {
 		try {
 			view.loadDataFromForSearch(AccountDAO.findTksByName(view.getTextSearch()));
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -158,14 +159,14 @@ public class AccountsController extends BaseController<Account> {
 			String newStatus = currentStatus.equals("Đang hoạt động") ? "Tài khoản bị khóa" : "Đang hoạt động";
 			// Nếu muốn lưu ngay lập tức
 			if (!dao.changeStatus(view.getStatus().equals("Đang hoạt động") ? "inactive" : "active", view.getMa())) {
-				MessageUtil.showError("Cập nhật thất bại!!");
+				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return;
 			}
 			// Cập nhật trạng thái trên giao diện
 			view.setStatus(newStatus);
 			loadDataFromDataBase();
 		} catch (Exception e) {
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
