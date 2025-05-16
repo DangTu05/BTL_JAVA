@@ -34,8 +34,9 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import java.awt.event.ActionEvent;
 
-public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
+public class Actors extends JPanel implements IActorsView, IHomeNavigableView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -51,7 +52,6 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 	private JSpinner dateNgaySinh;
 	private JTable table;
 	private JTextArea txtTieuSu;
-	private SideBarMenu sidebar;
 
 	/**
 	 * Launch the application.
@@ -60,7 +60,13 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Actors frame = new Actors();
+					JFrame frame = new JFrame("Quản Lý Diễn Viên");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setBounds(100, 100, 949, 604);
+					;
+					frame.setLocationRelativeTo(null);
+					Actors actorPanel = new Actors();
+					frame.setContentPane(actorPanel);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,29 +79,26 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 	 * Create the frame.
 	 */
 	public Actors() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBackground(new Color(255, 255, 255));
+		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		sidebar = new SideBarMenu();
-		contentPane.add(sidebar);
+//		setContentPane(contentPane);
+		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Diễn Viên");
-		lblTitle.setBounds(255, 0, 680, 25);
+		lblTitle.setBounds(0, 0, 680, 25);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTitle.setOpaque(true); // Cho phép hiện màu nền
 		lblTitle.setBackground(new Color(218, 112, 214));
 		lblTitle.setForeground(new Color(240, 255, 240));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblTitle);
+		add(lblTitle);
 		panel_2 = new JPanel();
-		panel_2.setBounds(813, 101, 112, 203);
+		panel_2.setBounds(556, 115, 112, 203);
 		panel_2.setBackground(new Color(255, 255, 255));
 		panel_2.setBorder(new LineBorder(Color.GREEN, 2));
-		contentPane.add(panel_2);
+		add(panel_2);
 		panel_2.setLayout(null);
 		btnReset = new JButton("Làm mới");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -110,7 +113,7 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 		btnLuu.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745690459/download_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_otwyyc.png")));
 		btnLuu.setBackground(new Color(204, 255, 255));
-		btnLuu.setBounds(10, 111, 92, 25);
+		btnLuu.setBounds(10, 116, 92, 25);
 		panel_2.add(btnLuu);
 
 		btnXoa = new JButton("Xóa");
@@ -122,99 +125,100 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 		panel_2.add(btnXoa);
 
 		btnTao = new JButton("Tạo ");
+
 		btnTao.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnTao.setIcon(new ImageIcon(UrlUtil.safeURL(
 				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1746550129/add_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_qhui7p.png")));
 		btnTao.setBackground(new Color(204, 255, 255));
-		btnTao.setBounds(10, 66, 92, 25);
+		btnTao.setBounds(9, 68, 92, 25);
 		panel_2.add(btnTao);
 
 		JLabel lblNewLabel = new JLabel("Mã Diễn Viên");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(328, 75, 112, 19);
-		contentPane.add(lblNewLabel);
+		lblNewLabel.setBounds(55, 75, 112, 19);
+		add(lblNewLabel);
 
 		txtMaDienVien = new JTextField();
-		txtMaDienVien.setBounds(328, 104, 112, 19);
+		txtMaDienVien.setBounds(56, 101, 112, 19);
 		txtMaDienVien.setBorder(null);
 		txtMaDienVien.setEditable(false);
-		contentPane.add(txtMaDienVien);
+		add(txtMaDienVien);
 		txtMaDienVien.setColumns(10);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(328, 125, 112, 2);
-		contentPane.add(separator);
+		separator.setBounds(56, 121, 112, 2);
+		add(separator);
 
 		JLabel lblNewLabel_1 = new JLabel("Tên Diễn Viên");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(604, 75, 112, 18);
-		contentPane.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(276, 74, 112, 18);
+		add(lblNewLabel_1);
 
 		txtTenDienVien = new JTextField();
-		txtTenDienVien.setBounds(584, 104, 152, 19);
+		txtTenDienVien.setBounds(258, 100, 152, 19);
 		txtTenDienVien.setBorder(null);
-		contentPane.add(txtTenDienVien);
+		add(txtTenDienVien);
 		txtTenDienVien.setColumns(10);
 
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(584, 125, 152, 2);
-		contentPane.add(separator_1);
+		separator_1.setBounds(258, 123, 152, 2);
+		add(separator_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Quốc Gia");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(328, 199, 105, 19);
-		contentPane.add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(75, 199, 105, 19);
+		add(lblNewLabel_2);
 
 		txtQuocGia = new JTextField();
-		txtQuocGia.setBounds(316, 228, 139, 19);
+		txtQuocGia.setBounds(55, 227, 139, 19);
 		txtQuocGia.setBorder(null);
-		contentPane.add(txtQuocGia);
+		add(txtQuocGia);
 		txtQuocGia.setColumns(10);
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(316, 249, 139, 2);
-		contentPane.add(separator_2);
+		separator_2.setBounds(55, 249, 139, 2);
+		add(separator_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Tiểu Sử");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(621, 202, 70, 13);
-		contentPane.add(lblNewLabel_3);
+		lblNewLabel_3.setBounds(337, 202, 70, 13);
+		add(lblNewLabel_3);
 
 		txtTieuSu = new JTextArea();
-		txtTieuSu.setBounds(563, 225, 185, 93);
+		txtTieuSu.setBounds(282, 225, 185, 93);
 		txtTieuSu.setBorder(new LineBorder(Color.BLACK, 1));
-		contentPane.add(txtTieuSu);
+		add(txtTieuSu);
 
 		JLabel lblNewLabel_4 = new JLabel("Ảnh");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(385, 363, 70, 25);
-		contentPane.add(lblNewLabel_4);
+		lblNewLabel_4.setBounds(160, 363, 70, 25);
+		add(lblNewLabel_4);
 
 		txtAnh = new JTextField();
-		txtAnh.setBounds(282, 398, 281, 19);
+		txtAnh.setBounds(55, 398, 281, 19);
 		txtAnh.setBorder(null);
-		contentPane.add(txtAnh);
+		add(txtAnh);
 		txtAnh.setColumns(10);
 
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(282, 419, 281, 2);
-		contentPane.add(separator_3);
+		separator_3.setBounds(55, 419, 281, 2);
+		add(separator_3);
 
 		dateNgaySinh = new JSpinner(new SpinnerDateModel());
 		dateNgaySinh.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		dateNgaySinh.setEditor(new JSpinner.DateEditor(dateNgaySinh, "dd/MM/yyyy"));
-		dateNgaySinh.setBounds(666, 398, 105, 23);
-		contentPane.add(dateNgaySinh);
+		dateNgaySinh.setBounds(391, 395, 105, 23);
+		add(dateNgaySinh);
 
 		JLabel lblNewLabel_5 = new JLabel("Ngày Sinh");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5.setBounds(684, 365, 77, 21);
-		contentPane.add(lblNewLabel_5);
+		lblNewLabel_5.setBounds(408, 365, 77, 21);
+		add(lblNewLabel_5);
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		table.setForeground(new Color(0, 0, 0));
@@ -235,8 +239,8 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(255, 468, 680, 90);
-		contentPane.add(scrollPane);
+		scrollPane.setBounds(0, 466, 670, 90);
+		add(scrollPane);
 
 	}
 
@@ -313,31 +317,7 @@ public class Actors extends JFrame implements IActorsView, IHomeNavigableView {
 		return table;
 	}
 
-	public JFrame getFrame() {
-		return this;
-	}
-
-	@Override
-	public void setHomeListener(ActionListener listener) {
-		// TODO Auto-generated method stub
-		sidebar.btnHome.addActionListener(listener);
-	}
-
-	@Override
-	public void setAccountListener(ActionListener listener) {
-		// TODO Auto-generated method stub
-		sidebar.btnAccount.addActionListener(listener);
-	}
-
-	@Override
-	public void setLogoutListener(ActionListener listener) {
-		// TODO Auto-generated method stub
-		sidebar.btnLogout.addActionListener(listener);
-	}
-
-	@Override
-	public void setMovieListener(ActionListener listener) {
-		// TODO Auto-generated method stub
-		sidebar.btnPhim.addActionListener(listener);
+	public SideBarMenu getSideBar() {
+		return sidebar;
 	}
 }

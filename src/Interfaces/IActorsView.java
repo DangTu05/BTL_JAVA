@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
+import components.SideBarMenu;
+
 public interface IActorsView {
 	public void loadDataFromDataBase(List<String[]> list);
 
@@ -30,6 +32,7 @@ public interface IActorsView {
 	public java.sql.Date getNgaySinh();
 
 	public JFrame getFrame();
+
 
 	public void setActorSelectionListener(ListSelectionListener listener);
 

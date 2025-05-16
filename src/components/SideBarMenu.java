@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
@@ -12,16 +13,18 @@ import utils.UrlUtil;
 public class SideBarMenu extends JPanel implements IHomeNavigableView {
 	private static final long serialVersionUID = 1L;
 
-	public JButton btnAccount;
-	public JButton btnPhim;
-	public JButton btnLogout;
-	public JButton btnHome;
+	private JButton btnAccount;
+	private JButton btnPhim;
+	private JButton btnLogout;
+	private JButton btnHome;
 	private JFrame frame;
+	private JButton btnDienVien;
 
 	public SideBarMenu() {
 		setBackground(new Color(102, 51, 102));
 		setLayout(null);
 		setBounds(0, 0, 255, 571);
+		setPreferredSize(new Dimension(255, 600)); // thêm dòng này
 		btnAccount = new JButton("Tài Khoản");
 		btnAccount.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAccount.setBackground(new Color(204, 0, 153));
@@ -66,6 +69,15 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 76, 255, 2);
 		add(separator);
+
+		btnDienVien = new JButton("Diễn Viên");
+		btnDienVien.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnDienVien.setBackground(new Color(153, 51, 153));
+		btnDienVien.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747323748/casting_sk1q35.png")));
+		btnDienVien.setBounds(0, 226, 255, 43);
+		btnDienVien.setBorder(BorderFactory.createEmptyBorder());
+		add(btnDienVien);
 	}
 
 	@Override
@@ -96,5 +108,25 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+
+	public JButton getBtnAccount() {
+		return btnAccount;
+	}
+
+	public JButton getBtnDienVien() {
+		return btnDienVien;
+	}
+
+	public JButton getBtnPhim() {
+		return btnPhim;
+	}
+
+	public JButton getBtnHome() {
+		return btnHome;
+	}
+
+	public JButton getBtnLogout() {
+		return btnLogout;
 	}
 }

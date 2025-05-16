@@ -41,6 +41,7 @@ public class Login extends JFrame implements ILoginView {
 	public JButton btnDN;
 	private JTextField txtPassword;
 	private JLabel lblDK;
+	private JLabel lblQuenMatKhau;
 
 	/**
 	 * Launch the application.
@@ -121,6 +122,10 @@ public class Login extends JFrame implements ILoginView {
 		contentPane.add(txtPassword);
 		txtPassword.setBackground(new Color(153, 102, 204));
 		txtPassword.setBorder(null);
+		
+		lblQuenMatKhau = new JLabel("<html><a href=\"\">Quên mật khẩu?</a></html>");
+		lblQuenMatKhau.setBounds(270, 196, 101, 13);
+		contentPane.add(lblQuenMatKhau);
 
 	}
 
@@ -148,6 +153,9 @@ public class Login extends JFrame implements ILoginView {
 
 	public void setLoginListener(ActionListener listener) {
 		btnDN.addActionListener(listener);
+	}
+	public void setForgotPassWord(MouseListener listener) {
+		lblQuenMatKhau.addMouseListener(listener);
 	}
 
 	public void setRedirectRegister(MouseListener listener) {

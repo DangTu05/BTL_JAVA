@@ -15,4 +15,6 @@ public interface ILoginView {
 	public void setLoginListener(ActionListener listener);
 
 	public void setRedirectRegister(MouseListener listener);
+
+	public void setForgotPassWord(MouseListener listener);
 }

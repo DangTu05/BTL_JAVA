@@ -17,11 +17,11 @@ public class AccountsController extends BaseController<Account> {
 
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
-		viewSideBar = view.getSideBar();
+//		viewSideBar = view.getSideBar();
 		dao = new AccountDAO();
 		setupEventListeners();
 		loadDataFromDataBase();
-		setAction();
+//		setAction();
 	}
 
 	public AccountsController() {
@@ -167,12 +167,6 @@ public class AccountsController extends BaseController<Account> {
 		} catch (Exception e) {
 			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
 		}
-	}
-
-	@Override
-	protected IHomeNavigableView getView() {
-		// TODO Auto-generated method stub
-		return viewSideBar;
 	}
 
 }
