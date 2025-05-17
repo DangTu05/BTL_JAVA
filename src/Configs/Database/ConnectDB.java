@@ -9,13 +9,13 @@ import java.sql.Statement;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnectDB {
-    // Load .env file và khai báo biến static theo đúng thứ tự
-    private static final Dotenv dotenv = Dotenv.configure().load();
-    private static final String DB_URL = dotenv.get("db.url");
-    private static final String USER_NAME = dotenv.get("db.username");
-    private static final String PASSWORD = dotenv.get("db.password");
-    private static Connection con = null;
-    private static ConnectDB instance=new ConnectDB(); // Singleton instance
+	// Load .env file và khai báo biến static theo đúng thứ tự
+	private static final Dotenv dotenv = Dotenv.configure().load();
+	private static final String DB_URL = dotenv.get("db.url");
+	private static final String USER_NAME = dotenv.get("db.username");
+	private static final String PASSWORD = dotenv.get("db.password");
+	private static Connection con = null;
+	private static ConnectDB instance = new ConnectDB(); // Singleton instance
 
 	public void connect() throws SQLException, Exception {
 		if (con == null || con.isClosed()) {
@@ -31,7 +31,7 @@ public class ConnectDB {
 	}
 
 	// Get the existing connection or establish a new one if it's closed
-	public static Connection getConnection() throws Exception {
+	public static Connection getConnection() {
 		if (con == null || !instance.isConnected()) {
 			try {
 				instance.connect();

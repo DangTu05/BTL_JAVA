@@ -38,7 +38,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 
-public class Movies extends JPanel implements IMoviesView, IHomeNavigableView {
+public class Movies extends JPanel implements IMoviesView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -405,10 +405,6 @@ public class Movies extends JPanel implements IMoviesView, IHomeNavigableView {
 
 	public String getTextSearch() {
 		return txtSearch.getText().trim();
-	}
-
-	public SideBarMenu getSideBar() {
-		return sidebar;
 	}
 
 	public JPanel getMainPanel() {

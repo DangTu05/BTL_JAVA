@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.swing.JOptionPane;
 
+import utils.MessageConstants;
 import utils.MessageUtil;
 
 public class InputValidate {
@@ -64,6 +65,18 @@ public class InputValidate {
 	public static boolean checkId(String id, String message) {
 		if (id.isEmpty()) {
 			MessageUtil.showWarning(message);
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean checkChangePassword(String password, String confirmPassword) {
+		if (password.isEmpty() || confirmPassword.isEmpty()) {
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
+			return false;
+		}
+		if (!password.equals(confirmPassword)) {
+			MessageUtil.showWarning("Mật khẩu không khớp!");
 			return false;
 		}
 		return true;

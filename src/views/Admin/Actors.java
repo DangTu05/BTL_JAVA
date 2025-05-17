@@ -36,10 +36,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import java.awt.event.ActionEvent;
 
-public class Actors extends JPanel implements IActorsView, IHomeNavigableView {
+public class Actors extends JPanel implements IActorsView {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JPanel panel_2;
 	private JButton btnReset;
 	private JButton btnLuu;

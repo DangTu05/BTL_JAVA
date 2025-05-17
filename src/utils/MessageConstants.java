@@ -10,4 +10,5 @@ public class MessageConstants {
 	public static final String SUCCESS_CREATE = "Tạo thành công!";
 	public static final String CONFIRM_UPDATE = "Bạn có muốn cập nhật?";
 	public static final String WARN_INPUT = "Thông tin không được để trống!";
+	public static final String CONFIRM_LOGOUT = "Bạn muốn đăng xuất?";
 }

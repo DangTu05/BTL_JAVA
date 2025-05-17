@@ -1,10 +1,17 @@
-package controllers.admin;
+package controllers;
 
 import javax.swing.JFrame;
 
-import controllers.LoginController;
+import controllers.admin.AccountsController;
+import controllers.admin.ActorsController;
+import controllers.admin.CreateActorController;
+import controllers.admin.CreateMovieController;
+import controllers.admin.MenuController;
+import controllers.admin.MoviesController;
 import utils.MessageUtil;
+import views.ForgotPassword;
 import views.Login;
+import views.Register;
 import views.Admin.Accounts;
 import views.Admin.Actors;
 import views.Admin.CreateActor;
@@ -20,6 +27,8 @@ public class AppController {
 	private Accounts viewAccounts;
 	private Login viewLogin;
 	private Movies viewMovies;
+	private Register viewRegister;
+	private ForgotPassword viewForgotPassword;
 
 	public AppController() {
 
@@ -75,4 +84,17 @@ public class AppController {
 		previousFrame.dispose();
 	}
 
+	public void startRegister(JFrame previousFrame) {
+		viewRegister = new Register();
+		new RegisterController(viewRegister);
+		viewRegister.setVisible(true);
+		previousFrame.dispose();
+	}
+
+	public void startForgotPassword(JFrame previousFrame) {
+		viewForgotPassword = new ForgotPassword();
+		new ForgotPasswordController(viewForgotPassword);
+		viewForgotPassword.setVisible(true);
+		previousFrame.dispose();
+	}
 }

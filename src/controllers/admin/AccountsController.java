@@ -14,15 +14,13 @@ import utils.PasswordUtil;
 public class AccountsController extends BaseController<Account> {
 	private IAccountView view;
 	private AccountDAO dao;
-	private IHomeNavigableView viewSideBar;
+
 
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
-//		viewSideBar = view.getSideBar();
 		dao = new AccountDAO();
 		setupEventListeners();
 		loadDataFromDataBase();
-//		setAction();
 	}
 
 	public AccountsController() {

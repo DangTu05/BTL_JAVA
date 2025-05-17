@@ -1,13 +1,8 @@
 package controllers.admin;
 
-import java.awt.CardLayout;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import Interfaces.IHomeNavigableView;
 import Interfaces.IMoviesView;
+import controllers.AppController;
 import dao.MovieDAO;
 import models.Movie;
 import utils.ErrorUtil;

@@ -12,6 +12,8 @@ import Interfaces.IHomeNavigableView;
 import Interfaces.IMenuView;
 import Interfaces.IMoviesView;
 import components.SideBarMenu;
+import controllers.AppController;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import views.Login;
 import views.Admin.Accounts;
@@ -36,7 +38,6 @@ public class MenuController extends BaseController {
 		setUpEventListeners();
 
 	}
-
 
 	@Override
 	protected void getSetData() {
@@ -88,8 +89,13 @@ public class MenuController extends BaseController {
 		view.getSideBar().getBtnAccount().addActionListener(e -> navigateTo("accounts"));
 		view.getSideBar().getBtnPhim().addActionListener(e -> navigateTo("movies"));
 		view.getSideBar().getBtnDienVien().addActionListener(e -> navigateTo("actors"));
-
+		view.getSideBar().getBtnLogout().addActionListener(e -> logout());
 	}
 
+	public void logout() {
+		if (!MessageUtil.confirm(MessageConstants.CONFIRM_LOGOUT))
+			return;
+		app.startLogin(view.getFrame());
+	}
 
 }

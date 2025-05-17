@@ -6,6 +6,7 @@ import java.util.List;
 
 import Configs.Database.ConnectDB;
 import Interfaces.ICreateMovieView;
+import controllers.AppController;
 import dao.ActorDAO;
 import dao.CategoryDAO;
 import dao.MovieActorDAO;
@@ -29,10 +30,12 @@ public class CreateMovieController {
 	private ICreateMovieView view;
 	private MovieActorDAO movie_actorDao;
 	private MovieCategoryDAO movie_categoryDao;
+	private AppController app;
 
 	public CreateMovieController(ICreateMovieView view) {
 		this.view = view;
 		dao = new MovieDAO();
+		app = new AppController();
 		movie_actorDao = new MovieActorDAO();
 		movie_categoryDao = new MovieCategoryDAO();
 		setupEventListener();
@@ -43,6 +46,7 @@ public class CreateMovieController {
 	private void setupEventListener() {
 		view.setShowImgListener(e -> view.showImageChooser());
 		view.setTaoListener(e -> createMovie());
+		view.setTrangChuListener(e -> app.startHome(view.getFrame()));
 	}
 
 	public void createMovie() {

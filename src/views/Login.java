@@ -122,9 +122,9 @@ public class Login extends JFrame implements ILoginView {
 		contentPane.add(txtPassword);
 		txtPassword.setBackground(new Color(153, 102, 204));
 		txtPassword.setBorder(null);
-		
+
 		lblQuenMatKhau = new JLabel("<html><a href=\"\">Quên mật khẩu?</a></html>");
-		lblQuenMatKhau.setBounds(270, 196, 101, 13);
+		lblQuenMatKhau.setBounds(275, 195, 101, 13);
 		contentPane.add(lblQuenMatKhau);
 
 	}
@@ -138,8 +138,8 @@ public class Login extends JFrame implements ILoginView {
 		return txtEmail.getText().trim();
 	}
 
-	public void hidenLoginPage() {
-		this.setVisible(false);
+	public JFrame getFrame() {
+		return this;
 	}
 
 	public void showMenuPage() {
@@ -154,6 +154,7 @@ public class Login extends JFrame implements ILoginView {
 	public void setLoginListener(ActionListener listener) {
 		btnDN.addActionListener(listener);
 	}
+
 	public void setForgotPassWord(MouseListener listener) {
 		lblQuenMatKhau.addMouseListener(listener);
 	}

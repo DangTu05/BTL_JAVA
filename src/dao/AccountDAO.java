@@ -93,4 +93,16 @@ public class AccountDAO extends BaseDAO<Account> {
 		return accounts;
 	}
 
+	public static boolean changePassword(String password, String email) {
+		String sql = "Update account set password=? where email=?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+			statement.setString(1, password);
+			statement.setString(2, email);
+			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException("Cập nhật trạng thái thất bại: " + e.getMessage(), e);
+		}
+	}
+
 }

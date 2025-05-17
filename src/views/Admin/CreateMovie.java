@@ -248,12 +248,24 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		return img;
 	}
 
+	public JButton getBtnTrangChu() {
+		return btnTrangChu;
+	}
+
+	public JFrame getFrame() {
+		return this;
+	}
+
 	public void setShowImgListener(ActionListener listener) {
 		btnImg.addActionListener(listener);
 	}
 
 	public void setTaoListener(ActionListener listener) {
 		btnTao.addActionListener(listener);
+	}
+
+	public void setTrangChuListener(ActionListener listener) {
+		btnTrangChu.addActionListener(listener);
 	}
 
 	public void reSetForm() {

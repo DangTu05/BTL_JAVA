@@ -3,6 +3,9 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 public interface ICreateActorView {
 	public String getActorName();
 
@@ -16,9 +19,13 @@ public interface ICreateActorView {
 
 	public File getFileImg();
 
+	public JFrame getFrame();
+
 	public void showImageChooser();
 
 	public void setShowImgListener(ActionListener listener);
 
 	public void setTaoListener(ActionListener listener);
+
+	public void setTrangChuListener(ActionListener listener);
 }

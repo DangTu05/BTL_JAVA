@@ -46,7 +46,7 @@ public abstract class BaseDAO<T> {
 	}
 
 	public T findByField(String fieldName, String value) throws Exception {
-		String query = "Select * from" + getTableName() + " where " + fieldName + "= ?";
+		String query = "Select * from " + getTableName() + " where " + fieldName + "= ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
 			ps.setString(1, value);
 			ResultSet rs = ps.executeQuery();

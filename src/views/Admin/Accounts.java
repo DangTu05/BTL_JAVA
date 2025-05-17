@@ -43,12 +43,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionEvent;
 
-public class Accounts extends JPanel implements IAccountView, IHomeNavigableView {
+public class Accounts extends JPanel implements IAccountView {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTable table;
-	private AccountsController controller;
 	private JTextField txtMa;
 	private JTextField txtEmail;
 	private JTextField txtName;
@@ -131,7 +129,7 @@ public class Accounts extends JPanel implements IAccountView, IHomeNavigableView
 
 		JLabel lblNewLabel_4 = new JLabel("Vai trò");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_4.setBounds(153, 277, 64, 25);
+		lblNewLabel_4.setBounds(144, 276, 64, 25);
 		add(lblNewLabel_4);
 
 		// Tạo JTable với model
@@ -375,7 +373,4 @@ public class Accounts extends JPanel implements IAccountView, IHomeNavigableView
 	}
 
 
-//	public JFrame getFrame() {
-//		return this;
-//	}
 }

@@ -3,6 +3,7 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -51,8 +52,6 @@ public interface IMoviesView {
 	public int getDoTuoi();
 
 	public JTable getTable();
-
-	public SideBarMenu getSideBar();
 
 	public JPanel getMainPanel();
 }

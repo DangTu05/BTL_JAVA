@@ -3,12 +3,14 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
+
 public interface ILoginView {
 	public String getPassword();
 
 	public String getEmail();
 
-	public void hidenLoginPage();
+	public JFrame getFrame();
 
 	public void redirectRegister();
 

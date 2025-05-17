@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import Interfaces.IActorsView;
 import Interfaces.IHomeNavigableView;
+import controllers.AppController;
 import dao.ActorDAO;
 import dao.MovieDAO;
 import models.Actor;
@@ -16,7 +17,6 @@ public class ActorsController extends BaseController<Actor> {
 	private IActorsView view;
 	private ActorDAO dao;
 	private AppController app;
-	private IHomeNavigableView viewSideBar;
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
@@ -111,7 +111,4 @@ public class ActorsController extends BaseController<Actor> {
 		}
 	}
 
-//	protected IHomeNavigableView getView() {
-//		return viewSideBar;
-//	}
 }

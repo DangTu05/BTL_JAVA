@@ -40,6 +40,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 	private JLabel lblImg;
 	private JButton btnImg;
 	private JButton btnTao;
+	private JButton btnTrangChu;
 
 	/**
 	 * Launch the application.
@@ -64,7 +65,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 153, 255));
+		contentPane.setBackground(new Color(255, 204, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -136,6 +137,13 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		lblImg = new JLabel("");
 		lblImg.setBounds(165, 239, 185, 159);
 		panel.add(lblImg);
+
+		btnTrangChu = new JButton("");
+		btnTrangChu.setBackground(new Color(255, 153, 204));
+		btnTrangChu.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
+		btnTrangChu.setBounds(0, 0, 85, 42);
+		contentPane.add(btnTrangChu);
 	}
 
 	public String getActorName() {
@@ -165,12 +173,20 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		return img;
 	}
 
+	public JFrame getFrame() {
+		return this;
+	}
+
 	public void setShowImgListener(ActionListener listener) {
 		btnImg.addActionListener(listener);
 	}
 
 	public void setTaoListener(ActionListener listener) {
 		btnTao.addActionListener(listener);
+	}
+
+	public void setTrangChuListener(ActionListener listener) {
+		btnTrangChu.addActionListener(listener);
 	}
 
 	public void showImageChooser() {

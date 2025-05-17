@@ -1,6 +1,7 @@
 package controllers.admin;
 
 import Interfaces.ICreateActorView;
+import controllers.AppController;
 import dao.ActorDAO;
 import middlewares.UploadCloud;
 import models.Actor;
@@ -13,9 +14,11 @@ import validator.InputValidate;
 public class CreateActorController {
 	private ICreateActorView createActorView;
 	private ActorDAO dao;
+	private AppController app;
 
 	public CreateActorController(ICreateActorView createActor) {
 		this.createActorView = createActor;
+		app = new AppController();
 		dao = new ActorDAO();
 		setupEventListeners();
 	}
@@ -23,6 +26,7 @@ public class CreateActorController {
 	private void setupEventListeners() {
 		createActorView.setShowImgListener(e -> createActorView.showImageChooser());
 		createActorView.setTaoListener(e -> createActor());
+		createActorView.setTrangChuListener(e -> app.startHome(createActorView.getFrame()));
 	}
 
 	public void createActor() {
