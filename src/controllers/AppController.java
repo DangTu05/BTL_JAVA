@@ -9,15 +9,15 @@ import controllers.admin.CreateMovieController;
 import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
 import utils.MessageUtil;
-import views.ForgotPassword;
-import views.Login;
-import views.Register;
-import views.Admin.Accounts;
-import views.Admin.Actors;
-import views.Admin.CreateActor;
-import views.Admin.CreateMovie;
-import views.Admin.Menu;
-import views.Admin.Movies;
+import views.Frames.ForgotPassword;
+import views.Frames.Login;
+import views.Frames.Register;
+import views.Frames.Admin.CreateActor;
+import views.Frames.Admin.CreateMovie;
+import views.Frames.Admin.Menu;
+import views.Panels.Accounts;
+import views.Panels.Actors;
+import views.Panels.Movies;
 
 public class AppController {
 	private CreateMovie viewCreateMovie;

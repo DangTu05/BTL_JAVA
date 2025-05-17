@@ -15,11 +15,11 @@ import components.SideBarMenu;
 import controllers.AppController;
 import utils.MessageConstants;
 import utils.MessageUtil;
-import views.Login;
-import views.Admin.Accounts;
-import views.Admin.Actors;
-import views.Admin.Menu;
-import views.Admin.Movies;
+import views.Frames.Login;
+import views.Frames.Admin.Menu;
+import views.Panels.Accounts;
+import views.Panels.Actors;
+import views.Panels.Movies;
 
 public class MenuController extends BaseController {
 	private IHomeNavigableView viewMenu;

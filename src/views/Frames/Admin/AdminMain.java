@@ -1,4 +1,4 @@
-package views.Admin;
+package views.Frames.Admin;
 
 import Interfaces.IMoviesView;
 import controllers.LoginController;
@@ -10,8 +10,8 @@ import controllers.admin.CreateCategoryController;
 import controllers.admin.CreateMovieController;
 import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
-import views.Login;
-import views.Register;
+import views.Frames.Login;
+import views.Frames.Register;
 
 public class AdminMain {
 	public static void main(String[] args) {
