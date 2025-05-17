@@ -11,7 +11,7 @@ import utils.ErrorUtil;
 import utils.MessageUtil;
 import utils.PasswordUtil;
 import validator.InputValidate;
-import views.Admin.Menu;
+import views.Frames.Admin.Menu;
 
 public class LoginController {
 	private ILoginView viewLogin;

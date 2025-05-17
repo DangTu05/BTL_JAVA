@@ -1,4 +1,4 @@
-package views;
+package views.Frames;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -92,5 +92,9 @@ public class ForgotPassword extends JFrame implements IForgotPassword {
 
 	public JPanel getMainContentPanel() {
 		return contentPane;
+	}
+
+	public JFrame getFrame() {
+		return this;
 	}
 }

@@ -1,4 +1,4 @@
-package views.Admin;
+package views.Panels;
 
 import java.awt.Color;
 import java.awt.EventQueue;

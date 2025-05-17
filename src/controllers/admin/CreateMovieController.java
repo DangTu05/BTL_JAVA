@@ -23,7 +23,7 @@ import utils.GenerateIdUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
-import views.Admin.CreateMovie;
+import views.Frames.Admin.CreateMovie;
 
 public class CreateMovieController {
 	private MovieDAO dao;

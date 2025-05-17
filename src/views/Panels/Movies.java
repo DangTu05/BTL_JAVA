@@ -1,4 +1,4 @@
-package views.Admin;
+package views.Panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,7 +28,7 @@ import components.SideBarMenu;
 import utils.ConvertUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
-import views.Login;
+import views.Frames.Login;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;

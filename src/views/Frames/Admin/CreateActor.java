@@ -1,4 +1,4 @@
-package views.Admin;
+package views.Frames.Admin;
 
 import java.awt.EventQueue;
 
