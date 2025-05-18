@@ -7,12 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ErrorManager;
-
 import Configs.Database.ConnectDB;
 import models.Actor;
-import utils.ErrorUtil;
-import utils.MessageUtil;
 
 public class ActorDAO extends BaseDAO<Actor> {
 
@@ -51,6 +47,23 @@ public class ActorDAO extends BaseDAO<Actor> {
 			e1.printStackTrace();
 		}
 		return null;
+	}
+
+	public static List<String[]> findActorsByName(String actor_name) {
+		List<String[]> actors = new ArrayList<String[]>();
+		String query = "Select * from tblActor where deleted=false and actor_name Like ?";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setString(1, "%" + actor_name + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				actors.add(new String[] { rs.getString("actor_id"), rs.getString("actor_name"), rs.getString("birth"),
+						rs.getString("nationality"), rs.getString("biography"), rs.getString("actor_image") });
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new RuntimeException("Lỗi khi tìm kiếm diễn viên thất bại:" + e.getMessage(), e);
+		}
+		return actors;
 	}
 
 	public static List<String[]> getAllActor() {

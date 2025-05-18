@@ -3,10 +3,8 @@ package controllers.admin;
 import javax.swing.JPanel;
 
 import Interfaces.IActorsView;
-import Interfaces.IHomeNavigableView;
 import controllers.AppController;
 import dao.ActorDAO;
-import dao.MovieDAO;
 import models.Actor;
 import utils.ErrorUtil;
 import utils.MessageConstants;
@@ -32,16 +30,25 @@ public class ActorsController extends BaseController<Actor> {
 		view.setTaoListener(e -> app.startCreateActor(getFrame()));
 		view.setLuuListener(e -> updateActor());
 		view.setXoaListener(e -> softDelete());
+		view.setSearchListener(e -> loadDataFromSearch());
 	}
 
 	private void loadDataFromDataBase() {
 
 		try {
-
 			view.loadDataFromDataBase(ActorDAO.getAllActor());
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+		}
+	}
+
+	private void loadDataFromSearch() {
+		try {
+			view.loadDataFromSearch(ActorDAO.findActorsByName(view.getSearch()));
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
@@ -71,7 +78,7 @@ public class ActorsController extends BaseController<Actor> {
 
 		try {
 			if (view.getActor_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn sửa!");
+				MessageUtil.showWarning("Vui lòng chọn diễn viên muốn sửa!");
 				return;
 			}
 			if (!InputValidate.createActor(view.getActor_Name(), view.getNgaySinh()))
@@ -96,7 +103,7 @@ public class ActorsController extends BaseController<Actor> {
 
 		try {
 			if (view.getActor_Id().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tài khoản muốn xóa!");
+				MessageUtil.showWarning("Vui lòng chọn diễn viên muốn xóa!");
 				return;
 			}
 			if (!dao.softDelete(view.getActor_Id())) {

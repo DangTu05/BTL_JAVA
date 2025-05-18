@@ -51,6 +51,8 @@ public class Actors extends JPanel implements IActorsView {
 	private JSpinner dateNgaySinh;
 	private JTable table;
 	private JTextArea txtTieuSu;
+	private JTextField txtSearch;
+	private JButton btnSearch;
 
 	/**
 	 * Launch the application.
@@ -78,12 +80,9 @@ public class Actors extends JPanel implements IActorsView {
 	 * Create the frame.
 	 */
 	public Actors() {
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 949, 605);
+		setBounds(100, 100, 693, 560);
 		setBackground(new Color(255, 255, 255));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-
-//		setContentPane(contentPane);
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Diễn Viên");
 		lblTitle.setBounds(0, 0, 692, 25);
@@ -195,28 +194,28 @@ public class Actors extends JPanel implements IActorsView {
 		JLabel lblNewLabel_4 = new JLabel("Ảnh");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(160, 363, 70, 25);
+		lblNewLabel_4.setBounds(149, 348, 70, 25);
 		add(lblNewLabel_4);
 
 		txtAnh = new JTextField();
-		txtAnh.setBounds(55, 398, 281, 19);
+		txtAnh.setBounds(55, 383, 281, 19);
 		txtAnh.setBorder(null);
 		add(txtAnh);
 		txtAnh.setColumns(10);
 
 		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(55, 419, 281, 2);
+		separator_3.setBounds(55, 403, 281, 2);
 		add(separator_3);
 
 		dateNgaySinh = new JSpinner(new SpinnerDateModel());
 		dateNgaySinh.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		dateNgaySinh.setEditor(new JSpinner.DateEditor(dateNgaySinh, "dd/MM/yyyy"));
-		dateNgaySinh.setBounds(391, 395, 105, 23);
+		dateNgaySinh.setBounds(391, 381, 105, 23);
 		add(dateNgaySinh);
 
 		JLabel lblNewLabel_5 = new JLabel("Ngày Sinh");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5.setBounds(408, 365, 77, 21);
+		lblNewLabel_5.setBounds(407, 350, 77, 21);
 		add(lblNewLabel_5);
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -238,8 +237,31 @@ public class Actors extends JPanel implements IActorsView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 466, 670, 90);
+		scrollPane.setBounds(0, 422, 670, 90);
 		add(scrollPane);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(204, 153, 255));
+		panel.setBounds(-2, 511, 670, 47);
+		add(panel);
+		panel.setLayout(null);
+
+		JLabel lblNewLabel_6 = new JLabel("Tìm kiếm diễn viên theo tên");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setBounds(253, 10, 183, 27);
+		panel.add(lblNewLabel_6);
+
+		txtSearch = new JTextField();
+		txtSearch.setBounds(446, 15, 170, 19);
+		panel.add(txtSearch);
+		txtSearch.setColumns(10);
+
+		btnSearch = new JButton("");
+		btnSearch.setIcon(new ImageIcon(UrlUtil.safeURL(
+				"https://res.cloudinary.com/dry3sdlc1/image/upload/v1745899467/search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20_na27t8.png")));
+		btnSearch.setBounds(623, 15, 21, 19);
+		panel.add(btnSearch);
 
 	}
 
@@ -263,8 +285,16 @@ public class Actors extends JPanel implements IActorsView {
 		btnXoa.addActionListener(listener);
 	}
 
+	public void setSearchListener(ActionListener listener) {
+		btnSearch.addActionListener(listener);
+	}
+
 	public void loadDataFromDataBase(List<String[]> list) {
-		ViewUtil.loadDataFromDataBase(table, list);
+		ViewUtil.loadData(table, list);
+	}
+
+	public void loadDataFromSearch(List<String[]> actors) {
+		ViewUtil.loadData(table, actors);
 	}
 
 	public void setFormData(String actor_id, String actor_name, String birth, String nationality, String biography,
@@ -292,6 +322,10 @@ public class Actors extends JPanel implements IActorsView {
 
 	public String getActor_Name() {
 		return txtTenDienVien.getText().trim();
+	}
+
+	public String getSearch() {
+		return txtSearch.getText().trim();
 	}
 
 	public java.sql.Date getNgaySinh() {
