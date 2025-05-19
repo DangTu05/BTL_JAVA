@@ -12,12 +12,10 @@ import utils.MessageUtil;
 public class MoviesController extends BaseController<Movie> {
 	private IMoviesView view;
 	private MovieDAO dao;
-	private AppController app;
 
 	public MoviesController(IMoviesView view) {
 		this.view = view;
 		dao = new MovieDAO();
-		app = new AppController();
 		setUpEventListeners();
 		loadDataFromDataBase();
 	}
@@ -25,7 +23,7 @@ public class MoviesController extends BaseController<Movie> {
 	private void setUpEventListeners() {
 		view.setMovieSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e -> app.startCreateMovie(getFrame()));
+		view.setTaoListener(e -> AppController.startCreateMovie(getFrame()));
 		view.setLuuListener(e -> updateMovie());
 		view.setXoaListener(e -> softDelete());
 		view.setSearchListener(e -> loadDataFromSearch());

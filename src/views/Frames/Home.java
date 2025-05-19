@@ -10,14 +10,14 @@ import java.awt.FlowLayout;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.border.TitledBorder;
-import Interfaces.ITrangChuView;
+import Interfaces.IHomeView;
+import components.MenuBar;
 import models.Movie;
 import utils.ViewUtil;
 
-public class TrangChu extends JFrame implements ITrangChuView {
-	private JMenuBar menuBar;
-	private JMenu mnuPhim, mnuLichChieu, mnuGioiThieu, mnuGiaVe, mnuDangKi, mnuDangNhap;
+public class Home extends JFrame implements IHomeView {
 	private JButton btnPrev, btnNext;
+	private MenuBar menubar;
 	private JLabel lblImage;
 	private String[] images = { "F:/Cinema_JavaSwing/images/carousel/0018450.jpg",
 			"F:/Cinema_JavaSwing/images/carousel/minecraft-2048_1743651882260.jpg", };
@@ -26,11 +26,11 @@ public class TrangChu extends JFrame implements ITrangChuView {
 	private int currentImageIndex = 0;
 	private JPanel pnLeftofCenter;
 
-	public TrangChu(String tieude) {
+	public Home(String tieude) {
 		super(tieude);
 		addControls();
 		showWindow();
-		addEvents();
+
 	}
 
 	public void showWindow() {
@@ -43,29 +43,15 @@ public class TrangChu extends JFrame implements ITrangChuView {
 
 	public void addControls() {
 		// Tạo menu bar
-		menuBar = new JMenuBar();
-		mnuPhim = new JMenu("Phim");
-		mnuLichChieu = new JMenu("Lịch Chiếu");
-		mnuGioiThieu = new JMenu("Giới Thiệu");
-		mnuGiaVe = new JMenu("Giá Vé");
-		mnuDangKi = new JMenu("Đăng Kí");
-		mnuDangNhap = new JMenu("Đăng Nhập");
-
-		menuBar.add(mnuPhim);
-		menuBar.add(mnuLichChieu);
-		menuBar.add(mnuGioiThieu);
-		menuBar.add(mnuGiaVe);
-		menuBar.add(mnuDangKi);
-		menuBar.add(mnuDangNhap);
-		setJMenuBar(menuBar);
-
+		menubar = new MenuBar();
+		setJMenuBar(menubar.getMenuBar());
 		// Tạo các nút điều khiển
 		btnPrev = new JButton("<");
 		btnNext = new JButton(">");
 
 		// Tạo hình ảnh ban đầu
 		lblImage = new JLabel();
-		updateImage();
+//		updateImage();
 
 		// Tạo panel chứa nút và ảnh
 		JPanel pnTop = new JPanel();
@@ -127,36 +113,36 @@ public class TrangChu extends JFrame implements ITrangChuView {
 		con.add(scp, BorderLayout.CENTER);
 	}
 
-	public void addEvents() {
-		// Điều hướng sang các form khác trong menu
-		mnuLichChieu.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-//                frmLichChieu LichChieu = new frmLichChieu("Lịch chiếu");        
-			}
+//	public void addEvents() {
+//		// Điều hướng sang các form khác trong menu
+//		mnuLichChieu.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent e) {
+////                frmLichChieu LichChieu = new frmLichChieu("Lịch chiếu");        
+//			}
+//
+//			public void mouseEntered(MouseEvent e) {
+//
+//			}
+//		});
+//
+//		btnPrev.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				showPrevImage();
+//			}
+//		});
+//
+//		btnNext.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				showNextImage();
+//			}
+//		});
+//	}
 
-			public void mouseEntered(MouseEvent e) {
-
-			}
-		});
-
-		btnPrev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showPrevImage();
-			}
-		});
-
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showNextImage();
-			}
-		});
-	}
-
-	public void updateImage() {
-		ImageIcon icon = new ImageIcon(images[currentImageIndex]);
-		lblImage.setIcon(icon);
-		lblImage.setPreferredSize(new Dimension(1000, 600));
-	}
+//	public void updateImage() {
+//		ImageIcon icon = new ImageIcon(images[currentImageIndex]);
+//		lblImage.setIcon(icon);
+//		lblImage.setPreferredSize(new Dimension(1000, 600));
+//	}
 
 	public void showPrevImage() {
 		if (currentImageIndex > 0) {
@@ -164,7 +150,7 @@ public class TrangChu extends JFrame implements ITrangChuView {
 		} else {
 			currentImageIndex = images.length - 1; // Chuyển tới ảnh cuối
 		}
-		updateImage();
+
 	}
 
 	public void showNextImage() {
@@ -173,41 +159,28 @@ public class TrangChu extends JFrame implements ITrangChuView {
 		} else {
 			currentImageIndex = 0; // Chuyển tới ảnh đầu tiên
 		}
-		updateImage();
-	}
 
-	public void setPhimListener(MouseListener listener) {
-		mnuPhim.addMouseListener(listener);
-	}
-
-	public void setLichChieuListener(MouseListener listener) {
-		mnuLichChieu.addMouseListener(listener);
-	}
-
-	public void setGioiThieuListener(MouseListener listener) {
-		mnuGioiThieu.addMouseListener(listener);
-	}
-
-	public void setGiaVeListener(MouseListener listener) {
-		mnuGiaVe.addMouseListener(listener);
-	}
-
-	public void setDangKiListener(MouseListener listener) {
-		mnuDangKi.addMouseListener(listener);
-	}
-
-	public void setDangNhapListener(MouseListener listener) {
-		mnuDangNhap.addMouseListener(listener);
 	}
 
 	public void hienThiDanhSachPhim(List<Movie> dsPhim) {
-		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim), BorderLayout.CENTER); // hiển thị danh sách
+		pnLeftofCenter.removeAll();
+		pnLeftofCenter2.removeAll();
+		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim), BorderLayout.CENTER); // hiển thị danh sách //
 																								// phim đang chiếu
 		pnLeftofCenter2.add(ViewUtil.hienThiDanhSachPhimSapChieu(dsPhim), BorderLayout.CENTER); // hiển thị danh sách
 																								// phim sắp chiếu
+		pnLeftofCenter.revalidate();
+		pnLeftofCenter.repaint();
+		pnLeftofCenter2.revalidate();
+		pnLeftofCenter2.repaint();
 	}
 
 	public JFrame getFrame() {
 		return this;
 	}
+
+	public MenuBar getMenu() {
+		return menubar;
+	}
+
 }

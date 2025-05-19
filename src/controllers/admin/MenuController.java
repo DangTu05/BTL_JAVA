@@ -27,7 +27,6 @@ import views.Panels.Setting;
 public class MenuController extends BaseController {
 	private IHomeNavigableView viewMenu;
 	private IMenuView view;
-	private AppController app;
 	private SettingDAO dao;
 	private JPanel mainContentPanel;
 	private CardLayout cardLayout;
@@ -35,7 +34,6 @@ public class MenuController extends BaseController {
 
 	public MenuController(IMenuView viewMain) {
 		this.view = viewMain;
-		app = new AppController();
 		dao = new SettingDAO();
 		setupSetting();
 		setMainContent(view.getMainContentJpanel());
@@ -106,7 +104,7 @@ public class MenuController extends BaseController {
 	public void logout() {
 		if (!MessageUtil.confirm(MessageConstants.CONFIRM_LOGOUT))
 			return;
-		app.startLogin(view.getFrame());
+		AppController.startLogin(view.getFrame());
 	}
 
 	private void setupSetting() {

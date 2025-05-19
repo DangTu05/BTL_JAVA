@@ -1,63 +1,45 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.Action;
+import Interfaces.IHomeView;
+import dao.MovieDAO;
+import utils.Session;
+import views.Frames.Home;
 
-import views.Home;
+public class HomeController {
+	private IHomeView viewTrangChu;
 
-public class HomeController implements Action {
-	private Home home;
-	public HomeController(Home home) {
-		this.home=home;
+	public HomeController(IHomeView viewTrangChu) {
+		this.viewTrangChu = viewTrangChu;
+		loadDataFromDatabase();
+		setupEventListeners();
+
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		String cm=e.getActionCommand();
-		if(cm.equals("Thoát")) {
-			
-			this.home.thoatChuongTrinh();
-		}
-		
+	private void setupEventListeners() {
+		viewTrangChu.getMenu().setDangKiListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AppController.startRegister(viewTrangChu.getFrame());
+			}
+		});
+		viewTrangChu.getMenu().setDangNhapListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AppController.startLogin(viewTrangChu.getFrame());
+			}
+		});
+		viewTrangChu.getMenu().setLogoutListener(e -> logout());
 	}
 
-	@Override
-	public Object getValue(String key) {
-		// TODO Auto-generated method stub
-		return null;
+	private void loadDataFromDatabase() {
+		viewTrangChu.hienThiDanhSachPhim(MovieDAO.getListMoive());
 	}
 
-	@Override
-	public void putValue(String key, Object value) {
-		// TODO Auto-generated method stub
-		
+	private void logout() {
+		Session.logout();
+		AppController.startLogin(viewTrangChu.getFrame());
 	}
-
-	@Override
-	public void setEnabled(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

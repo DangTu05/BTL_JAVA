@@ -7,12 +7,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.IRegisterView;
+import utils.UrlUtil;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 
@@ -27,6 +30,7 @@ public class Register extends JFrame implements IRegisterView {
 	public JButton btnDK;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
+	private JButton btnHome;
 
 	/**
 	 * Launch the application.
@@ -122,6 +126,14 @@ public class Register extends JFrame implements IRegisterView {
 		separator_2 = new JSeparator();
 		separator_2.setBounds(179, 154, 210, 19);
 		contentPane.add(separator_2);
+
+		btnHome = new JButton("");
+		btnHome.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
+		btnHome.setBackground(new Color(153, 102, 204));
+		btnHome.setBorder(null);
+		btnHome.setBounds(0, 0, 31, 31);
+		contentPane.add(btnHome);
 
 	}
 

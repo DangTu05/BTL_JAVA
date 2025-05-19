@@ -24,12 +24,10 @@ public class ForgotPasswordController {
 	private JPanel mainContentPanel;
 	private CardLayout cardLayout;
 	private ChangePassword changePasswordPanel;
-	private AppController app;
 
 	public ForgotPasswordController(IForgotPassword view) {
 		this.viewForgotPassword = view;
 		dao = new AccountDAO();
-		app = new AppController();
 		setMainContent(view.getMainContentPanel());
 		initializePanels();
 		setupEventListeners();
@@ -39,7 +37,7 @@ public class ForgotPasswordController {
 		viewForgotPassword.setNextListener(e -> createOTP());
 		otpPanel.setNextListener(e -> checkOTP());
 		changePasswordPanel.setThayDoiListener(e -> changePassword());
-		viewForgotPassword.setBackListener(e -> app.startLogin(viewForgotPassword.getFrame()));
+		viewForgotPassword.setBackListener(e -> AppController.startLogin(viewForgotPassword.getFrame()));
 		otpPanel.setBackListener(e -> navigateTo("emailPanel"));
 		changePasswordPanel.setBackListener(e -> navigateTo("otp"));
 	}

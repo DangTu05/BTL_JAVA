@@ -6,24 +6,27 @@ import java.awt.event.MouseListener;
 
 import Interfaces.ILoginView;
 import dao.AccountDAO;
+import dao.UserDAO;
 import models.Account;
+import models.User;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.PasswordUtil;
+import utils.Session;
 import validator.InputValidate;
 import views.Frames.Admin.Menu;
 
 public class LoginController {
 	private ILoginView viewLogin;
-	private AccountDAO dao;
-	private AppController app;
+	private AccountDAO daoAccount;
+	private UserDAO daoUser;
 
 	public LoginController(ILoginView login) {
 		// TODO Auto-generated constructor stub
 		this.viewLogin = login;
-		app = new AppController();
-		dao = new AccountDAO();
+		daoAccount = new AccountDAO();
+		daoUser = new UserDAO();
 		setupEventListeners();
 	}
 
@@ -47,19 +50,23 @@ public class LoginController {
 		try {
 			if (!InputValidate.loginValidate(viewLogin.getEmail(), viewLogin.getPassword()))
 				return;
-			Account user = dao.findByField("Email", viewLogin.getEmail());
-			if (user == null) {
+			Account account = daoAccount.findByField("Email", viewLogin.getEmail());
+
+			if (account == null) {
 				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
 			}
-			if (!PasswordUtil.checkPassword(viewLogin.getPassword(), user.getPassword())) {
+			User user = daoUser.findByField("user_id", account.getUser_id());
+			if (!PasswordUtil.checkPassword(viewLogin.getPassword(), account.getPassword())) {
 				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
 			}
-			if (user.getRoleName().equals("ADMIN")) {
-				MessageUtil.showInfo("Đăng nhập thành công!");
-				new Menu().setVisible(true);
-//				login.hidenLoginPage();
+			MessageUtil.showInfo("Đăng nhập thành công!");
+			if (account.getRoleName().equals("ADMIN"))
+				AppController.startDashboard(viewLogin.getFrame());
+			else {
+				Session.setUser(user);
+				AppController.startHome(viewLogin.getFrame());
 			}
 
 		} catch (Exception e1) {
@@ -69,11 +76,11 @@ public class LoginController {
 	}
 
 	private void redirectRegister() {
-		app.startRegister(viewLogin.getFrame());
+		AppController.startRegister(viewLogin.getFrame());
 	}
 
 	private void redirectForgotPassword() {
-		app.startForgotPassword(viewLogin.getFrame());
+		AppController.startForgotPassword(viewLogin.getFrame());
 	}
 
 }

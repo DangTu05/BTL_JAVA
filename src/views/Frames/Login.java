@@ -6,11 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.ILoginView;
+import utils.UrlUtil;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.net.MalformedURLException;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -25,6 +28,7 @@ public class Login extends JFrame implements ILoginView {
 	private JTextField txtPassword;
 	private JLabel lblDK;
 	private JLabel lblQuenMatKhau;
+	private JButton btnHome;
 
 	/**
 	 * Launch the application.
@@ -109,6 +113,14 @@ public class Login extends JFrame implements ILoginView {
 		lblQuenMatKhau = new JLabel("<html><a href=\"\">Quên mật khẩu?</a></html>");
 		lblQuenMatKhau.setBounds(275, 195, 101, 13);
 		contentPane.add(lblQuenMatKhau);
+
+		btnHome = new JButton("");
+		btnHome.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
+		btnHome.setBackground(new Color(153, 102, 204));
+		btnHome.setBorder(null);
+		btnHome.setBounds(0, 0, 33, 28);
+		contentPane.add(btnHome);
 
 	}
 

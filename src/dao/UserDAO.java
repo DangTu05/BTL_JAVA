@@ -39,7 +39,13 @@ public class UserDAO extends BaseDAO<User> {
 	@Override
 	protected User mapRow(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		User user = new User();
+		user.setUser_name(rs.getString("user_name"));
+		user.setGender(rs.getString("gender"));
+		user.setAddress(rs.getString("address"));
+		user.setReward_points(rs.getFloat("reward_points"));
+		user.setUser_image(rs.getString("user_image"));
+		return user;
 	}
 
 	@Override

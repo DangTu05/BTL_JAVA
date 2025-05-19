@@ -8,9 +8,12 @@ public class User {
 	private String user_image;
 	private float reward_points;
 
+	public User() {
+
+	}
+
 	public User(String user_id, String user_name, String gender, String address, String user_image,
 			float reward_points) {
-		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.gender = gender;

@@ -42,6 +42,7 @@ public class AccountDAO extends BaseDAO<Account> {
 		acc.setRoleName(rs.getString("RoleName"));
 		acc.setStatus(rs.getString("Status"));
 		acc.setUser_Name(rs.getString("UserName"));
+		acc.setUser_id(rs.getString("User_id"));
 		return acc;
 	}
 

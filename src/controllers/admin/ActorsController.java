@@ -14,12 +14,10 @@ import validator.InputValidate;
 public class ActorsController extends BaseController<Actor> {
 	private IActorsView view;
 	private ActorDAO dao;
-	private AppController app;
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
 		dao = new ActorDAO();
-		app = new AppController();
 		loadDataFromDataBase();
 		setUpEventListeners();
 	}
@@ -27,7 +25,7 @@ public class ActorsController extends BaseController<Actor> {
 	private void setUpEventListeners() {
 		view.setActorSelectionListener(e -> addTableListener(view.getTable()));
 		view.setResetListener(e -> view.reset());
-		view.setTaoListener(e -> app.startCreateActor(getFrame()));
+		view.setTaoListener(e -> AppController.startCreateActor(getFrame()));
 		view.setLuuListener(e -> updateActor());
 		view.setXoaListener(e -> softDelete());
 		view.setSearchListener(e -> loadDataFromSearch());
