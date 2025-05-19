@@ -5,20 +5,25 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import Interfaces.IRegisterView;
 import dao.AccountDAO;
+import dao.UserDAO;
 import models.Account;
+import models.User;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.PasswordUtil;
 import validator.InputValidate;
 
 public class RegisterController {
 	private IRegisterView dk;
-	private AccountDAO dao;
+	private AccountDAO daoAccount;
+	private UserDAO daoUser;
 
 	public RegisterController(IRegisterView dk) {
 		this.dk = dk;
-		dao = new AccountDAO();
+		daoAccount = new AccountDAO();
+		daoUser = new UserDAO();
 		setupEventListeners();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,8 +48,15 @@ public class RegisterController {
 			if (!InputValidate.registerValidate(email, username, password))
 				return;
 			password = PasswordUtil.hashPassword(password);
-			Account newAccount = new Account(GenerateIdUtil.generateId("ACC"), username, email, password);
-			if (!dao.insert(newAccount)) {
+			User newUser = new User(GenerateIdUtil.generateId("USER"), "", "", "", "", 0);
+			Account newAccount = new Account(GenerateIdUtil.generateId("ACC"), username, email, password,
+					newUser.getUser_id());
+			if (!daoUser.insert(newUser)) {
+				MessageUtil.showError(MessageConstants.ERROR_CREATE);
+				return;
+			}
+			if (!daoAccount.insert(newAccount)) {
+				daoUser.delete(newUser.getUser_id());
 				return;
 			}
 			boolean result = MessageUtil.confirm("Bạn đã đăng kí thành công. Chuyển sang đăng nhập?");
@@ -53,7 +65,7 @@ public class RegisterController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
 		}
 	}
 
