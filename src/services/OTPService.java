@@ -2,12 +2,11 @@ package services;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import entry.OTPEntry;
 import utils.OTPGenerator;
 
 public class OTPService {
-	private static final long EXPIRATION_TIME = 3 * 60 * 1000; // 5 phút
+	private static final long EXPIRATION_TIME = 3 * 60 * 1000; // 3 phút
 	private static final Map<String, OTPEntry> otpStorage = new HashMap<>();
 
 	public static String generateOTP(String email) {

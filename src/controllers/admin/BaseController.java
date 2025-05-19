@@ -1,7 +1,4 @@
 package controllers.admin;
-
-import java.awt.CardLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -9,16 +6,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controllers.AppController;
-
 public abstract class BaseController<T> {
-	private AppController app;
-
 	protected abstract void getSetData();
-
 	protected abstract JPanel getJPanel();
-//	protected abstract IHomeNavigableView getView();
-
 	protected void addTableListener(JTable table) {
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override

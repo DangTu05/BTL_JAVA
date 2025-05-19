@@ -2,8 +2,6 @@ package middlewares;
 
 import java.io.File;
 import java.util.Map;
-
-import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import Configs.CloudinaryConfig;

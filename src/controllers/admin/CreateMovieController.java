@@ -1,10 +1,6 @@
 package controllers.admin;
 
-import java.sql.Connection;
-import java.sql.Date;
 import java.util.List;
-
-import Configs.Database.ConnectDB;
 import Interfaces.ICreateMovieView;
 import controllers.AppController;
 import dao.ActorDAO;
@@ -23,7 +19,7 @@ import utils.GenerateIdUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
-import views.Frames.Admin.CreateMovie;
+
 
 public class CreateMovieController {
 	private MovieDAO dao;

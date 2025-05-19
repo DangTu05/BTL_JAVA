@@ -1,12 +1,27 @@
 package utils;
 
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import models.Movie;
+
 public class ViewUtil {
-	public static void loadDataFromDataBase(JTable table,List<String[]> data) {
+	private static JPanel pnPhim;
+	private static JLabel lblPoster;
+
+	public static void loadData(JTable table, List<String[]> data) {
 		// Gọi Controller để lấy dữ liệu
 		// Tắt auto resize trước khi thêm dữ liệu
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -23,4 +38,56 @@ public class ViewUtil {
 		}
 	}
 
+	public static JPanel hienThiPhim(Movie p) {
+		JPanel pnPhimItem = new JPanel();
+		pnPhimItem.setLayout(new BoxLayout(pnPhimItem, BoxLayout.Y_AXIS));
+
+		// Poster
+		lblPoster = new JLabel();
+		ImageIcon icon = new ImageIcon(UrlUtil.safeURL(p.getPoster()));
+		Image img = icon.getImage().getScaledInstance(185, 256, Image.SCALE_SMOOTH);// Resize ảnh về kích thước
+																					// 185x273 pixel
+		lblPoster.setIcon(new ImageIcon(img));
+		lblPoster.setPreferredSize(new Dimension(185, 256));
+		lblPoster.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblPoster.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		// Tên phim
+		JLabel lblTenPhim = new JLabel(p.getMovie_name());
+		lblTenPhim.setAlignmentX(Component.CENTER_ALIGNMENT);
+		pnPhimItem.add(lblPoster);
+		pnPhimItem.add(lblTenPhim);
+		// Thêm sự kiện khi ấn vô poster sẽ hiện frame chi tiết phim của phim đấy
+//	    		lblPoster.addMouseListener(new MouseAdapter() {
+//	                public void mouseClicked(MouseEvent e) {
+//	                    new frmChiTietPhim(p);
+//	                }
+//	            
+//	                public void mouseEntered(MouseEvent e) {
+//	                    
+//	                }
+//	            });
+
+		return pnPhimItem;
+	}
+
+	public static JPanel hienThiDanhSachPhimDangChieu(List<Movie> dsPhim) {
+		pnPhim = new JPanel();
+		pnPhim.setLayout(new GridLayout(0, 3, 10, 10));
+		for (Movie movie : dsPhim) {
+			if (movie.getStatus().equals("Đang chiếu"))
+				pnPhim.add(hienThiPhim(movie));
+		}
+		return pnPhim;
+	}
+
+	public static JPanel hienThiDanhSachPhimSapChieu(List<Movie> dsPhim) {
+		pnPhim = new JPanel();
+		pnPhim.setLayout(new GridLayout(0, 3, 10, 10));
+		for (Movie movie : dsPhim) {
+			if (movie.getStatus().equals("Sắp chiếu"))
+				pnPhim.add(hienThiPhim(movie));
+		}
+		return pnPhim;
+	}
 }

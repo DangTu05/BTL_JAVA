@@ -237,12 +237,12 @@ public class Actors extends JPanel implements IActorsView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 422, 670, 90);
+		scrollPane.setBounds(0, 422, 692, 90);
 		add(scrollPane);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 153, 255));
-		panel.setBounds(-2, 511, 670, 47);
+		panel.setBounds(-2, 511, 694, 47);
 		add(panel);
 		panel.setLayout(null);
 

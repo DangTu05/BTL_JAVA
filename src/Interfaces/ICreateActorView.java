@@ -2,8 +2,6 @@ package Interfaces;
 
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public interface ICreateActorView {

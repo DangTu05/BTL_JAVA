@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import Configs.Database.ConnectDB;
-import models.Actor;
 import models.Movie;
 
 public class MovieDAO extends BaseDAO<Movie> {
@@ -54,6 +52,25 @@ public class MovieDAO extends BaseDAO<Movie> {
 
 		} catch (Exception e) {
 			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản " + e.getMessage(), e);
+		}
+		return movies;
+	}
+
+	public static List<Movie> getListMoive() {
+		List<Movie> movies = new ArrayList<>();
+		String sql = "SELECT * FROM tblMovie WHERE deleted=false";
+		try (Connection conn = ConnectDB.getConnection();
+				Statement statement = conn.createStatement();
+				ResultSet rs = statement.executeQuery(sql)) {
+			while (rs.next()) {
+				Movie movie = new Movie(rs.getString("movie_id"), rs.getString("movie_name"),
+						rs.getDate("release_date"), // hoặc rs.getString nếu cần
+						rs.getString("director"), rs.getInt("duration"), rs.getString("script"),
+						rs.getInt("age_permission"), rs.getString("poster"), rs.getString("status"));
+				movies.add(movie);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Lỗi khi lấy danh sách phim: " + e.getMessage(), e);
 		}
 		return movies;
 	}

@@ -8,6 +8,7 @@ import Interfaces.ILoginView;
 import dao.AccountDAO;
 import models.Account;
 import utils.ErrorUtil;
+import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.PasswordUtil;
 import validator.InputValidate;
@@ -56,14 +57,14 @@ public class LoginController {
 				return;
 			}
 			if (user.getRoleName().equals("ADMIN")) {
-				MessageUtil.showInfo("Đăng nhập thành công");
+				MessageUtil.showInfo("Đăng nhập thành công!");
 				new Menu().setVisible(true);
 //				login.hidenLoginPage();
 			}
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			ErrorUtil.handle(e1, e1.getMessage());
+			ErrorUtil.handle(e1, MessageConstants.ERROR_GENERIC);
 		}
 	}
 

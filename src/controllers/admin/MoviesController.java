@@ -8,7 +8,6 @@ import models.Movie;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
-import validator.InputValidate;
 
 public class MoviesController extends BaseController<Movie> {
 	private IMoviesView view;

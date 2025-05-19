@@ -88,14 +88,10 @@ public class Accounts extends JPanel implements IAccountView {
 	 */
 	public Accounts() {
 
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 949, 573);
+		setBounds(100, 100, 693, 559);
 //		contentPane = new JPanel();
 		setBackground(new Color(255, 255, 255));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-
-//		setContentPane(contentPane);
-//		contentPane.setLayout(null);
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Tài Khoản");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -155,7 +151,7 @@ public class Accounts extends JPanel implements IAccountView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(83);
 		// Tạo JScrollPane và THIẾT LẬP BOUNDS
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 424, 660, 90); // X, Y, Width, Height
+		scrollPane.setBounds(0, 418, 692, 90); // X, Y, Width, Height
 		add(scrollPane);
 
 		txtMa = new JTextField();
@@ -208,7 +204,7 @@ public class Accounts extends JPanel implements IAccountView {
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(204, 153, 255));
-		panel_1.setBounds(0, 521, 660, 42);
+		panel_1.setBounds(0, 513, 692, 42);
 		add(panel_1);
 		panel_1.setLayout(null);
 
@@ -269,29 +265,15 @@ public class Accounts extends JPanel implements IAccountView {
 		btnStatus.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnStatus.setBounds(309, 314, 151, 21);
 		add(btnStatus);
-//		add(contentPane); // Nếu vẫn muốn giữ contentPane
 
 	}
 
 	public void loadDataFromDataBase(List<String[]> data) {
-		ViewUtil.loadDataFromDataBase(table, data);
+		ViewUtil.loadData(table, data);
 	}
 
 	public void loadDataFromForSearch(List<String[]> data) {
-		// Gọi Controller để lấy dữ liệu
-		// Tắt auto resize trước khi thêm dữ liệu
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		try {
-			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			model.setRowCount(0); // Xóa dữ liệu cũ
-			for (String[] row : data) {
-				model.addRow(row); // Thêm từng dòng
-			}
-		} finally {
-			// Luôn bật lại auto resize dù có lỗi hay không
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		}
+		ViewUtil.loadData(table, data);
 	}
 
 	public void reset() {

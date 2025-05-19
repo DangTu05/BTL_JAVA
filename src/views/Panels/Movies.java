@@ -41,7 +41,6 @@ import javax.swing.JComboBox;
 public class Movies extends JPanel implements IMoviesView {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JPanel panel_2;
 	private JButton btnReset;
 	private JButton btnLuu;
@@ -60,7 +59,6 @@ public class Movies extends JPanel implements IMoviesView {
 	private JTextField txtSearch;
 	private JButton btnSearch;
 	public SideBarMenu sidebar;
-	private CardLayout cardLayout;
 
 	/**
 	 * Launch the application.
@@ -87,12 +85,9 @@ public class Movies extends JPanel implements IMoviesView {
 	 * Create the frame.
 	 */
 	public Movies() {
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 604);
 		setBackground(new Color(255, 255, 255));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-
-//		setContentPane(contentPane);
 		setLayout(null);
 		JLabel lblTitle = new JLabel("Quản Lý Phim");
 		lblTitle.setBounds(0, 0, 694, 25);
@@ -330,7 +325,7 @@ public class Movies extends JPanel implements IMoviesView {
 	}
 
 	public void loadDataFromDataBase(List<String[]> list) {
-		ViewUtil.loadDataFromDataBase(table, list);
+		ViewUtil.loadData(table, list);
 		reset();
 	}
 

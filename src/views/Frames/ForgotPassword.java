@@ -6,9 +6,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import Interfaces.IForgotPassword;
+import utils.UrlUtil;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ForgotPassword extends JFrame implements IForgotPassword {
@@ -26,6 +27,7 @@ public class ForgotPassword extends JFrame implements IForgotPassword {
 	private JTextField txtEmail;
 	private JButton btnNext;
 	private CardLayout cardLayout;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -79,11 +81,23 @@ public class ForgotPassword extends JFrame implements IForgotPassword {
 		btnNext.setBorder(null);
 		btnNext.setBounds(160, 104, 85, 21);
 		emailPanel.add(btnNext);
+		btnBack = new JButton("");
+		btnBack.setBackground(new Color(153, 102, 204));
+		btnBack.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747481643/arrow_hbfnwr.png")));
+		btnBack.setBorder(null);
+		btnBack.setBounds(0, 0, 32, 35);
+		emailPanel.add(btnBack);
 		contentPane.add(emailPanel, "emailPanel");
+
 	}
 
 	public void setNextListener(ActionListener listener) {
 		btnNext.addActionListener(listener);
+	}
+
+	public void setBackListener(ActionListener listener) {
+		btnBack.addActionListener(listener);
 	}
 
 	public String getEmail() {

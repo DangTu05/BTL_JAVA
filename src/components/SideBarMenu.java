@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import Interfaces.IHomeNavigableView;
 import utils.UrlUtil;
+import java.awt.event.ActionEvent;
 
 public class SideBarMenu extends JPanel implements IHomeNavigableView {
 	private static final long serialVersionUID = 1L;
@@ -19,18 +20,20 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 	private JButton btnHome;
 	private JFrame frame;
 	private JButton btnDienVien;
+	private JButton btnSetting;
+	private JLabel lblWebsiteName;
 
 	public SideBarMenu() {
 		setBackground(new Color(102, 51, 102));
 		setLayout(null);
 		setBounds(0, 0, 255, 571);
-		setPreferredSize(new Dimension(255, 600)); // thêm dòng này
+		setPreferredSize(new Dimension(255, 568)); // thêm dòng này
 		btnAccount = new JButton("Tài Khoản");
 		btnAccount.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAccount.setBackground(new Color(204, 0, 153));
 		btnAccount.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747099952/user_3_x51vqi.png")));
-		btnAccount.setBounds(0, 143, 255, 43);
+		btnAccount.setBounds(0, 131, 255, 43);
 		btnAccount.setBorder(BorderFactory.createEmptyBorder());
 		add(btnAccount);
 
@@ -39,7 +42,7 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 		btnPhim.setBackground(new Color(153, 51, 153));
 		btnPhim.setIcon(new ImageIcon(UrlUtil
 				.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100090/video-player_yh4aaf.png")));
-		btnPhim.setBounds(0, 184, 255, 43);
+		btnPhim.setBounds(0, 173, 255, 43);
 		btnPhim.setBorder(BorderFactory.createEmptyBorder());
 		add(btnPhim);
 
@@ -55,16 +58,16 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 		btnHome.setBackground(new Color(153, 51, 153));
 		btnHome.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
-		btnHome.setBounds(0, 101, 255, 43);
+		btnHome.setBounds(0, 88, 255, 43);
 		btnHome.setBorder(BorderFactory.createEmptyBorder());
 		add(btnHome);
 
-		JLabel lblName = new JLabel("Đặng Quang Tú");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblName.setForeground(Color.WHITE);
-		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setBounds(64, 34, 135, 21);
-		add(lblName);
+		lblWebsiteName = new JLabel("Đặng Quang Tú");
+		lblWebsiteName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblWebsiteName.setForeground(Color.WHITE);
+		lblWebsiteName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWebsiteName.setBounds(64, 34, 135, 21);
+		add(lblWebsiteName);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 76, 255, 2);
@@ -75,9 +78,19 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 		btnDienVien.setBackground(new Color(153, 51, 153));
 		btnDienVien.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747323748/casting_sk1q35.png")));
-		btnDienVien.setBounds(0, 226, 255, 43);
+		btnDienVien.setBounds(0, 215, 255, 43);
 		btnDienVien.setBorder(BorderFactory.createEmptyBorder());
 		add(btnDienVien);
+
+		btnSetting = new JButton("");
+		btnSetting.setBackground(new Color(102, 51, 102));
+		btnSetting.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747618718/settings_jionkl.png")));
+		btnSetting.setBorder(null);
+		btnSetting.setBounds(0, 0, 35, 33);
+
+		add(btnSetting);
+
 	}
 
 	@Override
@@ -98,6 +111,15 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 	@Override
 	public void setMovieListener(ActionListener listener) {
 		btnPhim.addActionListener(listener);
+	}
+
+	@Override
+	public void setSettingListener(ActionListener listener) {
+		btnSetting.addActionListener(listener);
+	}
+
+	public void setWebsite_Name(String website_name) {
+		lblWebsiteName.setText(website_name);
 	}
 
 	@Override
@@ -129,4 +151,9 @@ public class SideBarMenu extends JPanel implements IHomeNavigableView {
 	public JButton getBtnLogout() {
 		return btnLogout;
 	}
+
+	public JButton getBtnSetting() {
+		return btnSetting;
+	}
+
 }

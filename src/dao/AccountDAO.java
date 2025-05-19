@@ -1,7 +1,6 @@
 package dao;
 
 import models.Account;
-import utils.ErrorUtil;
 import Configs.Database.ConnectDB;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 public class AccountDAO extends BaseDAO<Account> {
 	@Override
 	protected PreparedStatement buildInsertStatement(Connection conn, Account tk) throws SQLException {
-		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Status) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO account (UserName, Email, Password,AccountId, RoleName,Status,User_id) VALUES (?,?,?,?,?,?,?)";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, tk.getUser_Name());
 		statement.setString(2, tk.getEmail());
@@ -18,6 +17,7 @@ public class AccountDAO extends BaseDAO<Account> {
 		statement.setString(4, tk.getAccount_Id().substring(0, 10));
 		statement.setString(5, tk.getRoleName());
 		statement.setString(6, tk.getStatus());
+		statement.setString(7, tk.getUser_id());
 		return statement;
 	}
 
@@ -57,7 +57,7 @@ public class AccountDAO extends BaseDAO<Account> {
 
 	public static List<String[]> findTksByName(String name) {
 		List<String[]> accounts = new ArrayList<>();
-		String query = "Select * from account where deleted=false and UserName Like ?";
+		String query = "Select * from account where deleted=false and UserName Like ? and RoleName='USER'";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
 			ps.setString(1, "%" + name + "%");
 			ResultSet rs = ps.executeQuery();
@@ -74,7 +74,7 @@ public class AccountDAO extends BaseDAO<Account> {
 	}
 
 	public static List<String[]> getAllAccounts() {
-		String query = "SELECT * FROM account";
+		String query = "SELECT * FROM account where RoleName='USER'";
 		List<String[]> accounts = new ArrayList<>();
 
 		try (Connection conn = ConnectDB.getConnection();

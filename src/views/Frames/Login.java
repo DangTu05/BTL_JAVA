@@ -6,31 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.ILoginView;
-import controllers.LoginController;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JTextField;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 
 public class Login extends JFrame implements ILoginView {

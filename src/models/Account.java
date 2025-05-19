@@ -1,6 +1,5 @@
 package models;
 
-
 public class Account {
 	private String Account_Id;
 	private String User_Name;
@@ -8,19 +7,23 @@ public class Account {
 	private String Password;
 	private String RoleName;
 	private String Status;
+	private String User_id;
 
-	public Account(String account_Id, String user_Name, String email, String password) {
-		super();
+	public Account(String account_Id, String user_Name, String email, String password, String user_id) {
 		Account_Id = account_Id;
 		User_Name = user_Name;
 		Email = email;
 		Password = password;
 		RoleName = "USER";
 		Status = "active";
+		User_id = user_id;
+	}
+
+	public Account() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Account(String account_Id, String user_Name, String email, String password, String roleName) {
-		super();
 		Account_Id = account_Id;
 		User_Name = user_Name;
 		Email = email;
@@ -68,33 +71,20 @@ public class Account {
 		RoleName = roleName;
 	}
 
-	// public void setRole_Id() {
-//			RoleName = "USER";
-//		}
-//	public Account(String role_Id) {
-//			this.RoleName = "USER";
-//		}
-	public Account() {
-		// TODO Auto-generated constructor stub
-	}
-//	public void addTaiKhoan(IAccount tk) throws Exception{
-//		Connection conn=ConnectDB.getConnection();
-//		String sql= "INSERT INTO account VALUES (?, ?)";
-//		PreparedStatement statement= conn.prepareStatement(sql);
-//		statement.setString(1,tk.getUser_Name());
-//		statement.setString(2,tk.getEmail());
-//		statement.setString(3,tk.getPassword());
-//		statement.setString(4,tk.getAccount_Id());
-//		statement.setString(5,tk.getRole_Id());
-//		statement.executeUpdate();
-//	}
-
 	public String getStatus() {
 		return Status;
 	}
 
 	public void setStatus(String status) {
 		Status = status;
+	}
+
+	public String getUser_id() {
+		return User_id;
+	}
+
+	public void setUser_id(String user_id) {
+		User_id = user_id;
 	}
 
 }

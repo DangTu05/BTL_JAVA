@@ -36,10 +36,6 @@ public class Menu extends JFrame implements IMenuView, IHomeNavigableView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-//	private JButton btnHome;
-//	private JButton btnAccount;
-//	private JButton btnPhim;
-//	private JButton btnLogout;
 	private SideBarMenu sidebar;
 	private CardLayout cardLayout;
 	private JPanel mainContent;

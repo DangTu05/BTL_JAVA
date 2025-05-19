@@ -7,16 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.IRegisterView;
-import controllers.RegisterController;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.net.MalformedURLException;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JSeparator;
 
 public class Register extends JFrame implements IRegisterView {
 
@@ -27,6 +25,8 @@ public class Register extends JFrame implements IRegisterView {
 	private JTextField txtName;
 	public JLabel jLabel_DN;
 	public JButton btnDK;
+	private JSeparator separator_1;
+	private JSeparator separator_2;
 
 	/**
 	 * Launch the application.
@@ -51,7 +51,7 @@ public class Register extends JFrame implements IRegisterView {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 514, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
+		contentPane.setBackground(new Color(153, 102, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -62,8 +62,8 @@ public class Register extends JFrame implements IRegisterView {
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel = new JLabel("Đăng Kí");
-		lblNewLabel.setBounds(200, 10, 86, 31);
-		lblNewLabel.setForeground(new Color(255, 0, 0));
+		lblNewLabel.setBounds(200, 10, 95, 31);
+		lblNewLabel.setForeground(new Color(51, 255, 51));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		contentPane.add(lblNewLabel);
 
@@ -73,11 +73,15 @@ public class Register extends JFrame implements IRegisterView {
 		contentPane.add(lblNewLabel_2);
 
 		txtEmail = new JTextField();
+		txtEmail.setBorder(null);
+		txtEmail.setBackground(new Color(153, 102, 204));
 		txtEmail.setBounds(179, 52, 210, 19);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
 
 		txtName = new JTextField();
+		txtName.setBorder(null);
+		txtName.setBackground(new Color(153, 102, 204));
 		txtName.setBounds(179, 94, 210, 19);
 		contentPane.add(txtName);
 		txtName.setColumns(10);
@@ -88,6 +92,8 @@ public class Register extends JFrame implements IRegisterView {
 		contentPane.add(lblNewLabel_3);
 
 		txtMk = new JTextField();
+		txtMk.setBorder(null);
+		txtMk.setBackground(new Color(153, 102, 204));
 		txtMk.setBounds(179, 135, 210, 19);
 		contentPane.add(txtMk);
 		txtMk.setColumns(10);
@@ -96,13 +102,26 @@ public class Register extends JFrame implements IRegisterView {
 		btnDK.setForeground(new Color(255, 0, 0));
 		btnDK.setBackground(new Color(0, 255, 0));
 		btnDK.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnDK.setBounds(230, 190, 101, 21);
+		btnDK.setBounds(200, 196, 101, 21);
 		contentPane.add(btnDK);
 
 		jLabel_DN = new JLabel("<html><a href=\"\">Bạn đã có tài khoản?</a></html>");
 		jLabel_DN.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		jLabel_DN.setBounds(179, 164, 142, 13);
 		contentPane.add(jLabel_DN);
+
+		JSeparator separator = new JSeparator();
+		separator.setBackground(new Color(255, 255, 255));
+		separator.setBounds(179, 71, 210, 19);
+		contentPane.add(separator);
+
+		separator_1 = new JSeparator();
+		separator_1.setBounds(179, 113, 210, 19);
+		contentPane.add(separator_1);
+
+		separator_2 = new JSeparator();
+		separator_2.setBounds(179, 154, 210, 19);
+		contentPane.add(separator_2);
 
 	}
 

@@ -13,6 +13,8 @@ import Interfaces.IMenuView;
 import Interfaces.IMoviesView;
 import components.SideBarMenu;
 import controllers.AppController;
+import dao.SettingDAO;
+import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import views.Frames.Login;
@@ -20,19 +22,22 @@ import views.Frames.Admin.Menu;
 import views.Panels.Accounts;
 import views.Panels.Actors;
 import views.Panels.Movies;
+import views.Panels.Setting;
 
 public class MenuController extends BaseController {
 	private IHomeNavigableView viewMenu;
 	private IMenuView view;
 	private AppController app;
+	private SettingDAO dao;
 	private JPanel mainContentPanel;
 	private CardLayout cardLayout;
 	private Map<String, JPanel> panelMap = new HashMap<>();
 
 	public MenuController(IMenuView viewMain) {
 		this.view = viewMain;
-		this.viewMenu = view.getSideBar();
 		app = new AppController();
+		dao = new SettingDAO();
+		setupSetting();
 		setMainContent(view.getMainContentJpanel());
 		initializePanelsAndControllers();
 		setUpEventListeners();
@@ -74,6 +79,11 @@ public class MenuController extends BaseController {
 		panelMap.put("home", homePanel);
 		mainContentPanel.add(homePanel, "home");
 
+		Setting settingPanel = new Setting();
+		new SettingController(settingPanel);
+		panelMap.put("setting", settingPanel);
+		mainContentPanel.add(settingPanel, "setting");
+
 		// Show mặc định
 		cardLayout.show(mainContentPanel, "home");
 	}
@@ -90,6 +100,7 @@ public class MenuController extends BaseController {
 		view.getSideBar().getBtnPhim().addActionListener(e -> navigateTo("movies"));
 		view.getSideBar().getBtnDienVien().addActionListener(e -> navigateTo("actors"));
 		view.getSideBar().getBtnLogout().addActionListener(e -> logout());
+		view.getSideBar().getBtnSetting().addActionListener(e -> navigateTo("setting"));
 	}
 
 	public void logout() {
@@ -98,4 +109,14 @@ public class MenuController extends BaseController {
 		app.startLogin(view.getFrame());
 	}
 
+	private void setupSetting() {
+		try {
+			models.Setting setting = dao.findByField("setting_id", "SETTING070");
+			view.getSideBar().setWebsite_Name(setting.getWebsite_name());
+		} catch (Exception e) {
+			// TODO: handle exception
+			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+		}
+
+	}
 }

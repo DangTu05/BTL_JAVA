@@ -17,7 +17,6 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.Date;
 import java.util.List;
 import java.awt.Color;
 import javax.swing.JSpinner;
@@ -29,12 +28,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 public class CreateMovie extends JFrame implements ICreateMovieView {
 
@@ -51,7 +48,6 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	private JSpinner dateNgayPhatHanh;
 	private JTextArea txtMoTa;
 	private JButton btnTao;
-	private JScrollPane scrollPane;
 	private JPanel panel;
 	private JList<Actor> listActor;
 	private JList<Category> listCategory;

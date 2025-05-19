@@ -14,8 +14,7 @@ import utils.PasswordUtil;
 public class AccountsController extends BaseController<Account> {
 	private IAccountView view;
 	private AccountDAO dao;
-
-
+	
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
 		dao = new AccountDAO();
@@ -66,7 +65,7 @@ public class AccountsController extends BaseController<Account> {
 	public boolean updateAccount() {
 		try {
 			if (view.getMa().isEmpty()) {
-				MessageUtil.showWarning("Vui lòng chọn tìa khoản cần sửa!");
+				MessageUtil.showWarning("Vui lòng chọn tài khoản cần sửa!");
 				return false;
 			}
 			if (!checkData()) {

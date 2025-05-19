@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import Configs.Database.ConnectDB;
-import models.Account;
 
 public abstract class BaseDAO<T> {
 	protected abstract PreparedStatement buildInsertStatement(Connection conn, T entity) throws SQLException;

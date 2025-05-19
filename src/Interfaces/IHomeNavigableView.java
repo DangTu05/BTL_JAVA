@@ -13,5 +13,7 @@ public interface IHomeNavigableView {
 
 	public void setMovieListener(ActionListener listener);
 
-	public JFrame getFrame(); 
+	public void setSettingListener(ActionListener listener);
+
+	public JFrame getFrame();
 }

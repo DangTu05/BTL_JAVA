@@ -1,9 +1,6 @@
 package validator;
 
 import java.io.File;
-
-import javax.swing.JOptionPane;
-
 import utils.MessageConstants;
 import utils.MessageUtil;
 
@@ -31,7 +28,7 @@ public class InputValidate {
 
 	public static boolean loginValidate(String email, String password) {
 		if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-			MessageUtil.showWarning("Thông tin không được để trống!");
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}
 		return true;
@@ -39,7 +36,7 @@ public class InputValidate {
 
 	public static boolean createActor(String actor_name, java.sql.Date ngaysinh) {
 		if (actor_name == null || actor_name.trim().isEmpty() || ngaysinh == null) {
-			MessageUtil.showWarning("Thông tin không được để trống!");
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}
 		return true;
@@ -48,7 +45,7 @@ public class InputValidate {
 	public static boolean createCategory(String category_id, String category_name) {
 		if (category_id == null || category_id.trim().isEmpty() || category_name == null
 				|| category_name.trim().isEmpty()) {
-			MessageUtil.showWarning("Thông tin không được để trống!");
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}
 		return true;
@@ -56,7 +53,7 @@ public class InputValidate {
 
 	public static boolean createMovie(String movie_name, File poster) {
 		if (movie_name == null || movie_name.trim().isEmpty() || poster == null) {
-			MessageUtil.showWarning("Thông tin không được để trống!");
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}
 		return true;
@@ -77,6 +74,14 @@ public class InputValidate {
 		}
 		if (!password.equals(confirmPassword)) {
 			MessageUtil.showWarning("Mật khẩu không khớp!");
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean checkSettingInput(String website_name, String ceo, String hotline, String address) {
+		if (website_name.isEmpty() || ceo.isEmpty() || hotline.isEmpty() || address.isEmpty()) {
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}
 		return true;

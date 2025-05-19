@@ -3,11 +3,15 @@ package views.Panels;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import utils.UrlUtil;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ChangePassword extends JPanel {
@@ -16,6 +20,7 @@ public class ChangePassword extends JPanel {
 	private JTextField txtMK;
 	private JTextField txtConfirmMK;
 	private JButton btnThayDoi;
+	private JButton btnBack;
 
 	/**
 	 * Create the panel.
@@ -72,7 +77,13 @@ public class ChangePassword extends JPanel {
 		btnThayDoi.setBorder(null);
 		btnThayDoi.setBounds(175, 219, 85, 21);
 		add(btnThayDoi);
-
+		btnBack = new JButton("");
+		btnBack.setBackground(new Color(153, 102, 204));
+		btnBack.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747481643/arrow_hbfnwr.png")));
+		btnBack.setBorder(null);
+		btnBack.setBounds(0, 0, 32, 35);
+		add(btnBack);
 	}
 
 	public String getPassword() {
@@ -82,7 +93,11 @@ public class ChangePassword extends JPanel {
 	public String getCFPassword() {
 		return txtConfirmMK.getText().trim();
 	}
+
 	public void setThayDoiListener(ActionListener listener) {
 		btnThayDoi.addActionListener(listener);
+	}
+	public void setBackListener(ActionListener listener) {
+		btnBack.addActionListener(listener);
 	}
 }
