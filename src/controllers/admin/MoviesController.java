@@ -5,17 +5,18 @@ import Interfaces.IMoviesView;
 import controllers.AppController;
 import dao.MovieDAO;
 import models.Movie;
+import services.admin.MovieService;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 
 public class MoviesController extends BaseController<Movie> {
 	private IMoviesView view;
-	private MovieDAO dao;
+	private MovieService movieService;
 
 	public MoviesController(IMoviesView view) {
 		this.view = view;
-		dao = new MovieDAO();
+		movieService = new MovieService();
 		setUpEventListeners();
 		loadDataFromDataBase();
 	}
@@ -31,9 +32,9 @@ public class MoviesController extends BaseController<Movie> {
 
 	private void loadDataFromDataBase() {
 		try {
-			view.loadDataFromDataBase(MovieDAO.getAllMoive());
+			view.loadDataFromDataBase(movieService.getAllMoiveTypeString());
 		} catch (Exception e) {
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
@@ -48,15 +49,15 @@ public class MoviesController extends BaseController<Movie> {
 					view.getStatus());
 			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return;
-			if (!dao.update(movie)) {
+			if (!movieService.updateMovie(movie)) {
 				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_UPDATE);
-			view.loadDataFromDataBase(MovieDAO.getAllMoive());
+			view.loadDataFromDataBase(MovieDAO.getAllMoiveTypeString());
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
@@ -67,15 +68,15 @@ public class MoviesController extends BaseController<Movie> {
 				MessageUtil.showWarning("Vui lòng chọn phim muốn xóa!");
 				return;
 			}
-			if (!dao.softDelete(view.getMovie_Id())) {
+			if (!movieService.softDelete(view.getMovie_Id())) {
 				MessageUtil.showError(MessageConstants.ERROR_DELETE_FAILED);
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
-			view.loadDataFromDataBase(MovieDAO.getAllMoive());
+			loadDataFromDataBase();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
@@ -107,10 +108,10 @@ public class MoviesController extends BaseController<Movie> {
 
 	public void loadDataFromSearch() {
 		try {
-			view.loadDataFromDataBase(MovieDAO.findMovieByName(view.getTextSearch()));
+			view.loadDataFromDataBase(movieService.findMovieByName(view.getTextSearch()));
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 

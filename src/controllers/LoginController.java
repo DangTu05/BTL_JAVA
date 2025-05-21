@@ -9,6 +9,9 @@ import dao.AccountDAO;
 import dao.UserDAO;
 import models.Account;
 import models.User;
+import services.LoginService;
+import services.UserService;
+import services.admin.AccountService;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -19,14 +22,14 @@ import views.Frames.Admin.Menu;
 
 public class LoginController {
 	private ILoginView viewLogin;
-	private AccountDAO daoAccount;
-	private UserDAO daoUser;
+	private UserService userService;
+	private AccountService accountService;
 
 	public LoginController(ILoginView login) {
 		// TODO Auto-generated constructor stub
 		this.viewLogin = login;
-		daoAccount = new AccountDAO();
-		daoUser = new UserDAO();
+		accountService = new AccountService();
+		userService = new UserService();
 		setupEventListeners();
 	}
 
@@ -50,13 +53,7 @@ public class LoginController {
 		try {
 			if (!InputValidate.loginValidate(viewLogin.getEmail(), viewLogin.getPassword()))
 				return;
-			Account account = daoAccount.findByField("Email", viewLogin.getEmail());
-
-			if (account == null) {
-				MessageUtil.showInfo("Thông tin không hợp lệ!");
-				return;
-			}
-			User user = daoUser.findByField("user_id", account.getUser_id());
+			Account account = accountService.findAccountByEmail(viewLogin.getEmail());
 			if (!PasswordUtil.checkPassword(viewLogin.getPassword(), account.getPassword())) {
 				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
@@ -65,13 +62,13 @@ public class LoginController {
 			if (account.getRoleName().equals("ADMIN"))
 				AppController.startDashboard(viewLogin.getFrame());
 			else {
-				Session.setUser(user);
+				Session.setUser(userService.getUserById(account.getUser_id()));
 				AppController.startHome(viewLogin.getFrame());
 			}
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			ErrorUtil.handle(e1, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e1, e1.getMessage());
 		}
 	}
 

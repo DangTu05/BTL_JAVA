@@ -26,6 +26,15 @@ public class InputValidate {
 		return true;
 	}
 
+	public static boolean AccountValidate(String email, String name) {
+		if (email.isEmpty() || name.isEmpty()) {
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
+			return false;
+		}
+
+		return true;
+	}
+
 	public static boolean loginValidate(String email, String password) {
 		if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
 			MessageUtil.showWarning(MessageConstants.WARN_INPUT);

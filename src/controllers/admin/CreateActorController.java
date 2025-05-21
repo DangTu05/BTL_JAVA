@@ -2,9 +2,9 @@ package controllers.admin;
 
 import Interfaces.ICreateActorView;
 import controllers.AppController;
-import dao.ActorDAO;
 import middlewares.UploadCloud;
 import models.Actor;
+import services.admin.ActorService;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
 import utils.MessageConstants;
@@ -13,11 +13,11 @@ import validator.InputValidate;
 
 public class CreateActorController {
 	private ICreateActorView createActorView;
-	private ActorDAO dao;
+	private ActorService actorService;
 
 	public CreateActorController(ICreateActorView createActor) {
 		this.createActorView = createActor;
-		dao = new ActorDAO();
+		actorService = new ActorService();
 		setupEventListeners();
 	}
 
@@ -43,14 +43,15 @@ public class CreateActorController {
 			} else {
 				actor = new Actor(actor_id, actor_name, nationality, birth, biography);
 			}
-			if (!dao.insert(actor)) {
+			if (!actorService.createActor(actor)) {
+
 				MessageUtil.showError(MessageConstants.ERROR_CREATE);
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
 			return;
 		} catch (Exception e) {
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 			// TODO: handle exception
 		}
 	}

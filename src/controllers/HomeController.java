@@ -5,14 +5,17 @@ import java.awt.event.MouseEvent;
 
 import Interfaces.IHomeView;
 import dao.MovieDAO;
+import services.admin.MovieService;
 import utils.Session;
 import views.Frames.Home;
 
 public class HomeController {
 	private IHomeView viewTrangChu;
+	private MovieService movieService;
 
 	public HomeController(IHomeView viewTrangChu) {
 		this.viewTrangChu = viewTrangChu;
+		movieService = new MovieService();
 		loadDataFromDatabase();
 		setupEventListeners();
 
@@ -35,7 +38,7 @@ public class HomeController {
 	}
 
 	private void loadDataFromDatabase() {
-		viewTrangChu.hienThiDanhSachPhim(MovieDAO.getListMoive());
+		viewTrangChu.hienThiDanhSachPhim(movieService.getAllMovieTypeMovie()));
 	}
 
 	private void logout() {

@@ -25,7 +25,6 @@ import views.Panels.Movies;
 import views.Panels.Setting;
 
 public class MenuController extends BaseController {
-	private IHomeNavigableView viewMenu;
 	private IMenuView view;
 	private SettingDAO dao;
 	private JPanel mainContentPanel;

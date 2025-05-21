@@ -14,24 +14,26 @@ import models.Category;
 import models.Movie;
 import models.MovieActor;
 import models.MovieCategory;
+import services.CreateMovieService;
+import services.admin.ActorService;
+import services.admin.MovieService;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import validator.InputValidate;
 
-
 public class CreateMovieController {
 	private MovieDAO dao;
 	private ICreateMovieView view;
-	private MovieActorDAO movie_actorDao;
-	private MovieCategoryDAO movie_categoryDao;
+	private ActorService actorService;
+	private MovieService movieService;
 
 	public CreateMovieController(ICreateMovieView view) {
 		this.view = view;
+		movieService = new MovieService();
+		actorService = new ActorService();
 		dao = new MovieDAO();
-		movie_actorDao = new MovieActorDAO();
-		movie_categoryDao = new MovieCategoryDAO();
 		setupEventListener();
 		loadActorToView();
 		loadCategoryToView();
@@ -58,39 +60,29 @@ public class CreateMovieController {
 				return;
 			String urlImg = UploadCloud.upload(view.getFileImg());
 			List<Actor> actors = view.getSelectedItemList(view.getListActor());
+			List<Category> categories = view.getSelectedItemList(view.getListCategory());
 			movie = new Movie(movie_id, movie_name, release_date, director, duration, script, age_permisson, urlImg,
 					status);
-			if (!dao.insert(movie)) {
+			if (!movieService.createMovie(movie, actors, categories)) {
 				MessageUtil.showError(MessageConstants.ERROR_CREATE);
 				return;
-			}
-			if (!actors.isEmpty()) {
-				for (Actor actor : actors) {
-					if (!movie_actorDao.insert(new MovieActor(movie_id, actor.getActor_id()))) {
-						MessageUtil.showInfo(MessageConstants.ERROR_CREATE);
-						return;
-					}
-				}
-			}
-			List<Category> categories = view.getSelectedItemList(view.getListCategory());
-			if (!categories.isEmpty()) {
-				for (Category category : categories) {
-					if (!movie_categoryDao.insert(new MovieCategory(category.getCategory_id(), movie_id))) {
-						MessageUtil.showInfo(MessageConstants.ERROR_CREATE);
-						return;
-					}
-				}
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
 			view.reSetForm();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
 	public void loadActorToView() {
-		List<Actor> actors = ActorDAO.getAllActors();
+		List<Actor> actors = null;
+		try {
+			actors = actorService.getAllActorTypeActor();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ErrorUtil.handle(e, e.getMessage());
+		}
 		view.getItemsForList(actors, view.getListActor());
 	}
 

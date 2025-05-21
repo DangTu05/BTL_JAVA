@@ -6,6 +6,7 @@ import Interfaces.IActorsView;
 import controllers.AppController;
 import dao.ActorDAO;
 import models.Actor;
+import services.admin.ActorService;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -14,10 +15,12 @@ import validator.InputValidate;
 public class ActorsController extends BaseController<Actor> {
 	private IActorsView view;
 	private ActorDAO dao;
+	private ActorService actorService;
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
 		dao = new ActorDAO();
+		actorService = new ActorService();
 		loadDataFromDataBase();
 		setUpEventListeners();
 	}
@@ -34,7 +37,7 @@ public class ActorsController extends BaseController<Actor> {
 	private void loadDataFromDataBase() {
 
 		try {
-			view.loadDataFromDataBase(ActorDAO.getAllActor());
+			view.loadDataFromDataBase(actorService.getAllActorTypeString());
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
@@ -43,10 +46,10 @@ public class ActorsController extends BaseController<Actor> {
 
 	private void loadDataFromSearch() {
 		try {
-			view.loadDataFromSearch(ActorDAO.findActorsByName(view.getSearch()));
+			view.loadDataFromSearch(actorService.findActorsByName(view.getSearch()));
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
@@ -85,7 +88,7 @@ public class ActorsController extends BaseController<Actor> {
 					view.getNationality(), view.getNgaySinh(), view.getBiography());
 			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return;
-			if (!dao.update(actor)) {
+			if (!actorService.updateActor(actor)) {
 				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
 				return;
 			}
@@ -93,7 +96,7 @@ public class ActorsController extends BaseController<Actor> {
 			loadDataFromDataBase();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 
@@ -104,15 +107,15 @@ public class ActorsController extends BaseController<Actor> {
 				MessageUtil.showWarning("Vui lòng chọn diễn viên muốn xóa!");
 				return;
 			}
-			if (!dao.softDelete(view.getActor_Id())) {
+			if (!actorService.softDelete(view.getActor_Id())) {
 				MessageUtil.showError(MessageConstants.ERROR_DELETE_FAILED);
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
-			view.loadDataFromDataBase(ActorDAO.getAllActor());
+			loadDataFromDataBase();
 		} catch (Exception e) {
 			// TODO: handle exception
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 

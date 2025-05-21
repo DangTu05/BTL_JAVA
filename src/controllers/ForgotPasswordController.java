@@ -5,9 +5,9 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import Interfaces.IForgotPassword;
-
 import dao.AccountDAO;
 import services.OTPService;
+import services.admin.AccountService;
 import utils.EmailUtil;
 import utils.ErrorUtil;
 import utils.MessageConstants;
@@ -21,6 +21,7 @@ public class ForgotPasswordController {
 	private IForgotPassword viewForgotPassword;
 	private InputOTP otpPanel;
 	private AccountDAO dao;
+	private AccountService accountService;
 	private JPanel mainContentPanel;
 	private CardLayout cardLayout;
 	private ChangePassword changePasswordPanel;
@@ -28,6 +29,7 @@ public class ForgotPasswordController {
 	public ForgotPasswordController(IForgotPassword view) {
 		this.viewForgotPassword = view;
 		dao = new AccountDAO();
+		accountService = new AccountService();
 		setMainContent(view.getMainContentPanel());
 		initializePanels();
 		setupEventListeners();
@@ -75,13 +77,13 @@ public class ForgotPasswordController {
 			return;
 		String password = PasswordUtil.hashPassword(changePasswordPanel.getPassword());
 		try {
-			if (!AccountDAO.changePassword(password, viewForgotPassword.getEmail())) {
-				MessageUtil.showError(MessageConstants.ERROR_UPDATE_FAILED);
+			if (!accountService.changePassword(password, viewForgotPassword.getEmail())) {
+				MessageUtil.showError("Đổi mật khẩu không thành công!");
 				return;
 			}
 			MessageUtil.showInfo("Đổi thành công!");
 		} catch (Exception e) {
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 

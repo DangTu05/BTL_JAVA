@@ -2,6 +2,7 @@ package dao;
 
 import models.Account;
 import Configs.Database.ConnectDB;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class AccountDAO extends BaseDAO<Account> {
 		return "AccountId";
 	}
 
-	public static List<String[]> findTksByName(String name) {
+	public static List<String[]> findTksByName(String name) throws Exception {
 		List<String[]> accounts = new ArrayList<>();
 		String query = "Select * from account where deleted=false and UserName Like ? and RoleName='USER'";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
@@ -68,13 +69,12 @@ public class AccountDAO extends BaseDAO<Account> {
 						rs.getString("Status"), rs.getString("RoleName") });
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
+			throw new Exception("Lỗi tìm kiếm tài khoản trong DAO!!!", e1);
 		}
 		return accounts;
 	}
 
-	public static List<String[]> getAllAccounts() {
+	public static List<String[]> getAllAccounts() throws Exception {
 		String query = "SELECT * FROM account where RoleName='USER'";
 		List<String[]> accounts = new ArrayList<>();
 
@@ -89,12 +89,12 @@ public class AccountDAO extends BaseDAO<Account> {
 			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
+			throw new Exception("Lỗi khi tìm kiếm tài khoản trong DAO", e1);
 		}
 		return accounts;
 	}
 
-	public static boolean changePassword(String password, String email) {
+	public static boolean changePassword(String password, String email) throws Exception {
 		String sql = "Update account set password=? where email=?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 			statement.setString(1, password);
@@ -102,7 +102,7 @@ public class AccountDAO extends BaseDAO<Account> {
 			return statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException("Cập nhật trạng thái thất bại: " + e.getMessage(), e);
+			throw new Exception("Đổi mật khẩu thất bại: " + e.getMessage(), e);
 		}
 	}
 
