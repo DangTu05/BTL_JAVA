@@ -1,12 +1,14 @@
 package controllers.admin;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import Interfaces.IActorsView;
 import controllers.AppController;
 import dao.ActorDAO;
 import models.Actor;
 import services.admin.ActorService;
+import utils.ConvertUtil;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -56,18 +58,16 @@ public class ActorsController extends BaseController<Actor> {
 	@Override
 	protected void getSetData() {
 		int selectedRow = view.getTable().getSelectedRow();
-		if (selectedRow != -1) {
-			Object actor_id = view.getTable().getValueAt(selectedRow, 0);
-			Object actor_name = view.getTable().getValueAt(selectedRow, 1);
-			Object birth = view.getTable().getValueAt(selectedRow, 2);
-			Object nationality = view.getTable().getValueAt(selectedRow, 3);
-			Object biography = view.getTable().getValueAt(selectedRow, 4);
-			Object actor_image = view.getTable().getValueAt(selectedRow, 5);
-			view.setFormData(actor_id != null ? actor_id.toString() : "",
-					actor_name != null ? actor_name.toString() : "", birth != null ? birth.toString() : "",
-					nationality != null ? nationality.toString() : "", biography != null ? biography.toString() : "",
-					actor_image != null ? actor_image.toString() : "");
-		}
+		if (selectedRow == -1)
+			return;
+		JTable table = view.getTable();
+		String actor_id = String.valueOf(table.getValueAt(selectedRow, 0));
+		String actor_name = String.valueOf(table.getValueAt(selectedRow, 1));
+		String birth = String.valueOf(table.getValueAt(selectedRow, 2));
+		String nationality = String.valueOf(table.getValueAt(selectedRow, 3));
+		String biography = String.valueOf(table.getValueAt(selectedRow, 4));
+		String actor_image = String.valueOf(table.getValueAt(selectedRow, 5));
+		view.setFormData(actor_id, actor_name, birth, nationality, biography, actor_image);
 
 	}
 

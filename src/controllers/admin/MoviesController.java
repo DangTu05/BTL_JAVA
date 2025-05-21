@@ -1,11 +1,14 @@
 package controllers.admin;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
 import Interfaces.IMoviesView;
 import controllers.AppController;
 import dao.MovieDAO;
 import models.Movie;
 import services.admin.MovieService;
+import utils.ConvertUtil;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -83,23 +86,24 @@ public class MoviesController extends BaseController<Movie> {
 	@Override
 	protected void getSetData() {
 		int selectedRow = view.getTable().getSelectedRow();
-		if (selectedRow != -1) {
-			Object movie_id = view.getTable().getValueAt(selectedRow, 0);
-			Object movie_name = view.getTable().getValueAt(selectedRow, 1);
-			Object release_date = view.getTable().getValueAt(selectedRow, 2);
-			Object director = view.getTable().getValueAt(selectedRow, 3);
-			Object duration = view.getTable().getValueAt(selectedRow, 4);
-			Object script = view.getTable().getValueAt(selectedRow, 5);
-			Object age_permission = view.getTable().getValueAt(selectedRow, 6);
-			Object poster = view.getTable().getValueAt(selectedRow, 7);
-			Object status = view.getTable().getValueAt(selectedRow, 8);
-			view.setFormData(movie_id != null ? movie_id.toString() : "",
-					movie_name != null ? movie_name.toString() : "",
-					release_date != null ? release_date.toString() : "", director != null ? director.toString() : "",
-					duration != null ? Integer.parseInt((String) duration) : 1, script != null ? script.toString() : "",
-					age_permission != null ? Integer.parseInt((String) age_permission) : 1,
-					poster != null ? poster.toString() : "", status != null ? status.toString() : "");
-		}
+		if (selectedRow == -1)
+			return;
+
+		JTable table = view.getTable();
+		String movieId = String.valueOf(table.getValueAt(selectedRow, 0));
+		String name = String.valueOf(table.getValueAt(selectedRow, 1));
+		String releaseDate = String.valueOf(table.getValueAt(selectedRow, 2));
+		String director = String.valueOf(table.getValueAt(selectedRow, 3));
+
+		int duration = ConvertUtil.parseIntSafely(table.getValueAt(selectedRow, 4), 1);
+		String script = String.valueOf(table.getValueAt(selectedRow, 5));
+		int agePermission = ConvertUtil.parseIntSafely(table.getValueAt(selectedRow, 6), 0);
+		String poster = String.valueOf(table.getValueAt(selectedRow, 7));
+		String status = String.valueOf(table.getValueAt(selectedRow, 8));
+
+		// Đưa về View
+		view.setFormData(movieId, name, releaseDate, director, duration, script, agePermission, poster, status);
+
 	}
 
 	protected JPanel getJPanel() {

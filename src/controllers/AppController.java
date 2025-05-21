@@ -16,9 +16,9 @@ import views.Frames.Home;
 import views.Frames.Admin.CreateActor;
 import views.Frames.Admin.CreateMovie;
 import views.Frames.Admin.Menu;
-import views.Panels.Accounts;
-import views.Panels.Actors;
-import views.Panels.Movies;
+import views.Panels.Admin.Accounts;
+import views.Panels.Admin.Actors;
+import views.Panels.Admin.Movies;
 
 public class AppController {
 	private static CreateMovie viewCreateMovie;
