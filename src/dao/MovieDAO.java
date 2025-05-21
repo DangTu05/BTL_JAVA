@@ -13,7 +13,7 @@ import models.Movie;
 public class MovieDAO extends BaseDAO<Movie> {
 	@Override
 	protected String getTableName() {
-		return "tblMovie";
+		return "tblMovi";
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 		return statement;
 	}
 
-	public static List<String[]> getAllMoive() {
+	public static List<String[]> getAllMoiveTypeString() throws Exception {
 		String sql = "Select * from tblMovie where deleted=false";
 		List<String[]> movies = new ArrayList<>();
 		try (Connection conn = ConnectDB.getConnection();
@@ -51,12 +51,12 @@ public class MovieDAO extends BaseDAO<Movie> {
 			}
 
 		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản " + e.getMessage(), e);
+			throw new Exception("Lỗi khi tìm kiếm tài khoản " + e.getMessage(), e);
 		}
 		return movies;
 	}
 
-	public static List<Movie> getListMoive() {
+	public static List<Movie> getAllMoiveTypeMovie() throws Exception {
 		List<Movie> movies = new ArrayList<>();
 		String sql = "SELECT * FROM tblMovie WHERE deleted=false";
 		try (Connection conn = ConnectDB.getConnection();
@@ -70,7 +70,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 				movies.add(movie);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Lỗi khi lấy danh sách phim: " + e.getMessage(), e);
+			throw new Exception("Lỗi khi lấy danh sách phim: " + e.getMessage(), e);
 		}
 		return movies;
 	}
@@ -92,7 +92,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 		return statement;
 	}
 
-	public static List<String[]> findMovieByName(String movie_name) {
+	public static List<String[]> findMovieByName(String movie_name) throws Exception {
 		List<String[]> movies = new ArrayList<>();
 		String query = "Select * from tblMovie where deleted=false and movie_name Like ?";
 		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
@@ -107,7 +107,7 @@ public class MovieDAO extends BaseDAO<Movie> {
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException("Lỗi khi tìm kiếm tài khoản", e1);
+			throw new Exception("Lỗi khi tìm kiếm tài khoản", e1);
 		}
 		return movies;
 

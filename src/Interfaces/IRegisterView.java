@@ -3,6 +3,8 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
+
 public interface IRegisterView {
 	public String getEmail();
 
@@ -10,9 +12,9 @@ public interface IRegisterView {
 
 	public String getUserName();
 
-	public void setRegisterListener(ActionListener listener);
+	public JFrame getFrame();
 
-	public void redirectLogin();
+	public void setRegisterListener(ActionListener listener);
 
 	public void setRedirectLogin(MouseListener listener);
 }

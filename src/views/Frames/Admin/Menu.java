@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JSeparator;
 
-public class Menu extends JFrame implements IMenuView, IHomeNavigableView {
+public class Menu extends JFrame implements IMenuView {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

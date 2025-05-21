@@ -149,6 +149,10 @@ public class Register extends JFrame implements IRegisterView {
 		return txtName.getText().trim();
 	}
 
+	public JFrame getFrame() {
+		return this;
+	}
+
 	public void setRegisterListener(ActionListener listener) {
 		btnDK.addActionListener(listener);
 	}
@@ -157,8 +161,4 @@ public class Register extends JFrame implements IRegisterView {
 		jLabel_DN.addMouseListener(listener);
 	}
 
-	public void redirectLogin() {
-		new Login().setVisible(true);
-		this.dispose();
-	}
 }

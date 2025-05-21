@@ -11,7 +11,7 @@ import Interfaces.IHomeNavigableView;
 import utils.UrlUtil;
 import java.awt.event.ActionEvent;
 
-public class SideBarMenu extends JPanel implements IHomeNavigableView {
+public class SideBarMenu extends JPanel  {
 	private static final long serialVersionUID = 1L;
 
 	private JButton btnAccount;

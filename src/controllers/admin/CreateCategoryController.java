@@ -1,8 +1,8 @@
 package controllers.admin;
 
 import Interfaces.ICreateCategoryView;
-import dao.CategoryDAO;
 import models.Category;
+import services.admin.CategoryService;
 import utils.ErrorUtil;
 import utils.GenerateIdUtil;
 import utils.MessageConstants;
@@ -11,11 +11,11 @@ import validator.InputValidate;
 
 public class CreateCategoryController {
 	private ICreateCategoryView view;
-	private CategoryDAO dao;
+	private CategoryService categoryService;
 
 	public CreateCategoryController(ICreateCategoryView view) {
 		this.view = view;
-		dao = new CategoryDAO();
+		categoryService = new CategoryService();
 		setUpEventListeners();
 
 	}
@@ -32,15 +32,14 @@ public class CreateCategoryController {
 			if (!InputValidate.createCategory(category_id, category_name))
 				return;
 			category = new Category(category_id, category_name);
-			if (!dao.insert(category)) {
+			if (!categoryService.createCategory(category)) {
 				MessageUtil.showError(MessageConstants.ERROR_CREATE);
-				;
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
 			return;
 		} catch (Exception e) {
-			ErrorUtil.handle(e, MessageConstants.ERROR_GENERIC);
+			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
 }

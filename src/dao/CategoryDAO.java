@@ -22,7 +22,7 @@ public class CategoryDAO extends BaseDAO<Category> {
 		return statement;
 	}
 
-	public static List<Category> getAllCategory() {
+	public static List<Category> getAllCategory() throws Exception {
 		String sqp = "Select * from tblCategory ";
 		try (Connection conn = ConnectDB.getConnection();
 				Statement sttm = conn.createStatement();
@@ -35,7 +35,7 @@ public class CategoryDAO extends BaseDAO<Category> {
 			return list;
 
 		} catch (Exception e) {
-			throw new RuntimeException("Lấy danh sach thể loại thất bại: " + e.getMessage(), e);
+			throw new Exception("Lấy danh sach thể loại thất bại: " + e.getMessage(), e);
 		}
 	}
 
