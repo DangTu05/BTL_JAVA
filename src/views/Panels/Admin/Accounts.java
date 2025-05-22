@@ -1,4 +1,4 @@
-package views.Panels;
+package views.Panels.Admin;
 
 import java.awt.Color;
 import java.awt.Dimension;

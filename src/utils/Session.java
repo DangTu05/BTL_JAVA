@@ -4,6 +4,7 @@ import models.User;
 
 public class Session {
 	private static User currentUser = null;
+	private static String userEmail = null;
 
 	public static boolean isLogin() {
 		return currentUser != null;
@@ -15,6 +16,14 @@ public class Session {
 
 	public static User getUser() {
 		return currentUser;
+	}
+
+	public static void setEmail(String email) {
+		userEmail = email;
+	}
+
+	public static String getEmail() {
+		return userEmail;
 	}
 
 	public static void logout() {

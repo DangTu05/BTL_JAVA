@@ -62,6 +62,7 @@ public class LoginController {
 			if (account.getRoleName().equals("ADMIN"))
 				AppController.startDashboard(viewLogin.getFrame());
 			else {
+				Session.setEmail(account.getEmail());
 				Session.setUser(userService.getUserById(account.getUser_id()));
 				AppController.startHome(viewLogin.getFrame());
 			}

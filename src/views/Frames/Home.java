@@ -3,6 +3,7 @@ package views.Frames;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -25,6 +26,7 @@ public class Home extends JFrame implements IHomeView {
 	private JPanel pnLeftofCenter2;
 	private int currentImageIndex = 0;
 	private JPanel pnLeftofCenter;
+	private JPanel cardPanel;
 
 	public Home(String tieude) {
 		super(tieude);
@@ -42,9 +44,10 @@ public class Home extends JFrame implements IHomeView {
 	}
 
 	public void addControls() {
+		JPanel menu = new JPanel();
 		// Tạo menu bar
 		menubar = new MenuBar();
-		setJMenuBar(menubar.getMenuBar());
+		menu.add(menubar.getMenuBar());
 		// Tạo các nút điều khiển
 		btnPrev = new JButton("<");
 		btnNext = new JButton(">");
@@ -106,11 +109,14 @@ public class Home extends JFrame implements IHomeView {
 
 		JScrollPane scp = new JScrollPane(pnMain, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		cardPanel = new JPanel(new CardLayout());
+		cardPanel.add(scp, "HomePage"); // Thêm trang scrollPane vào
 
-		// Thêm panel vào frame
 		Container con = getContentPane();
 		con.setLayout(new BorderLayout());
-		con.add(scp, BorderLayout.CENTER);
+		setJMenuBar(menubar.getMenuBar());
+		con.add(cardPanel, BorderLayout.CENTER); // Thêm cardPanel thay vì scp trực tiếp
+
 	}
 
 //	public void addEvents() {
@@ -181,6 +187,10 @@ public class Home extends JFrame implements IHomeView {
 
 	public MenuBar getMenu() {
 		return menubar;
+	}
+
+	public JPanel getMainContentPanel() {
+		return cardPanel;
 	}
 
 }

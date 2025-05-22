@@ -17,4 +17,12 @@ public class ConvertUtil {
 		}
 		return dateFromDB;
 	}
+
+	public static int parseIntSafely(Object value, int defaultValue) {
+		try {
+			return Integer.parseInt(value.toString());
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
 }

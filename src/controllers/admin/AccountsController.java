@@ -1,5 +1,6 @@
 package controllers.admin;
 
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import Interfaces.IAccountView;
@@ -38,6 +39,25 @@ public class AccountsController extends BaseController<Account> {
 		view.setStatusToggleListener(e -> toggleAccountStatus()); // Gán sự kiện Đổi trạng thái
 		view.setSearchListener(e -> loadDataFromSearch()); // Gán sự kiện Tìm kiếm
 		view.setAccountSelectionListener(e -> addTableListener());// Sự kiện người dùng nhấn vào hàng trong table
+	}
+
+	@Override
+	protected void getSetData() {
+		JTable table = view.getTable();
+		int selectedRow = table.getSelectedRow();
+		int countRow = table.getRowCount();
+		if (selectedRow == -1)
+			return;
+		String accountId = String.valueOf(table.getValueAt(selectedRow, 0));
+		String username = String.valueOf(table.getValueAt(selectedRow, 1));
+		String email = String.valueOf(table.getValueAt(selectedRow, 2));
+		String password = String.valueOf(table.getValueAt(selectedRow, 3));
+		String rawStatus = String.valueOf(table.getValueAt(selectedRow, 4));
+		String role = String.valueOf(table.getValueAt(selectedRow, 5));
+		String displayStatus = rawStatus.equalsIgnoreCase("active") ? "Đang hoạt động" : "Tài khoản bị khóa";
+		view.setFormData(accountId, username, email, password, displayStatus, role);
+		view.setTextLblBanGhi(countRow, selectedRow);
+
 	}
 
 	public void addTableListener() {

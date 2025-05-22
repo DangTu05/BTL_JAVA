@@ -19,10 +19,10 @@ import utils.MessageConstants;
 import utils.MessageUtil;
 import views.Frames.Login;
 import views.Frames.Admin.Menu;
-import views.Panels.Accounts;
-import views.Panels.Actors;
-import views.Panels.Movies;
-import views.Panels.Setting;
+import views.Panels.Admin.Accounts;
+import views.Panels.Admin.Actors;
+import views.Panels.Admin.Movies;
+import views.Panels.Admin.Setting;
 
 public class MenuController extends BaseController {
 	private IMenuView view;
@@ -53,42 +53,54 @@ public class MenuController extends BaseController {
 
 	private void initializePanelsAndControllers() {
 		// Accounts
-		Accounts accountsPanel = new Accounts();
-		new AccountsController(accountsPanel);
-		panelMap.put("accounts", accountsPanel);
-		mainContentPanel.add(accountsPanel, "accounts");
+		  // Home panel luôn có sẵn
+	    JPanel homePanel = new JPanel();
+	    homePanel.add(new javax.swing.JLabel("Welcome to Admin Dashboard"));
+	    panelMap.put("home", homePanel);
+	    mainContentPanel.add(homePanel, "home");
 
-		// Movies
-		Movies moviesPanel = new Movies();
-		new MoviesController(moviesPanel);
-		panelMap.put("movies", moviesPanel);
-		mainContentPanel.add(moviesPanel, "movies");
-
-		// Actors
-		Actors actorsPanel = new Actors();
-		new ActorsController(actorsPanel);
-		panelMap.put("actors", actorsPanel);
-		mainContentPanel.add(actorsPanel, "actors");
-
-		// (Optional) Home - có thể là dashboard hoặc trang trắng
-		JPanel homePanel = new JPanel();
-		homePanel.add(new javax.swing.JLabel("Welcome to Admin Dashboard"));
-		panelMap.put("home", homePanel);
-		mainContentPanel.add(homePanel, "home");
-
-		Setting settingPanel = new Setting();
-		new SettingController(settingPanel);
-		panelMap.put("setting", settingPanel);
-		mainContentPanel.add(settingPanel, "setting");
-
-		// Show mặc định
-		cardLayout.show(mainContentPanel, "home");
+	    // Show mặc định
+	    cardLayout.show(mainContentPanel, "home");
 	}
 
 	protected void navigateTo(String panelName) {
-		if (panelMap.containsKey(panelName)) {
-			cardLayout.show(mainContentPanel, panelName);
-		}
+		if (!panelMap.containsKey(panelName)) {
+	        switch (panelName) {
+	            case "accounts":
+	                Accounts accountsPanel = new Accounts();
+	                new AccountsController(accountsPanel);
+	                panelMap.put("accounts", accountsPanel);
+	                mainContentPanel.add(accountsPanel, "accounts");
+	                break;
+
+	            case "movies":
+	                Movies moviesPanel = new Movies();
+	                new MoviesController(moviesPanel);
+	                panelMap.put("movies", moviesPanel);
+	                mainContentPanel.add(moviesPanel, "movies");
+	                break;
+
+	            case "actors":
+	                Actors actorsPanel = new Actors();
+	                new ActorsController(actorsPanel);
+	                panelMap.put("actors", actorsPanel);
+	                mainContentPanel.add(actorsPanel, "actors");
+	                break;
+
+	            case "setting":
+	                Setting settingPanel = new Setting();
+	                new SettingController(settingPanel);
+	                panelMap.put("setting", settingPanel);
+	                mainContentPanel.add(settingPanel, "setting");
+	                break;
+
+	            default:
+	                System.out.println("Panel not found: " + panelName);
+	                return;
+	        }
+	    }
+
+	    cardLayout.show(mainContentPanel, panelName);
 	}
 
 	public void setUpEventListeners() {

@@ -13,7 +13,7 @@ import models.Movie;
 public class MovieDAO extends BaseDAO<Movie> {
 	@Override
 	protected String getTableName() {
-		return "tblMovi";
+		return "tblMovie";
 	}
 
 	@Override
