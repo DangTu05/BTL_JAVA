@@ -10,6 +10,7 @@ public class ProfileController {
 	public ProfileController(IProfileView viewProfile) {
 		this.viewProfile = viewProfile;
 		loadForm();
+		setupEventListeners();
 	}
 
 	private void setupEventListeners() {

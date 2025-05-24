@@ -22,6 +22,7 @@ public class MenuBar extends JPanel {
 	private JMenu mnuDangKi;
 	private JMenu mnuDangNhap;
 	private JMenu mnuUser;
+	private JMenu mnuDiem;
 	private JMenuItem mnuItemInfo;
 	private JMenuItem mnuItemLogout;
 	private boolean isMenuSetup = false;
@@ -36,8 +37,10 @@ public class MenuBar extends JPanel {
 		mnuLichChieu = new JMenu("Lịch Chiếu");
 		mnuGioiThieu = new JMenu("Giới Thiệu");
 		mnuGiaVe = new JMenu("Giá Vé");
+		mnuDiem = new JMenu("");
 		setupStaticMenus();
 		setupViewMenu();
+		setDiemTichLuy();
 	}
 
 	public void setPhimListener(MouseListener listener) {
@@ -74,6 +77,13 @@ public class MenuBar extends JPanel {
 	public void setLogoutListener(ActionListener listener) {
 		if (mnuItemLogout != null)
 			mnuItemLogout.addActionListener(listener);
+	}
+
+	public void setDiemTichLuy() {
+		if (Session.isLogin()) {
+			mnuDiem.setText("Điểm tích lũy: " + Session.getUser().getReward_points());
+			menuBar.add(mnuDiem);
+		}
 	}
 
 	public JMenuBar getMenuBar() {
