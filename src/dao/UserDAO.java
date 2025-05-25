@@ -26,7 +26,7 @@ public class UserDAO extends BaseDAO<User> {
 	@Override
 	protected PreparedStatement buildUpdateStatement(Connection conn, User entity) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE tblUser SET user_name=?,gender=?,address=?,reward_points=?,user_image=? where user_id =?";
+		String sql = "Update tblUser SET user_name=?, gender=?, address=?, reward_points=? , user_image=? where user_id=?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, entity.getUser_name());
 		statement.setString(2, entity.getGender());
@@ -41,6 +41,7 @@ public class UserDAO extends BaseDAO<User> {
 	protected User mapRow(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		User user = new User();
+		user.setUser_id(rs.getString("user_id"));
 		user.setUser_name(rs.getString("user_name"));
 		user.setGender(rs.getString("gender"));
 		user.setAddress(rs.getString("address"));

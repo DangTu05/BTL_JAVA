@@ -160,5 +160,4 @@ public class Register extends JFrame implements IRegisterView {
 	public void setRedirectLogin(MouseListener listener) {
 		jLabel_DN.addMouseListener(listener);
 	}
-
 }

@@ -4,8 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import Interfaces.IRegisterView;
-import dao.AccountDAO;
-import dao.UserDAO;
 import models.Account;
 import models.User;
 import services.RegisterService;

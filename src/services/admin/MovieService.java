@@ -27,7 +27,6 @@ public class MovieService {
 	}
 
 	public boolean updateMovie(Movie movie) throws Exception {
-
 		if (!movieDao.update(movie))
 			throw new Exception("Cập nhật tài khoản thất bại!!!");
 		return true;
@@ -44,7 +43,7 @@ public class MovieService {
 			return MovieDAO.getAllMoiveTypeString();
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception("Lỗi danh sách phim!!!",e);
+			throw new Exception("Lỗi danh sách phim!!!", e);
 		}
 	}
 
@@ -53,7 +52,7 @@ public class MovieService {
 			return MovieDAO.getAllMoiveTypeMovie();
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception("Lỗi danh sách phim!!!",e);
+			throw new Exception("Lỗi danh sách phim!!!", e);
 		}
 	}
 

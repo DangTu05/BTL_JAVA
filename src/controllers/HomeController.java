@@ -14,6 +14,7 @@ import controllers.admin.ActorsController;
 import controllers.admin.BaseController;
 import controllers.admin.MoviesController;
 import controllers.admin.SettingController;
+import controllers.clients.ProfileController;
 import dao.MovieDAO;
 import services.admin.MovieService;
 import utils.ErrorUtil;

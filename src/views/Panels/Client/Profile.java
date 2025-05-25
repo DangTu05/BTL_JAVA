@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +25,8 @@ public class Profile extends JPanel implements IProfileView {
 	 * Create the panel.
 	 */
 	private JTextField txtMaKH, txtEmail, txtTenKH, txtDiaChi, txtAnh;
-	private JButton btnLuu, btnXoa, btnThoat;
+	private JComboBox<String> cmbGioiTinh;
+	private JButton btnLuu, btnLamMoi, btnThoat;
 
 	public Profile(String title) {
 		addControls();
@@ -36,15 +38,17 @@ public class Profile extends JPanel implements IProfileView {
 		JPanel pnMain = new JPanel(new BorderLayout());
 
 		// Panel thông tin khách hàng
-		JPanel pnForm = new JPanel(new GridLayout(5, 2, 10, 10));
+		JPanel pnForm = new JPanel(new GridLayout(6, 2, 10, 10));
 		pnForm.setBackground(new Color(204, 255, 51));
 		pnForm.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.BLUE), "Thông Tin Khách Hàng"));
 		pnForm.setPreferredSize(new Dimension(500, 200));
 		pnForm.setBorder(BorderFactory.createEmptyBorder(20, 40, 10, 40));
 
 		txtMaKH = new JTextField();
+		txtMaKH.setEditable(false);
 		txtEmail = new JTextField();
 		txtEmail.setBackground(new Color(255, 255, 255));
+		txtEmail.setEditable(false);
 		txtTenKH = new JTextField();
 		txtDiaChi = new JTextField();
 		txtAnh = new JTextField();
@@ -64,6 +68,13 @@ public class Profile extends JPanel implements IProfileView {
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		pnForm.add(label_4);
 		pnForm.add(txtDiaChi);
+		JLabel lblGioiTinh = new JLabel("Giới Tính:");
+		lblGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		cmbGioiTinh = new JComboBox<>();
+		cmbGioiTinh.addItem("Nam");
+		cmbGioiTinh.addItem("Nữ");
+		pnForm.add(lblGioiTinh);
+		pnForm.add(cmbGioiTinh);
 		JLabel label_5 = new JLabel("Ảnh:");
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		pnForm.add(label_5);
@@ -76,13 +87,13 @@ public class Profile extends JPanel implements IProfileView {
 		btnLuu = new JButton("Lưu");
 		btnLuu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnXoa = new JButton("Xóa");
-		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnLamMoi = new JButton("Làm Mới");
+		btnLamMoi.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThoat = new JButton("Đóng");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		pnButtons.add(btnLuu);
-		pnButtons.add(btnXoa);
+		pnButtons.add(btnLamMoi);
 		pnButtons.add(btnThoat);
 
 		// Thêm vào main
@@ -97,8 +108,8 @@ public class Profile extends JPanel implements IProfileView {
 		btnLuu.addActionListener(listener);
 	}
 
-	public void setXoaListener(ActionListener listener) {
-		btnXoa.addActionListener(listener);
+	public void setLamMoiListener(ActionListener listener) {
+		btnLamMoi.addActionListener(listener);
 	}
 
 	public void setThoatListener(ActionListener listener) {
@@ -110,7 +121,7 @@ public class Profile extends JPanel implements IProfileView {
 	}
 
 	public String getUser_Name() {
-		return txtEmail.getText().trim();
+		return txtTenKH.getText().trim();
 	}
 
 	public String getAddress() {
@@ -118,19 +129,29 @@ public class Profile extends JPanel implements IProfileView {
 	}
 
 	public String getEmail() {
-		return txtTenKH.getText().trim();
+		return txtEmail.getText().trim();
 	}
 
 	public String getUser_Image() {
 		return txtAnh.getText().trim();
 	}
-
+	public String getGender() {
+		return (String) cmbGioiTinh.getSelectedItem();
+	}
+	public JPanel getPanel() {
+		return this;
+	}
 	public void setForm(String user_id, String user_name, String email, String address, String user_image) {
 		txtMaKH.setText(user_id);
-		txtEmail.setText(user_name);
-		txtTenKH.setText(email);
+		txtEmail.setText(email);
+		txtTenKH.setText(user_name);
 		txtDiaChi.setText(address);
 		txtAnh.setText(user_image);
+	}
+	public void resetForm() {
+		txtTenKH.setText("");
+		txtAnh.setText("");
+		txtDiaChi.setText("");
 	}
 
 }
