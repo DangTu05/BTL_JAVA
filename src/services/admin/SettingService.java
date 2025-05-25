@@ -15,7 +15,6 @@ public class SettingService {
 	}
 
 	public boolean updateSetting(Setting setting) throws Exception {
-
 		if (!settingDao.update(setting))
 			throw new Exception(MessageConstants.ERROR_UPDATE_FAILED);
 		return true;

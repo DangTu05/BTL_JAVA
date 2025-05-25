@@ -93,27 +93,22 @@ public class SideBarMenu extends JPanel  {
 
 	}
 
-	@Override
 	public void setHomeListener(ActionListener listener) {
 		btnHome.addActionListener(listener);
 	}
 
-	@Override
 	public void setAccountListener(ActionListener listener) {
 		btnAccount.addActionListener(listener);
 	}
 
-	@Override
 	public void setLogoutListener(ActionListener listener) {
 		btnLogout.addActionListener(listener);
 	}
 
-	@Override
 	public void setMovieListener(ActionListener listener) {
 		btnPhim.addActionListener(listener);
 	}
 
-	@Override
 	public void setSettingListener(ActionListener listener) {
 		btnSetting.addActionListener(listener);
 	}
@@ -122,7 +117,6 @@ public class SideBarMenu extends JPanel  {
 		lblWebsiteName.setText(website_name);
 	}
 
-	@Override
 	public JFrame getFrame() {
 		// TODO Auto-generated method stub
 		return frame;

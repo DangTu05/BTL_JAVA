@@ -24,9 +24,9 @@ public class ActorService {
 		return true;
 	}
 
-	public boolean softDelete(String actor_id) {
+	public boolean softDelete(String actor_id) throws Exception {
 
-			if (!actorDao.softDelete(actor_id) {
+			if (!actorDao.softDelete(actor_id)){
 				throw new Exception(MessageConstants.ERROR_DELETE_FAILED);
 			}
 			return true;

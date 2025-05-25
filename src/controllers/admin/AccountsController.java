@@ -93,7 +93,7 @@ public class AccountsController extends BaseController<Account> {
 				MessageUtil.showWarning("Vui lòng chọn tài khoản cần sửa!");
 				return;
 			}
-			if (InputValidate.AccountValidate(view.getEmail(), view.getName()))
+			if (!InputValidate.AccountValidate(view.getEmail(), view.getName()))
 				return;
 			if (!MessageUtil.confirm(MessageConstants.CONFIRM_UPDATE))
 				return;

@@ -25,8 +25,8 @@ public class AdminMain {
 //		CreateMovie view = new CreateMovie();
 //		CreateCategory view=new CreateCategory();
 //		Movies view = new Movies();
-		Menu view=new Menu();
-//		Home view=new Home("Trang chủ");
+//		Menu view=new Menu();
+		Home view=new Home("Trang chủ");
 //		Actors view = new Actors();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
 //		AccountsController controller = new AccountsController(view);
@@ -36,8 +36,8 @@ public class AdminMain {
 //		CreateMovieController controller = new CreateMovieController(view);
 //		new CreateCategoryController(view); 
 //		new MoviesController(view);
-		new MenuController(view);
-//		new HomeController(view);
+//		new MenuController(view);
+		new HomeController(view);
 //		new ActorsController(view);
 		// 3. Hiển thị giao diện
 		view.setVisible(true);

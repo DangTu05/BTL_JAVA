@@ -10,8 +10,8 @@ import models.Setting;
 public class SettingDAO extends BaseDAO<Setting> {
 	@Override
 	protected PreparedStatement buildUpdateStatement(Connection con, Setting setting) throws SQLException {
-		String query = "Update tblSetting Set website_name=?, ceo=?, logo=?, map=?, email=?, hotline=?, address=? where setting_id='SETTING070'";
-		PreparedStatement statement = con.prepareStatement(query);
+		String sql = "Update tblSetting Set website_name=?, ceo=?, logo=?, map=?, email=?, hotline=?, address=? where setting_id='SETTING070'";
+		PreparedStatement statement = con.prepareStatement(sql);
 		statement.setString(1, setting.getWebsite_name());
 		statement.setString(2, setting.getCeo());
 		statement.setString(3, setting.getLogo());

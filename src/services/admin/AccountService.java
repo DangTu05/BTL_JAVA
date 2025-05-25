@@ -25,6 +25,7 @@ public class AccountService {
 		if (!password.isEmpty()) {
 			account.setPassword(PasswordUtil.hashPassword(password));
 		}
+	
 		if (!accountDao.update(account)) {
 			throw new Exception("Cập nhật thất bại!!!");
 		}
