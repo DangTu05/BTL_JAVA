@@ -16,6 +16,7 @@ import controllers.admin.MoviesController;
 import controllers.admin.SettingController;
 import controllers.clients.ProfileController;
 import dao.MovieDAO;
+import models.Movie;
 import services.admin.MovieService;
 import utils.ErrorUtil;
 import utils.Session;
@@ -24,6 +25,7 @@ import views.Panels.Admin.Accounts;
 import views.Panels.Admin.Actors;
 import views.Panels.Admin.Movies;
 import views.Panels.Admin.Setting;
+import views.Panels.Client.MovieDetail;
 import views.Panels.Client.Profile;
 
 public class HomeController {
@@ -62,7 +64,7 @@ public class HomeController {
 
 	private void loadDataFromDatabase() {
 		try {
-			viewTrangChu.hienThiDanhSachPhim(movieService.getAllMovieTypeMovie());
+			viewTrangChu.hienThiDanhSachPhim(movieService.getAllMovieTypeMovie(), createPosterClickListener());
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, e.getMessage());
@@ -100,4 +102,22 @@ public class HomeController {
 		}
 		cardLayout.show(mainContentPanel, panelName);
 	}
+
+	public MouseAdapter createPosterClickListener() {
+		return new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Object source = e.getSource();
+				if (source instanceof javax.swing.JLabel lbl) {
+					Object obj = lbl.getClientProperty("movie");
+					if (obj instanceof Movie movie) {
+						MovieDetail movieDetail = new MovieDetail(movie); // Hiển thị chi tiết phim
+						mainContentPanel.add(movieDetail, "MovieDetail");
+						cardLayout.show(mainContentPanel, "MovieDetail");
+					}
+				}
+			}
+		};
+	}
+
 }

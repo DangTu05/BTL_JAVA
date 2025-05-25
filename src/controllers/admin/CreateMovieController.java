@@ -87,7 +87,13 @@ public class CreateMovieController {
 	}
 
 	public void loadCategoryToView() {
-		List<Category> categories = CategoryDAO.getAllCategory();
+		List<Category> categories=null;
+		try {
+			categories = CategoryDAO.getAllCategory();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ErrorUtil.handle(e, "Đã xảy ra lỗi!!!");
+		}
 		view.getItemsForList(categories, view.getListCategory());
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class ViewUtil {
 		}
 	}
 
-	public static JPanel hienThiPhim(Movie p) {
+	public static JPanel hienThiPhim(Movie p, MouseListener listener) {
 		JPanel pnPhimItem = new JPanel();
 		pnPhimItem.setLayout(new BoxLayout(pnPhimItem, BoxLayout.Y_AXIS));
 
@@ -49,7 +50,11 @@ public class ViewUtil {
 		lblPoster.setPreferredSize(new Dimension(185, 256));
 		lblPoster.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblPoster.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// Gắn thông tin phim tương ứng vào JLabel này
+		lblPoster.putClientProperty("movie", p);
 		pnPhimItem.add(lblPoster);
+		if (listener != null)
+			lblPoster.addMouseListener(listener);
 
 		// Tên phim
 		JLabel lblTenPhim = new JLabel(p.getMovie_name());
@@ -85,22 +90,22 @@ public class ViewUtil {
 		return pnPhimItem;
 	}
 
-	public static JPanel hienThiDanhSachPhimDangChieu(List<Movie> dsPhim) {
+	public static JPanel hienThiDanhSachPhimDangChieu(List<Movie> dsPhim, MouseListener listener) {
 		pnPhim = new JPanel();
 		pnPhim.setLayout(new GridLayout(0, 3, 10, 10));
 		for (Movie movie : dsPhim) {
 			if (movie.getStatus().equals("Đang chiếu"))
-				pnPhim.add(hienThiPhim(movie));
+				pnPhim.add(hienThiPhim(movie, listener));
 		}
 		return pnPhim;
 	}
 
-	public static JPanel hienThiDanhSachPhimSapChieu(List<Movie> dsPhim) {
+	public static JPanel hienThiDanhSachPhimSapChieu(List<Movie> dsPhim, MouseListener listener) {
 		pnPhim = new JPanel();
 		pnPhim.setLayout(new GridLayout(0, 3, 10, 10));
 		for (Movie movie : dsPhim) {
 			if (movie.getStatus().equals("Sắp chiếu"))
-				pnPhim.add(hienThiPhim(movie));
+				pnPhim.add(hienThiPhim(movie,listener));
 		}
 		return pnPhim;
 	}

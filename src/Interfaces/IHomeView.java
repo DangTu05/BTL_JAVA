@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -10,7 +11,7 @@ import models.Movie;
 
 public interface IHomeView {
 
-	public void hienThiDanhSachPhim(List<Movie> dsPhim);
+	public void hienThiDanhSachPhim(List<Movie> dsPhim,MouseListener listener);
 
 	public JFrame getFrame();
 

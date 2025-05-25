@@ -168,12 +168,12 @@ public class Home extends JFrame implements IHomeView {
 
 	}
 
-	public void hienThiDanhSachPhim(List<Movie> dsPhim) {
+	public void hienThiDanhSachPhim(List<Movie> dsPhim, MouseListener listener) {
 		pnLeftofCenter.removeAll();
 		pnLeftofCenter2.removeAll();
-		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim), BorderLayout.CENTER); // hiển thị danh sách //
+		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim,listener), BorderLayout.CENTER); // hiển thị danh sách //
 																								// phim đang chiếu
-		pnLeftofCenter2.add(ViewUtil.hienThiDanhSachPhimSapChieu(dsPhim), BorderLayout.CENTER); // hiển thị danh sách
+		pnLeftofCenter2.add(ViewUtil.hienThiDanhSachPhimSapChieu(dsPhim,listener), BorderLayout.CENTER); // hiển thị danh sách
 																								// phim sắp chiếu
 		pnLeftofCenter.revalidate();
 		pnLeftofCenter.repaint();
@@ -192,5 +192,6 @@ public class Home extends JFrame implements IHomeView {
 	public JPanel getMainContentPanel() {
 		return cardPanel;
 	}
+
 
 }

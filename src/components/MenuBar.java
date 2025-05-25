@@ -23,6 +23,7 @@ public class MenuBar extends JPanel {
 	private JMenu mnuDangNhap;
 	private JMenu mnuUser;
 	private JMenu mnuDiem;
+	private JMenu mnuKhuyenMai;
 	private JMenuItem mnuItemInfo;
 	private JMenuItem mnuItemLogout;
 	private boolean isMenuSetup = false;
@@ -37,6 +38,7 @@ public class MenuBar extends JPanel {
 		mnuLichChieu = new JMenu("Lịch Chiếu");
 		mnuGioiThieu = new JMenu("Giới Thiệu");
 		mnuGiaVe = new JMenu("Giá Vé");
+		mnuKhuyenMai=new JMenu("Khuyến Mãi");
 		mnuDiem = new JMenu("");
 		setupStaticMenus();
 		setupViewMenu();
@@ -125,6 +127,7 @@ public class MenuBar extends JPanel {
 		menuBar.add(mnuLichChieu);
 		menuBar.add(mnuGioiThieu);
 		menuBar.add(mnuGiaVe);
+		menuBar.add(mnuKhuyenMai);
 	}
 
 	public void resetMenu() {
