@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import components.MenuBar;
 import models.Movie;
+import models.MovieDetail;
 
 public interface IHomeView {
 

@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import Interfaces.IHomeView;
 import components.MenuBar;
 import models.Movie;
+import models.MovieDetail;
 import utils.ViewUtil;
 
 public class Home extends JFrame implements IHomeView {

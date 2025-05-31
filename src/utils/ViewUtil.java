@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import models.Movie;
+import models.MovieDetail;
 
 public class ViewUtil {
 	private static JPanel pnPhim;

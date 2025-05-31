@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+import models.Actor;
 import models.Movie;
 import utils.UrlUtil;
 
@@ -90,7 +91,16 @@ public class MovieDetail extends JPanel {
 		scrollNoiDung.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		// Diễn viên
+		String actors="";
+		for (Actor actor : p.getActors()) {
+			System.out.print(actor.getActor_name());
+			 if (!actors.isEmpty()) {
+			        actors += ", ";
+			    }
+			    actors += actor.getActor_name();  // giả sử Actor có phương thức getName()
+		}
 		JTextArea txtDienVien = new JTextArea("");
+		txtDienVien.setText(actors);
 		txtDienVien.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtDienVien.setLineWrap(true);
 		txtDienVien.setWrapStyleWord(true);

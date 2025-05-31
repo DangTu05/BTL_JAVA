@@ -10,6 +10,7 @@ import models.Category;
 import models.Movie;
 import models.MovieActor;
 import models.MovieCategory;
+import models.MovieDetail;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -61,6 +62,13 @@ public class MovieService {
 			return MovieDAO.findMovieByName(name);
 		} catch (Exception e) {
 			throw new Exception("Tìm kiếm thất bại!!!", e);
+		}
+	}
+	public List<Movie> getListMovieDetail() throws Exception{
+		try {
+			return MovieDAO.getListMovieDetail();
+		} catch (Exception e) {
+			throw new Exception("Đã xảy ra lỗi danh sách phim!!!",e);
 		}
 	}
 

@@ -193,7 +193,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		panel.add(scrollPane_1);
 
 		btnTrangChu = new JButton("");
-		btnTrangChu.setBackground(new Color(204, 255, 255));
+		btnTrangChu.setBackground(new Color(255, 255, 255));
 		btnTrangChu.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
 		btnTrangChu.setBounds(0, 0, 85, 41);

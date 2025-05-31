@@ -26,6 +26,10 @@ public class Actor {
 		this.birth = birth;
 		this.biography = biography;
 	}
+	public Actor(String actor_id,String actor_name) {
+		this.actor_id=actor_id;
+		this.actor_name=actor_name;
+	}
 
 	public String getActor_id() {
 		return actor_id;

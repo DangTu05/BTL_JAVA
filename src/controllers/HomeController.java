@@ -64,7 +64,7 @@ public class HomeController {
 
 	private void loadDataFromDatabase() {
 		try {
-			viewTrangChu.hienThiDanhSachPhim(movieService.getAllMovieTypeMovie(), createPosterClickListener());
+			viewTrangChu.hienThiDanhSachPhim(movieService.getListMovieDetail(), createPosterClickListener());
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, e.getMessage());
