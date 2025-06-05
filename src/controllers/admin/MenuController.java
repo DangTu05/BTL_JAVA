@@ -24,7 +24,7 @@ import views.Panels.Admin.Actors;
 import views.Panels.Admin.Movies;
 import views.Panels.Admin.Setting;
 
-public class MenuController extends BaseController {
+public class MenuController {
 	private IMenuView view;
 	private SettingDAO dao;
 	private JPanel mainContentPanel;
@@ -41,11 +41,6 @@ public class MenuController extends BaseController {
 
 	}
 
-	@Override
-	protected void getSetData() {
-		// TODO Auto-generated method stub
-	}
-
 	protected void setMainContent(JPanel mainContentPanel) {
 		this.mainContentPanel = mainContentPanel;
 		this.cardLayout = (CardLayout) mainContentPanel.getLayout();
@@ -53,61 +48,75 @@ public class MenuController extends BaseController {
 
 	private void initializePanelsAndControllers() {
 		// Accounts
-		  // Home panel luôn có sẵn
-	    JPanel homePanel = new JPanel();
-	    homePanel.add(new javax.swing.JLabel("Welcome to Admin Dashboard"));
-	    panelMap.put("home", homePanel);
-	    mainContentPanel.add(homePanel, "home");
+		// Home panel luôn có sẵn
+		JPanel homePanel = new JPanel();
+		homePanel.add(new javax.swing.JLabel("Welcome to Admin Dashboard"));
+		panelMap.put("home", homePanel);
+		mainContentPanel.add(homePanel, "home");
 
-	    // Show mặc định
-	    cardLayout.show(mainContentPanel, "home");
+		// Show mặc định
+		cardLayout.show(mainContentPanel, "home");
 	}
 
 	protected void navigateTo(String panelName) {
+		// Method này kiểm tra xem panel có tồn tại chưa.
+		// Nếu chưa, tạo mới panel, controller, lưu map và thêm vào main panel.
 		if (!panelMap.containsKey(panelName)) {
-	        switch (panelName) {
-	            case "accounts":
-	                Accounts accountsPanel = new Accounts();
-	                new AccountsController(accountsPanel);
-	                panelMap.put("accounts", accountsPanel);
-	                mainContentPanel.add(accountsPanel, "accounts");
-	                break;
+			switch (panelName) {
+			case "accounts":
+				Accounts accountsPanel = new Accounts();
+				new AccountsController(accountsPanel);
+				panelMap.put("accounts", accountsPanel);
+				mainContentPanel.add(accountsPanel, "accounts");
+				break;
 
-	            case "movies":
-	                Movies moviesPanel = new Movies();
-	                new MoviesController(moviesPanel);
-	                panelMap.put("movies", moviesPanel);
-	                mainContentPanel.add(moviesPanel, "movies");
-	                break;
+			case "movies":
+				Movies moviesPanel = new Movies();
+				new MoviesController(moviesPanel);
+				panelMap.put("movies", moviesPanel);
+				mainContentPanel.add(moviesPanel, "movies");
+				break;
 
-	            case "actors":
-	                Actors actorsPanel = new Actors();
-	                new ActorsController(actorsPanel);
-	                panelMap.put("actors", actorsPanel);
-	                mainContentPanel.add(actorsPanel, "actors");
-	                break;
+			case "actors":
+				Actors actorsPanel = new Actors();
+				new ActorsController(actorsPanel);
+				panelMap.put("actors", actorsPanel);
+				mainContentPanel.add(actorsPanel, "actors");
+				break;
 
-	            case "setting":
-	                Setting settingPanel = new Setting();
-	                new SettingController(settingPanel);
-	                panelMap.put("setting", settingPanel);
-	                mainContentPanel.add(settingPanel, "setting");
-	                break;
+			case "setting":
+				Setting settingPanel = new Setting();
+				new SettingController(settingPanel);
+				panelMap.put("setting", settingPanel);
+				mainContentPanel.add(settingPanel, "setting");
+				break;
 
-	            default:
-	                System.out.println("Panel not found: " + panelName);
-	                return;
-	        }
-	    }
-
-	    cardLayout.show(mainContentPanel, panelName);
+			default:
+				System.out.println("Panel not found: " + panelName);
+				return;
+			}
+		}
+		/// Hiển thị panel đã click
+		cardLayout.show(mainContentPanel, panelName);
 	}
 
 	public void setUpEventListeners() {
-		view.getSideBar().getBtnHome().addActionListener(e -> navigateTo("home"));
-		view.getSideBar().getBtnAccount().addActionListener(e -> navigateTo("accounts"));
-		view.getSideBar().getBtnPhim().addActionListener(e -> navigateTo("movies"));
-		view.getSideBar().getBtnDienVien().addActionListener(e -> navigateTo("actors"));
+		view.getSideBar().getBtnHome().addActionListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnHome());
+			navigateTo("home");
+		});
+		view.getSideBar().getBtnAccount().addActionListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnAccount());
+			navigateTo("accounts");
+		});
+		view.getSideBar().getBtnPhim().addActionListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnPhim());
+			navigateTo("movies");
+		});
+		view.getSideBar().getBtnDienVien().addActionListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnDienVien());
+			navigateTo("actors");
+		});
 		view.getSideBar().getBtnLogout().addActionListener(e -> logout());
 		view.getSideBar().getBtnSetting().addActionListener(e -> navigateTo("setting"));
 	}

@@ -42,7 +42,7 @@ public class CreateMovieController {
 	private void setupEventListener() {
 		view.setShowImgListener(e -> view.showImageChooser());
 		view.setTaoListener(e -> createMovie());
-		view.setTrangChuListener(e -> AppController.startHome(view.getFrame()));
+		view.setTrangChuListener(e -> AppController.startDashboard(view.getFrame()));
 	}
 
 	public void createMovie() {

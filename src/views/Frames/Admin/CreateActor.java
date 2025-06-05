@@ -27,6 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 public class CreateActor extends JFrame implements ICreateActorView {
 
@@ -65,7 +66,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 949, 605);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 204, 255));
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -77,7 +78,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		contentPane.add(lblNewLabel);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 204, 255));
+		panel.setBackground(SystemColor.window);
 		panel.setBounds(62, 56, 826, 476);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -118,6 +119,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		panel.add(lblNewLabel_3);
 
 		txtTieuSu = new JTextArea();
+		txtTieuSu.setBackground(new Color(204, 204, 204));
 		txtTieuSu.setBounds(578, 99, 142, 77);
 		panel.add(txtTieuSu);
 
@@ -139,7 +141,7 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		panel.add(lblImg);
 
 		btnTrangChu = new JButton("");
-		btnTrangChu.setBackground(new Color(255, 153, 204));
+		btnTrangChu.setBackground(new Color(255, 255, 255));
 		btnTrangChu.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747100011/house_nyhu3s.png")));
 		btnTrangChu.setBounds(0, 0, 85, 42);

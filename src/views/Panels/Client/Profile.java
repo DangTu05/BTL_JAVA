@@ -45,6 +45,7 @@ public class Profile extends JPanel implements IProfileView {
 		pnForm.setBorder(BorderFactory.createEmptyBorder(20, 40, 10, 40));
 
 		txtMaKH = new JTextField();
+		txtMaKH.setBackground(new Color(255, 255, 255));
 		txtMaKH.setEditable(false);
 		txtEmail = new JTextField();
 		txtEmail.setBackground(new Color(255, 255, 255));
