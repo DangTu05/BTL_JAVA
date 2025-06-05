@@ -203,7 +203,7 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 	public void setFileImg(File fileImg) {
 		this.img = fileImg;
 	}
-
+	/// show hộp để chọn file ảnh
 	public void showImageChooser() {
 		File selectedFile = null;
 		JFileChooser fileChooser = new JFileChooser();
@@ -273,7 +273,6 @@ public class CreateMovie extends JFrame implements ICreateMovieView {
 		thoiLuong.setValue(0);
 		lblImg.setIcon(null);
 	}
-
 	public <T> void getItemsForList(List<T> dataList, JList<T> jList) {
 		DefaultListModel<T> listModel = new DefaultListModel<>();
 		for (T item : dataList) {

@@ -12,17 +12,14 @@ import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.PasswordUtil;
-import utils.errors.CustomException;
 import validator.InputValidate;
 
 public class AccountsController extends BaseController<Account> {
 	private IAccountView view;
-	private AccountDAO dao;
 	private AccountService accountService;
 
 	public AccountsController(IAccountView acc) {
 		this.view = acc;
-		dao = new AccountDAO();
 		accountService = new AccountService();
 		setupEventListeners();
 		loadDataFromDataBase();

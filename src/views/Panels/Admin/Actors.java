@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,10 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IActorsView;
-import Interfaces.IHomeNavigableView;
-import components.SideBarMenu;
 import utils.ConvertUtil;
-import utils.MessageUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
 
@@ -34,7 +30,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
-import java.awt.event.ActionEvent;
+
 
 public class Actors extends JPanel implements IActorsView {
 
@@ -64,7 +60,6 @@ public class Actors extends JPanel implements IActorsView {
 					JFrame frame = new JFrame("Quản Lý Diễn Viên");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setBounds(100, 100, 949, 604);
-					;
 					frame.setLocationRelativeTo(null);
 					Actors actorPanel = new Actors();
 					frame.setContentPane(actorPanel);

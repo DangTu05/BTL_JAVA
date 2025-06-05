@@ -1,10 +1,7 @@
 package views.Panels.Admin;
 
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -16,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class Setting extends JPanel implements ISettingView {
 
@@ -73,7 +70,7 @@ public class Setting extends JPanel implements ISettingView {
 		txtCEO.setBounds(397, 130, 226, 19);
 		add(txtCEO);
 		txtCEO.setColumns(10);
-
+		/// Tạo gạch ngang
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(397, 151, 226, 2);
 		add(separator_1);

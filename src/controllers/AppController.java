@@ -8,7 +8,6 @@ import controllers.admin.CreateActorController;
 import controllers.admin.CreateMovieController;
 import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
-import utils.MessageUtil;
 import views.Frames.ForgotPassword;
 import views.Frames.Login;
 import views.Frames.Register;

@@ -1,18 +1,11 @@
 package views.Panels.Admin;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.util.List;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,26 +15,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Interfaces.IAccountView;
-import Interfaces.IHomeNavigableView;
-import components.SideBarMenu;
 
-//import com.mysql.cj.xdevapi.Table;
-
-import controllers.admin.AccountsController;
-import models.Account;
 import utils.UrlUtil;
 import utils.ViewUtil;
 
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import java.awt.event.ActionEvent;
 
 public class Accounts extends JPanel implements IAccountView {
 

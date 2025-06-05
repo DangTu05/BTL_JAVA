@@ -5,26 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JPanel;
-
 import Interfaces.IHomeView;
-import controllers.admin.AccountsController;
-import controllers.admin.ActorsController;
-import controllers.admin.BaseController;
-import controllers.admin.MoviesController;
-import controllers.admin.SettingController;
 import controllers.clients.ProfileController;
-import dao.MovieDAO;
 import models.Movie;
 import services.admin.MovieService;
 import utils.ErrorUtil;
 import utils.Session;
-import views.Frames.Home;
-import views.Panels.Admin.Accounts;
-import views.Panels.Admin.Actors;
-import views.Panels.Admin.Movies;
-import views.Panels.Admin.Setting;
 import views.Panels.Client.MovieDetail;
 import views.Panels.Client.Profile;
 

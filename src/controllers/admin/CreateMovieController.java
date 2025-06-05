@@ -3,18 +3,11 @@ package controllers.admin;
 import java.util.List;
 import Interfaces.ICreateMovieView;
 import controllers.AppController;
-import dao.ActorDAO;
 import dao.CategoryDAO;
-import dao.MovieActorDAO;
-import dao.MovieCategoryDAO;
-import dao.MovieDAO;
 import middlewares.UploadCloud;
 import models.Actor;
 import models.Category;
 import models.Movie;
-import models.MovieActor;
-import models.MovieCategory;
-import services.CreateMovieService;
 import services.admin.ActorService;
 import services.admin.MovieService;
 import utils.ErrorUtil;
@@ -24,7 +17,6 @@ import utils.MessageUtil;
 import validator.InputValidate;
 
 public class CreateMovieController {
-	private MovieDAO dao;
 	private ICreateMovieView view;
 	private ActorService actorService;
 	private MovieService movieService;
@@ -33,7 +25,6 @@ public class CreateMovieController {
 		this.view = view;
 		movieService = new MovieService();
 		actorService = new ActorService();
-		dao = new MovieDAO();
 		setupEventListener();
 		loadActorToView();
 		loadCategoryToView();

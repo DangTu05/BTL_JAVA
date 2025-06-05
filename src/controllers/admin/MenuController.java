@@ -3,22 +3,13 @@ package controllers.admin;
 import java.awt.CardLayout;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import Interfaces.IAccountView;
-import Interfaces.IHomeNavigableView;
 import Interfaces.IMenuView;
-import Interfaces.IMoviesView;
-import components.SideBarMenu;
 import controllers.AppController;
 import dao.SettingDAO;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
-import views.Frames.Login;
-import views.Frames.Admin.Menu;
 import views.Panels.Admin.Accounts;
 import views.Panels.Admin.Actors;
 import views.Panels.Admin.Movies;

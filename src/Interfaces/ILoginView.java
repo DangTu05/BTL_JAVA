@@ -2,7 +2,6 @@ package Interfaces;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 
 public interface ILoginView {
@@ -11,8 +10,6 @@ public interface ILoginView {
 	public String getEmail();
 
 	public JFrame getFrame();
-
-	public void redirectRegister();
 
 	public void setLoginListener(ActionListener listener);
 

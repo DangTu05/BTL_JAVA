@@ -14,7 +14,6 @@ import javax.swing.border.TitledBorder;
 import Interfaces.IHomeView;
 import components.MenuBar;
 import models.Movie;
-import models.MovieDetail;
 import utils.ViewUtil;
 
 public class Home extends JFrame implements IHomeView {
@@ -172,10 +171,13 @@ public class Home extends JFrame implements IHomeView {
 	public void hienThiDanhSachPhim(List<Movie> dsPhim, MouseListener listener) {
 		pnLeftofCenter.removeAll();
 		pnLeftofCenter2.removeAll();
-		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim,listener), BorderLayout.CENTER); // hiển thị danh sách //
-																								// phim đang chiếu
-		pnLeftofCenter2.add(ViewUtil.hienThiDanhSachPhimSapChieu(dsPhim,listener), BorderLayout.CENTER); // hiển thị danh sách
-																								// phim sắp chiếu
+		pnLeftofCenter.add(ViewUtil.hienThiDanhSachPhimDangChieu(dsPhim, listener), BorderLayout.CENTER); // hiển thị
+																											// danh sách
+																											// //
+		// phim đang chiếu
+		pnLeftofCenter2.add(ViewUtil.hienThiDanhSachPhimSapChieu(dsPhim, listener), BorderLayout.CENTER); // hiển thị
+																											// danh sách
+		// phim sắp chiếu
 		pnLeftofCenter.revalidate();
 		pnLeftofCenter.repaint();
 		pnLeftofCenter2.revalidate();
@@ -193,6 +195,5 @@ public class Home extends JFrame implements IHomeView {
 	public JPanel getMainContentPanel() {
 		return cardPanel;
 	}
-
 
 }

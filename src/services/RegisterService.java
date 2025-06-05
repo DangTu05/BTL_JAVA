@@ -4,12 +4,6 @@ import dao.AccountDAO;
 import dao.UserDAO;
 import models.Account;
 import models.User;
-import utils.ErrorUtil;
-import utils.GenerateIdUtil;
-import utils.MessageConstants;
-import utils.MessageUtil;
-import utils.PasswordUtil;
-import validator.InputValidate;
 
 public class RegisterService {
 	private AccountDAO accountDao;
