@@ -1,6 +1,5 @@
 package views.Panels.Admin;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -22,13 +21,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import Interfaces.IHomeNavigableView;
 import Interfaces.IMoviesView;
 import components.SideBarMenu;
 import utils.ConvertUtil;
 import utils.UrlUtil;
 import utils.ViewUtil;
-import views.Frames.Login;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -138,6 +135,7 @@ public class Movies extends JPanel implements IMoviesView {
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		table.setForeground(new Color(0, 0, 0));
+		/// Tạo bảng gồm 9 cột và 4 row mặc định
 		table.setModel(new DefaultTableModel(
 				new Object[][] { { null, null, null, null, null, null, null, null, null },
 						{ null, null, null, null, null, null, null, null, null },

@@ -10,10 +10,8 @@ import models.Category;
 import models.Movie;
 import models.MovieActor;
 import models.MovieCategory;
-import models.MovieDetail;
-import utils.ErrorUtil;
 import utils.MessageConstants;
-import utils.MessageUtil;
+
 
 public class MovieService {
 

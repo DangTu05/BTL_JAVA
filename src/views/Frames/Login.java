@@ -137,15 +137,6 @@ public class Login extends JFrame implements ILoginView {
 		return this;
 	}
 
-	public void showMenuPage() {
-
-	}
-
-	public void redirectRegister() {
-		new Register().setVisible(true);
-		this.dispose();
-	}
-
 	public void setLoginListener(ActionListener listener) {
 		btnDN.addActionListener(listener);
 	}

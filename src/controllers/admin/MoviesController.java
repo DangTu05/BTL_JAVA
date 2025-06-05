@@ -82,7 +82,7 @@ public class MoviesController extends BaseController<Movie> {
 			ErrorUtil.handle(e, e.getMessage());
 		}
 	}
-
+	/// Lấy ra data và render ra giao diện khi người dùng kích vào row nào đó
 	@Override
 	protected void getSetData() {
 		int selectedRow = view.getTable().getSelectedRow();

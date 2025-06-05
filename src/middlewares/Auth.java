@@ -3,7 +3,6 @@ package middlewares;
 import javax.swing.JFrame;
 
 import controllers.AppController;
-import utils.MessageConstants;
 import utils.MessageUtil;
 import utils.Session;
 

@@ -2,7 +2,6 @@ package Interfaces;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 
 public interface IRegisterView {

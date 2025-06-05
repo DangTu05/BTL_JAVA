@@ -3,6 +3,7 @@ package utils;
 import java.util.Random;
 
 public class OTPGenerator {
+	// sinh mã otp ngẫu nhiên
 	public static String generateOTP(int length) {
 		StringBuilder otp = new StringBuilder();
 		Random random = new Random();

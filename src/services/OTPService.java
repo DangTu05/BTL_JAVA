@@ -14,7 +14,7 @@ public class OTPService {
 		otpStorage.put(email, new OTPEntry(otp, System.currentTimeMillis()));
 		return otp;
 	}
-
+	// 
 	public static boolean verifyOTP(String email, String inputOtp) {
 		OTPEntry entry = otpStorage.get(email);
 		if (entry == null)

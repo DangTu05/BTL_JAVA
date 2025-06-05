@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-
-import Interfaces.IHomeNavigableView;
 import utils.UrlUtil;
-import java.awt.event.ActionEvent;
 
 public class SideBarMenu extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +17,6 @@ public class SideBarMenu extends JPanel {
 	private JButton btnPhim;
 	private JButton btnLogout;
 	private JButton btnHome;
-	private JFrame frame;
 	private JButton btnDienVien;
 	private JButton btnSetting;
 	private JLabel lblWebsiteName;

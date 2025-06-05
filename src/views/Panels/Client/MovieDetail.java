@@ -22,6 +22,10 @@ import models.Movie;
 import utils.UrlUtil;
 
 public class MovieDetail extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton btnThoat, btnDatVe;
 
 	public MovieDetail(Movie p) {
@@ -90,10 +94,9 @@ public class MovieDetail extends JPanel {
 		scrollNoiDung.getViewport().setOpaque(false);
 		scrollNoiDung.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-		// Diễn viên
+		// Lấy ra tên diễn viên sâu chuỗi để hiển thị output( emi, tokuda)
 		String actors="";
 		for (Actor actor : p.getActors()) {
-			System.out.print(actor.getActor_name());
 			 if (!actors.isEmpty()) {
 			        actors += ", ";
 			    }

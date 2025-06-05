@@ -22,7 +22,7 @@ public abstract class BaseController<T> {
 			}
 		});
 	}
-
+	/// Lấy ra cửa sổ chính bọc Panel đó
 	protected JFrame getFrame() {
 		return (JFrame) SwingUtilities.getWindowAncestor(getJPanel());
 	}

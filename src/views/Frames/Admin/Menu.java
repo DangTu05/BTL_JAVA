@@ -6,31 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Interfaces.IHomeNavigableView;
 import Interfaces.IMenuView;
 import components.SideBarMenu;
-import controllers.admin.MenuController;
-import utils.UrlUtil;
 
-import javax.swing.JMenuBar;
-import javax.swing.JToolBar;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.awt.CardLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JSeparator;
+
 
 public class Menu extends JFrame implements IMenuView {
 
@@ -77,7 +59,6 @@ public class Menu extends JFrame implements IMenuView {
 		sidebar.getBtnLogout().setLocation(0, 503);
 		contentPane.add(sidebar, BorderLayout.WEST);
 		contentPane.add(mainContent, BorderLayout.CENTER);
-
 	}
 
 	public SideBarMenu getSideBar() {

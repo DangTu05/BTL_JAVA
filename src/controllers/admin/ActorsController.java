@@ -8,7 +8,6 @@ import controllers.AppController;
 import dao.ActorDAO;
 import models.Actor;
 import services.admin.ActorService;
-import utils.ConvertUtil;
 import utils.ErrorUtil;
 import utils.MessageConstants;
 import utils.MessageUtil;
@@ -16,12 +15,10 @@ import validator.InputValidate;
 
 public class ActorsController extends BaseController<Actor> {
 	private IActorsView view;
-	private ActorDAO dao;
 	private ActorService actorService;
 
 	public ActorsController(IActorsView view) {
 		this.view = view;
-		dao = new ActorDAO();
 		actorService = new ActorService();
 		loadDataFromDataBase();
 		setUpEventListeners();

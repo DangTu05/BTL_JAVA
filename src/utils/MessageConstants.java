@@ -1,6 +1,7 @@
 package utils;
 
 public class MessageConstants {
+	// định nghĩa các text thông báo để dùng lại ở nhiều nơi
 	public static final String ERROR_UPDATE_FAILED = "Cập nhật thất bại!!!";
 	public static final String SUCCESS_UPDATE = "Cập nhật thành công!";
 	public static final String ERROR_DELETE_FAILED = "Xóa thất bại!!!";

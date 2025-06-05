@@ -9,20 +9,16 @@ import javax.swing.border.EmptyBorder;
 
 import Interfaces.ICreateActorView;
 import components.FileChooser;
-import controllers.admin.CreateActorController;
 import utils.UrlUtil;
 
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;

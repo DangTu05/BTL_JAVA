@@ -3,6 +3,7 @@ package utils;
 import models.User;
 
 public class Session {
+	// lưu thông tin và trạng thái tài khoản khi người dùng đăng nhập
 	private static User currentUser = null;
 	private static String userEmail = null;
 

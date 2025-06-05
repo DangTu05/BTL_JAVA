@@ -136,12 +136,15 @@ public class Profile extends JPanel implements IProfileView {
 	public String getUser_Image() {
 		return txtAnh.getText().trim();
 	}
+
 	public String getGender() {
 		return (String) cmbGioiTinh.getSelectedItem();
 	}
+
 	public JPanel getPanel() {
 		return this;
 	}
+
 	public void setForm(String user_id, String user_name, String email, String address, String user_image) {
 		txtMaKH.setText(user_id);
 		txtEmail.setText(email);
@@ -149,6 +152,7 @@ public class Profile extends JPanel implements IProfileView {
 		txtDiaChi.setText(address);
 		txtAnh.setText(user_image);
 	}
+
 	public void resetForm() {
 		txtTenKH.setText("");
 		txtAnh.setText("");
