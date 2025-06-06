@@ -21,6 +21,7 @@ public class SideBarMenu extends JPanel {
 	private JButton btnSetting;
 	private JLabel lblWebsiteName;
 	private List<JButton> buttons = new ArrayList<>();
+	private JButton btnKhachHang;
 
 	public SideBarMenu() {
 		setBackground(new Color(102, 51, 102));
@@ -89,10 +90,21 @@ public class SideBarMenu extends JPanel {
 		btnSetting.setBounds(0, 0, 35, 33);
 
 		add(btnSetting);
+
+
+		btnKhachHang = new JButton("Khách Hàng");
+		btnKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnKhachHang.setBackground(new Color(153, 51, 153));
+		btnKhachHang.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1749185775/group_y1jxnv.png")));
+		btnKhachHang.setBounds(0, 257, 255, 43);
+		btnKhachHang.setBorder(BorderFactory.createEmptyBorder());
+		add(btnKhachHang);
 		buttons.add(btnAccount);
 		buttons.add(btnDienVien);
 		buttons.add(btnPhim);
 		buttons.add(btnHome);
+		buttons.add(btnKhachHang);
 
 	}
 
@@ -114,6 +126,10 @@ public class SideBarMenu extends JPanel {
 
 	public void setSettingListener(ActionListener listener) {
 		btnSetting.addActionListener(listener);
+	}
+
+	public void setKhachHangListener(ActionListener listener) {
+		btnKhachHang.addActionListener(listener);
 	}
 
 	public void setWebsite_Name(String website_name) {
@@ -144,6 +160,10 @@ public class SideBarMenu extends JPanel {
 		return btnSetting;
 	}
 
+	public JButton getBtnKhachHang() {
+		return btnKhachHang;
+	}
+
 	public void setBackColor(JButton buttonClicked) {
 		for (JButton jButton : buttons) {
 			if (jButton != null) {
@@ -156,5 +176,4 @@ public class SideBarMenu extends JPanel {
 
 		}
 	}
-
 }

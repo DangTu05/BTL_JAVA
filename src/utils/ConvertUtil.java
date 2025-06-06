@@ -25,4 +25,13 @@ public class ConvertUtil {
 			return defaultValue;
 		}
 	}
+
+	public static float parseFloatSafely(Object value, float defaultValue) {
+		try {
+			return Float.parseFloat(value.toString());
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
+
 }

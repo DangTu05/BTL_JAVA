@@ -166,9 +166,9 @@ public class Movies extends JPanel implements IMoviesView {
 		add(lblMaPhim);
 
 		txtMaPhim = new JTextField();
+		txtMaPhim.setEditable(false);
 		txtMaPhim.setBounds(10, 65, 112, 19);
 		txtMaPhim.setBorder(null);
-		txtMaPhim.setEditable(false);
 		add(txtMaPhim);
 		txtMaPhim.setColumns(10);
 

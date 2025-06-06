@@ -12,6 +12,7 @@ import utils.MessageConstants;
 import utils.MessageUtil;
 import views.Panels.Admin.Accounts;
 import views.Panels.Admin.Actors;
+import views.Panels.Admin.User;
 import views.Panels.Admin.Movies;
 import views.Panels.Admin.Setting;
 
@@ -81,7 +82,12 @@ public class MenuController {
 				panelMap.put("setting", settingPanel);
 				mainContentPanel.add(settingPanel, "setting");
 				break;
-
+			case "users":
+				User userPanel = new User();
+				new UserController(userPanel);
+				panelMap.put("users", userPanel);
+				mainContentPanel.add(userPanel, "users");
+				break;
 			default:
 				System.out.println("Panel not found: " + panelName);
 				return;
@@ -107,6 +113,10 @@ public class MenuController {
 		view.getSideBar().getBtnDienVien().addActionListener(e -> {
 			view.getSideBar().setBackColor(view.getSideBar().getBtnDienVien());
 			navigateTo("actors");
+		});
+		view.getSideBar().setKhachHangListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnKhachHang());
+			navigateTo("users");
 		});
 		view.getSideBar().getBtnLogout().addActionListener(e -> logout());
 		view.getSideBar().getBtnSetting().addActionListener(e -> navigateTo("setting"));

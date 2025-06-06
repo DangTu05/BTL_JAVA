@@ -53,6 +53,10 @@ public class LoginController {
 				MessageUtil.showInfo("Thông tin không hợp lệ!");
 				return;
 			}
+			if(account.getStatus().equals("inactive")) {
+				MessageUtil.showInfo("Tài khoản này đã bị khóa!");
+				return;
+			}
 			MessageUtil.showInfo("Đăng nhập thành công!");
 			if (account.getRoleName().equals("ADMIN"))
 				AppController.startDashboard(viewLogin.getFrame());
