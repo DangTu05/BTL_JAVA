@@ -22,6 +22,8 @@ public class SideBarMenu extends JPanel {
 	private JLabel lblWebsiteName;
 	private List<JButton> buttons = new ArrayList<>();
 	private JButton btnKhachHang;
+	private JButton btnHoaDon;
+	private JButton btnKhuyenMai;
 
 	public SideBarMenu() {
 		setBackground(new Color(102, 51, 102));
@@ -88,10 +90,7 @@ public class SideBarMenu extends JPanel {
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1747618718/settings_jionkl.png")));
 		btnSetting.setBorder(null);
 		btnSetting.setBounds(0, 0, 35, 33);
-
 		add(btnSetting);
-
-
 		btnKhachHang = new JButton("Khách Hàng");
 		btnKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnKhachHang.setBackground(new Color(153, 51, 153));
@@ -105,6 +104,22 @@ public class SideBarMenu extends JPanel {
 		buttons.add(btnPhim);
 		buttons.add(btnHome);
 		buttons.add(btnKhachHang);
+
+		btnHoaDon = new JButton("Hóa Đơn");
+		btnHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnHoaDon.setBounds(0, 299, 255, 43);
+		btnHoaDon.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1749292152/bill_jrveyu.png")));
+		btnHoaDon.setBorder(BorderFactory.createEmptyBorder());
+		add(btnHoaDon);
+
+		btnKhuyenMai = new JButton("Khuyến Mãi");
+		btnKhuyenMai.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnKhuyenMai.setBounds(0, 341, 255, 43);
+		btnKhuyenMai.setIcon(new ImageIcon(
+				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1749293777/voucher_osucze.png")));
+		btnKhuyenMai.setBorder(BorderFactory.createEmptyBorder());
+		add(btnKhuyenMai);
 
 	}
 

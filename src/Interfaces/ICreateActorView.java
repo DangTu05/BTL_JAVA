@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JFrame;
 
+import models.Actor;
+
 public interface ICreateActorView {
 	public String getActorName();
 

@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Interfaces.ICreateCategoryView;
+import models.Category;
+import utils.GenerateIdUtil;
+import validator.InputValidate;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -58,28 +62,49 @@ public class CreateCategory extends JFrame implements ICreateCategoryView {
 		contentPane.add(lblTitle);
 
 		txtTenTheLoai = new JTextField();
-		txtTenTheLoai.setBounds(198, 195, 215, 19);
+		txtTenTheLoai.setBounds(174, 196, 221, 19);
 		contentPane.add(txtTenTheLoai);
 		txtTenTheLoai.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Tên thể loại");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(252, 136, 105, 37);
+		lblNewLabel.setBounds(230, 136, 105, 37);
 		contentPane.add(lblNewLabel);
 
 		btnTao = new JButton("Tạo");
 		btnTao.setBackground(new Color(51, 255, 0));
 		btnTao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnTao.setBounds(264, 236, 85, 27);
+		btnTao.setBounds(239, 235, 85, 27);
 		contentPane.add(btnTao);
-	}
-
-	public void setTaoListener(ActionListener listener) {
-		btnTao.addActionListener(listener);
 	}
 
 	public String getCategoryName() {
 		return txtTenTheLoai.getText().trim();
+	}
+
+	@Override
+	public JFrame getFrame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String category_id = GenerateIdUtil.generateId("CATEGORY");
+
+	@Override
+	public Category buildModel() {
+		String category_name = getCategoryName();
+		Category category = new Category(category_id, category_name);
+		return category;
+	}
+
+	@Override
+	public boolean validateInput() {
+		return InputValidate.createCategory(category_id, getCategoryName());
+	}
+
+	@Override
+	public void setTaoListener(ActionListener listener) {
+		btnTao.addActionListener(listener);
 	}
 }

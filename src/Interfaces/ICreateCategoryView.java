@@ -2,8 +2,8 @@ package Interfaces;
 
 import java.awt.event.ActionListener;
 
-public interface ICreateCategoryView {
-	public String getCategoryName();
+import models.Category;
 
-	public void setTaoListener(ActionListener listener);
+public interface ICreateCategoryView extends ICreateView<Category> {
+	public String getCategoryName();
 }

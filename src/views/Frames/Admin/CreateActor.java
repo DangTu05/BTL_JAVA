@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import Interfaces.ICreateActorView;
 import components.FileChooser;
+import middlewares.UploadCloud;
+import models.Actor;
+import utils.GenerateIdUtil;
 import utils.UrlUtil;
 
 import javax.swing.JLabel;
@@ -192,4 +195,5 @@ public class CreateActor extends JFrame implements ICreateActorView {
 		JFileChooser fileChooser = new JFileChooser();
 		setFileImg(FileChooser.showImageChooser(fileChooser, lblImg, selectedFile, this));
 	}
+
 }

@@ -1,6 +1,8 @@
 package validator;
 
 import java.io.File;
+import java.sql.Date;
+
 import utils.MessageConstants;
 import utils.MessageUtil;
 
@@ -99,6 +101,15 @@ public class InputValidate {
 	// validate dữ liệu khi thay đổi thông tin phần mềm
 	public static boolean checkSettingInput(String website_name, String ceo, String hotline, String address) {
 		if (website_name.isEmpty() || ceo.isEmpty() || hotline.isEmpty() || address.isEmpty()) {
+			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
+			return false;
+		}
+		return true;
+	}
+
+	// validate dữ liệu khi thêm voucher
+	public static boolean createVoucher(String voucher_name) {
+		if (voucher_name.isEmpty()) {
 			MessageUtil.showWarning(MessageConstants.WARN_INPUT);
 			return false;
 		}

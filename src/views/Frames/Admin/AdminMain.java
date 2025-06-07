@@ -9,6 +9,7 @@ import controllers.admin.ActorsController;
 import controllers.admin.CreateActorController;
 import controllers.admin.CreateCategoryController;
 import controllers.admin.CreateMovieController;
+import controllers.admin.CreateVoucherController;
 import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
 import views.Frames.Login;
@@ -24,9 +25,10 @@ public class AdminMain {
 //		CreateActor view = new CreateActor();
 //		CreateMovie view = new CreateMovie();
 //		CreateCategory view=new CreateCategory();
+		CreateVoucher view = new CreateVoucher();
 //		Movies view = new Movies();
 //		Menu view=new Menu();
-		Home view=new Home("Trang chủ");
+//		Home view=new Home("Trang chủ");
 //		Actors view = new Actors();
 		// 2. Khởi tạo Controller SAU KHI view đã sẵn sàng
 //		AccountsController controller = new AccountsController(view);
@@ -34,10 +36,11 @@ public class AdminMain {
 //		LoginController controller=new LoginController(view);
 //		CreateActorController controller = new CreateActorController(view);
 //		CreateMovieController controller = new CreateMovieController(view);
+		new CreateVoucherController(view);
 //		new CreateCategoryController(view); 
 //		new MoviesController(view);
 //		new MenuController(view);
-		new HomeController(view);
+//		new HomeController(view);
 //		new ActorsController(view);
 		// 3. Hiển thị giao diện
 		view.setVisible(true);
