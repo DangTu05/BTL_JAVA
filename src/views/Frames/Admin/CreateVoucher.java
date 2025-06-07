@@ -95,7 +95,7 @@ public class CreateVoucher extends JFrame implements ICreateVoucher {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(474, 92, 90, 20);
 		contentPane.add(lblNewLabel_2);
-		SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 10.0, 0.1);
+		SpinnerNumberModel model = new SpinnerNumberModel(0.0, 0.0, 100.0, 0.1);
 		spnGiamGia = new JSpinner(model);
 		spnGiamGia.setBounds(445, 125, 146, 20);
 		JComponent editor = spnGiamGia.getEditor();
@@ -204,4 +204,7 @@ public class CreateVoucher extends JFrame implements ICreateVoucher {
 		setFileImg(FileChooser.showImageChooser(fileChooser, lblImg, selectedFile, this));
 	}
 
+	public JFrame getFrame() {
+		return this;
+	}
 }

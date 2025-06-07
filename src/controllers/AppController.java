@@ -6,6 +6,7 @@ import controllers.admin.AccountsController;
 import controllers.admin.ActorsController;
 import controllers.admin.CreateActorController;
 import controllers.admin.CreateMovieController;
+import controllers.admin.CreateVoucherController;
 import controllers.admin.MenuController;
 import controllers.admin.MoviesController;
 import views.Frames.ForgotPassword;
@@ -14,6 +15,7 @@ import views.Frames.Register;
 import views.Frames.Home;
 import views.Frames.Admin.CreateActor;
 import views.Frames.Admin.CreateMovie;
+import views.Frames.Admin.CreateVoucher;
 import views.Frames.Admin.Menu;
 import views.Panels.Admin.Accounts;
 import views.Panels.Admin.Actors;
@@ -103,6 +105,13 @@ public class AppController {
 		viewHome = new Home("Trang Chủ");
 		new HomeController(viewHome);
 		viewHome.setVisible(true);
+		previousFrame.dispose();
+	}
+
+	public static void startCreateVoucher(JFrame previousFrame) {
+		CreateVoucher viewCreateVoucher = new CreateVoucher();
+		new CreateVoucherController(viewCreateVoucher);
+		viewCreateVoucher.setVisible(true);
 		previousFrame.dispose();
 	}
 }

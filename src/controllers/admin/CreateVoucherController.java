@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 
 import Interfaces.ICreateVoucher;
+import controllers.AppController;
 import middlewares.UploadCloud;
 import models.Voucher;
 import services.admin.VoucherService;
@@ -42,7 +43,7 @@ public class CreateVoucherController {
 			MessageUtil.showWarning("Ngày bắt đầu không được phép lớn hơn ngày kết thúc!");
 			return;
 		}
-		String voucher_id = GenerateIdUtil.generateId("VOUCHER");
+		String voucher_id = GenerateIdUtil.generateId("VOU");
 		try {
 			if (!MessageUtil.confirm("Bạn có muốn tạo không?"))
 				return;
@@ -57,6 +58,7 @@ public class CreateVoucherController {
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_CREATE);
+			AppController.startDashboard(viewCreateVoucher.getFrame());
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, e.getMessage());

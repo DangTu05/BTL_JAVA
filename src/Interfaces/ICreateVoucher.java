@@ -3,6 +3,8 @@ package Interfaces;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JFrame;
+
 public interface ICreateVoucher {
 	public void setTaoListener(ActionListener listener);
 
@@ -11,6 +13,8 @@ public interface ICreateVoucher {
 	public String getTenKhuyenMai();
 
 	public String getMoTa();
+
+	public JFrame getFrame();
 
 	public java.sql.Date getNgayBatDau();
 

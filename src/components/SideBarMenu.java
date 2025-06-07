@@ -99,11 +99,6 @@ public class SideBarMenu extends JPanel {
 		btnKhachHang.setBounds(0, 257, 255, 43);
 		btnKhachHang.setBorder(BorderFactory.createEmptyBorder());
 		add(btnKhachHang);
-		buttons.add(btnAccount);
-		buttons.add(btnDienVien);
-		buttons.add(btnPhim);
-		buttons.add(btnHome);
-		buttons.add(btnKhachHang);
 
 		btnHoaDon = new JButton("Hóa Đơn");
 		btnHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -116,10 +111,17 @@ public class SideBarMenu extends JPanel {
 		btnKhuyenMai = new JButton("Khuyến Mãi");
 		btnKhuyenMai.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnKhuyenMai.setBounds(0, 341, 255, 43);
+		btnKhuyenMai.setBackground(new Color(153, 51, 153));
 		btnKhuyenMai.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1749293777/voucher_osucze.png")));
 		btnKhuyenMai.setBorder(BorderFactory.createEmptyBorder());
 		add(btnKhuyenMai);
+		buttons.add(btnAccount);
+		buttons.add(btnDienVien);
+		buttons.add(btnPhim);
+		buttons.add(btnHome);
+		buttons.add(btnKhachHang);
+		buttons.add(btnKhuyenMai);
 
 	}
 
@@ -145,6 +147,10 @@ public class SideBarMenu extends JPanel {
 
 	public void setKhachHangListener(ActionListener listener) {
 		btnKhachHang.addActionListener(listener);
+	}
+
+	public void setKhuyenMaiListener(ActionListener listener) {
+		btnKhuyenMai.addActionListener(listener);
 	}
 
 	public void setWebsite_Name(String website_name) {
@@ -178,6 +184,10 @@ public class SideBarMenu extends JPanel {
 	public JButton getBtnKhachHang() {
 		return btnKhachHang;
 	}
+
+	public JButton getBtnKhuyenMai() {
+		return btnKhuyenMai;
+	};
 
 	public void setBackColor(JButton buttonClicked) {
 		for (JButton jButton : buttons) {
