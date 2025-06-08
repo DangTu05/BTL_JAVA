@@ -102,6 +102,7 @@ public class SideBarMenu extends JPanel {
 
 		btnHoaDon = new JButton("Hóa Đơn");
 		btnHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnHoaDon.setBackground(new Color(153, 51, 153));
 		btnHoaDon.setBounds(0, 299, 255, 43);
 		btnHoaDon.setIcon(new ImageIcon(
 				UrlUtil.safeURL("https://res.cloudinary.com/dry3sdlc1/image/upload/v1749292152/bill_jrveyu.png")));
@@ -122,6 +123,7 @@ public class SideBarMenu extends JPanel {
 		buttons.add(btnHome);
 		buttons.add(btnKhachHang);
 		buttons.add(btnKhuyenMai);
+		buttons.add(btnHoaDon);
 
 	}
 
@@ -151,6 +153,10 @@ public class SideBarMenu extends JPanel {
 
 	public void setKhuyenMaiListener(ActionListener listener) {
 		btnKhuyenMai.addActionListener(listener);
+	}
+
+	public void setHoaDonListener(ActionListener listener) {
+		btnHoaDon.addActionListener(listener);
 	}
 
 	public void setWebsite_Name(String website_name) {
@@ -188,6 +194,10 @@ public class SideBarMenu extends JPanel {
 	public JButton getBtnKhuyenMai() {
 		return btnKhuyenMai;
 	};
+
+	public JButton getBtnHoaDon() {
+		return btnHoaDon;
+	}
 
 	public void setBackColor(JButton buttonClicked) {
 		for (JButton jButton : buttons) {

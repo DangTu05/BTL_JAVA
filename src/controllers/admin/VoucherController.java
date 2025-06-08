@@ -105,7 +105,7 @@ public class VoucherController extends BaseController<Voucher> {
 				return;
 			}
 			MessageUtil.showInfo(MessageConstants.SUCCESS_DELETE);
-			loadDataFromDataBase();
+			reset();
 		} catch (Exception e) {
 			// TODO: handle exception
 			ErrorUtil.handle(e, e.getMessage());

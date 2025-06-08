@@ -30,10 +30,11 @@ public class ViewUtil {
 		// Tắt auto resize trước khi thêm dữ liệu
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
+		List<String[]> result = data == null ? new ArrayList<>() : data;
 		try {
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
 			model.setRowCount(0); // Xóa dữ liệu cũ
-			for (String[] row : data) {
+			for (String[] row : result) {
 				model.addRow(row); // Thêm từng dòng
 			}
 		} finally {
@@ -106,7 +107,7 @@ public class ViewUtil {
 		pnPhim.setLayout(new GridLayout(0, 3, 10, 10));
 		for (Movie movie : dsPhim) {
 			if (movie.getStatus().equals("Sắp chiếu"))
-				pnPhim.add(hienThiPhim(movie,listener));
+				pnPhim.add(hienThiPhim(movie, listener));
 		}
 		return pnPhim;
 	}

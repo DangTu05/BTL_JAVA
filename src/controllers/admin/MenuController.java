@@ -16,6 +16,7 @@ import views.Panels.Admin.User;
 import views.Panels.Admin.Vouchers;
 import views.Panels.Admin.Movies;
 import views.Panels.Admin.Setting;
+import views.Panels.Admin.TicketBillDetail;
 
 public class MenuController {
 	private IMenuView view;
@@ -95,6 +96,12 @@ public class MenuController {
 				panelMap.put("vouchers", vouchersPanel);
 				mainContentPanel.add(vouchersPanel, "vouchers");
 				break;
+			case "ticketbilldetails":
+				TicketBillDetail ticketBillDetailPanel = new TicketBillDetail();
+				new TicketBillController(ticketBillDetailPanel);
+				panelMap.put("ticketbilldetails", ticketBillDetailPanel);
+				mainContentPanel.add(ticketBillDetailPanel, "ticketbilldetails");
+				break;
 			default:
 				System.out.println("Panel not found: " + panelName);
 				return;
@@ -128,6 +135,10 @@ public class MenuController {
 		view.getSideBar().setKhuyenMaiListener(e -> {
 			view.getSideBar().setBackColor(view.getSideBar().getBtnKhuyenMai());
 			navigateTo("vouchers");
+		});
+		view.getSideBar().setHoaDonListener(e -> {
+			view.getSideBar().setBackColor(view.getSideBar().getBtnHoaDon());
+			navigateTo("ticketbilldetails");
 		});
 		view.getSideBar().getBtnLogout().addActionListener(e -> logout());
 		view.getSideBar().getBtnSetting().addActionListener(e -> navigateTo("setting"));

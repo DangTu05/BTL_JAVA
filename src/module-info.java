@@ -6,5 +6,9 @@ module Bling_Box {
 	requires cloudinary.core;
 	requires jakarta.mail;
 	requires jakarta.activation;
+	requires org.apache.poi.poi;
+	requires org.apache.poi.ooxml;
+
+
 
 }

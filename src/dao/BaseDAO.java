@@ -1,9 +1,12 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import Configs.Database.ConnectDB;
 import utils.MessageConstants;
 
@@ -14,7 +17,11 @@ public abstract class BaseDAO<T> {
 
 	protected abstract T mapRow(ResultSet rs) throws SQLException;
 
+	protected abstract List<String[]> mapData(ResultSet rs) throws SQLException;
+
 	protected abstract String getTableName();
+
+	protected abstract String getColumns();
 
 	protected abstract String getPrimaryKeyColumn();
 
@@ -58,7 +65,7 @@ public abstract class BaseDAO<T> {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			throw new Exception(MessageConstants.ERROR_GENERIC,e);
+			throw new Exception(MessageConstants.ERROR_GENERIC, e);
 		}
 		return null;
 
@@ -85,5 +92,22 @@ public abstract class BaseDAO<T> {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public List<String[]> findByDate(Date start, Date end, String fieldDate) throws Exception {
+		String query = "Select " + getColumns() + " from " + getTableName() + " where " + fieldDate
+				+ " Between ? And ?  AND deleted = 0 ";
+		try (Connection conn = ConnectDB.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setDate(1, start);
+			ps.setDate(2, end);
+			ResultSet rs = ps.executeQuery();
+			List<String[]> result = mapData(rs); // GỌI TRỰC TIẾP, KHÔNG rs.next() TRƯỚC
+
+			return result.isEmpty() ? null : result;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception("Đã xảy ra lỗi khi tìm kiếm trong DAO!!!", e);
+		}
+
 	}
 }
