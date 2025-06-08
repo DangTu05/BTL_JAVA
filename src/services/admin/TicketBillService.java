@@ -3,6 +3,8 @@ package services.admin;
 import java.sql.Date;
 import java.util.List;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import dao.TicketBillDAO;
 import utils.ExcelUtil;
 
@@ -29,5 +31,9 @@ public class TicketBillService {
 			throw new Exception(e.getMessage(), e);
 		}
 
+	}
+
+	public DefaultCategoryDataset getDatasetFromDB() throws Exception {
+		return ticketBillDao.createDatasetFromDB();
 	}
 }

@@ -12,6 +12,7 @@ import components.SideBarMenu;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JLabel;
 
 
 public class Menu extends JFrame implements IMenuView {

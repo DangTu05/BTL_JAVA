@@ -12,6 +12,7 @@ import utils.MessageConstants;
 import utils.MessageUtil;
 import views.Panels.Admin.Accounts;
 import views.Panels.Admin.Actors;
+import views.Panels.Admin.Dashboard;
 import views.Panels.Admin.User;
 import views.Panels.Admin.Vouchers;
 import views.Panels.Admin.Movies;
@@ -43,13 +44,13 @@ public class MenuController {
 	private void initializePanelsAndControllers() {
 		// Accounts
 		// Home panel luôn có sẵn
-		JPanel homePanel = new JPanel();
-		homePanel.add(new javax.swing.JLabel("Welcome to Admin Dashboard"));
-		panelMap.put("home", homePanel);
-		mainContentPanel.add(homePanel, "home");
+		Dashboard dashboardPanel = new Dashboard();
+		new DashBoardController(dashboardPanel);
+		panelMap.put("dashboard", dashboardPanel);
+		mainContentPanel.add(dashboardPanel, "dashboard");
 
 		// Show mặc định
-		cardLayout.show(mainContentPanel, "home");
+		cardLayout.show(mainContentPanel, "dashboard");
 	}
 
 	protected void navigateTo(String panelName) {
@@ -114,7 +115,7 @@ public class MenuController {
 	public void setUpEventListeners() {
 		view.getSideBar().getBtnHome().addActionListener(e -> {
 			view.getSideBar().setBackColor(view.getSideBar().getBtnHome());
-			navigateTo("home");
+			navigateTo("dashboard");
 		});
 		view.getSideBar().getBtnAccount().addActionListener(e -> {
 			view.getSideBar().setBackColor(view.getSideBar().getBtnAccount());
